@@ -12,6 +12,8 @@
  * Centralized management of all model platform configurations for extensibility and maintainability
  */
 
+import claudeLogoUrl from '@/renderer/assets/logos/ai-major/claude.png';
+import openAILogoUrl from '@/renderer/assets/logos/ai-major/openai.png';
 import { resolveBackendAssetUrl } from '@/renderer/utils/platform';
 
 const buildLogoAssetUrl = (path: string): string => {
@@ -85,14 +87,14 @@ export const MODEL_PLATFORMS: PlatformConfig[] = [
   {
     name: 'OpenAI',
     value: 'OpenAI',
-    logo: buildLogoAssetUrl('ai-major/openai.svg'),
+    logo: openAILogoUrl,
     platform: 'custom',
     base_url: 'https://api.openai.com/v1',
   },
   {
     name: 'Anthropic',
     value: 'Anthropic',
-    logo: buildLogoAssetUrl('ai-major/anthropic.svg'),
+    logo: claudeLogoUrl,
     platform: 'anthropic',
     base_url: 'https://api.anthropic.com',
   },

@@ -5,7 +5,7 @@
  */
 
 /**
- * AionUI应用程序共用常量
+ * PanAI应用程序共用常量
  */
 
 // ===== 文件处理相关常量 =====
@@ -54,7 +54,7 @@ export const DEFAULT_IMAGE_EXTENSION = '.png';
 /** WebUI default port: 25808 for production, 25809 for development, 25810 for multi-instance dev */
 export const WEBUI_DEFAULT_PORT = (() => {
   if (process.env.NODE_ENV === 'production') return 25808;
-  if (process.env.AIONUI_MULTI_INSTANCE === '1') return 25810;
+  if ((process.env.PANAI_MULTI_INSTANCE ?? process.env.AIONUI_MULTI_INSTANCE) === '1') return 25810;
   return 25809;
 })();
 

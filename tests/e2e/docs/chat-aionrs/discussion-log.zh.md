@@ -1,6 +1,6 @@
-# Aion CLI (aionrs) E2E 测试 - 讨论记录
+# Pan CLI (aionrs) E2E 测试 - 讨论记录
 
-**项目**: AionUi E2E Coverage
+**项目**: PanAI E2E Coverage
 **子组**: chat-aionrs
 **日期**: 2026-04-22
 

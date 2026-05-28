@@ -1,6 +1,6 @@
-# @aionui/web-host
+# @panai/web-host
 
-WebUI host package for AionUi - zero Electron dependency.
+WebUI host package for PanAI - zero Electron dependency.
 
 ## Responsibilities
 
@@ -11,7 +11,7 @@ WebUI host package for AionUi - zero Electron dependency.
 ## Usage
 
 ```ts
-import { startWebHost } from '@aionui/web-host';
+import { startWebHost } from '@panai/web-host';
 
 const handle = await startWebHost({
   app: {

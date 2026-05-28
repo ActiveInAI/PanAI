@@ -40,12 +40,18 @@ describe('agentLogo', () => {
   describe('getAgentLogo', () => {
     it('returns logo path for known agent (case-insensitive)', () => {
       const logo = getAgentLogo('Claude');
-      expect(logo).toContain('/api/assets/logos/ai-major/claude.svg');
+      expect(logo).toContain('claude.png');
     });
 
     it('returns logo for lowercase input', () => {
       const logo = getAgentLogo('gemini');
       expect(logo).toContain('/api/assets/logos/ai-major/gemini.svg');
+    });
+
+    it('returns canonical local logos for PanAI patched agents', () => {
+      expect(getAgentLogo('openai')).toContain('openai.png');
+      expect(getAgentLogo('hermes')).toContain('hermes.png');
+      expect(getAgentLogo('aionrs')).toContain('app.png');
     });
 
     it('returns null for unknown agent', () => {
@@ -79,12 +85,20 @@ describe('agentLogo', () => {
   });
 
   describe('resolveAgentLogo', () => {
-    it('prioritizes explicit icon', () => {
+    it('prioritizes explicit icon for ordinary backends', () => {
       const result = resolveAgentLogo({
         icon: '/custom/icon.svg',
-        backend: 'claude',
+        backend: 'gemini',
       });
       expect(result).toContain('/custom/icon.svg');
+    });
+
+    it('uses canonical local logos for patched backends over stale backend icons', () => {
+      const result = resolveAgentLogo({
+        icon: '/api/assets/logos/ai-major/claude.svg',
+        backend: 'claude',
+      });
+      expect(result).toContain('claude.png');
     });
 
     it('falls back to backend ID', () => {
@@ -99,7 +113,7 @@ describe('agentLogo', () => {
         isExtension: true,
         custom_agent_id: 'ext:my-ext:claude',
       });
-      expect(result).toContain('claude.svg');
+      expect(result).toContain('claude.png');
     });
 
     it('returns null when no match found', () => {

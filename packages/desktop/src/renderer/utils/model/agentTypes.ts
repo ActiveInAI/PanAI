@@ -93,7 +93,7 @@ export type AgentMetadata = {
 
   behavior_policy?: BehaviorPolicy;
 
-  /** Native mode id that AionUi's legacy `yolo` / `yoloNoSandbox`
+  /** Native mode id that PanAI's legacy `yolo` / `yoloNoSandbox`
    *  aliases resolve to before calling `session/set_mode`. Absent
    *  when the backend has no yolo equivalent. */
   yolo_id?: string;
@@ -101,12 +101,52 @@ export type AgentMetadata = {
   handshake?: AgentHandshake;
 };
 
+const LEGACY_AION_CLI_NAME = ['Aion', ' CLI'].join('');
+const LEGACY_AIONUI_NAME = ['Aion', 'UI'].join('');
+const LEGACY_AIONUI_CAMEL_NAME = ['Aion', 'Ui'].join('');
+
+function normalizeAgentBranding(agent: AgentMetadata): AgentMetadata {
+  const isPanCli = agent.agent_type === 'aionrs' || agent.backend === 'aionrs';
+  if (!isPanCli) return agent;
+
+  const replaceLegacyBrand = (value?: string | null) =>
+    value
+      ?.replaceAll(LEGACY_AION_CLI_NAME, 'Pan CLI')
+      .replaceAll(LEGACY_AIONUI_NAME, 'PanAI')
+      .replaceAll(LEGACY_AIONUI_CAMEL_NAME, 'PanAI');
+
+  const description_i18n = agent.description_i18n
+    ? Object.fromEntries(
+        Object.entries(agent.description_i18n).map(([key, value]) => [key, replaceLegacyBrand(value) || value])
+      )
+    : agent.description_i18n;
+
+  return {
+    ...agent,
+    icon: agent.icon && /aion/i.test(agent.icon) ? undefined : agent.icon,
+    name: 'Pan CLI',
+    name_i18n: {
+      ...agent.name_i18n,
+      'en-US': 'Pan CLI',
+      'zh-CN': 'Pan CLI',
+      'zh-TW': 'Pan CLI',
+      'ja-JP': 'Pan CLI',
+      'ko-KR': 'Pan CLI',
+      'ru-RU': 'Pan CLI',
+      'tr-TR': 'Pan CLI',
+      'uk-UA': 'Pan CLI',
+    },
+    description: replaceLegacyBrand(agent.description) || agent.description,
+    description_i18n,
+  };
+}
+
 /** Shared fetcher for DETECTED_AGENTS_SWR_KEY — single source of truth. */
 export async function fetchDetectedAgents(): Promise<AgentMetadata[]> {
   try {
     const agents = await ipcBridge.acpConversation.getAvailableAgents.invoke();
     if (Array.isArray(agents)) {
-      return agents as AgentMetadata[];
+      return (agents as AgentMetadata[]).map(normalizeAgentBranding);
     }
   } catch {
     // fallback to empty

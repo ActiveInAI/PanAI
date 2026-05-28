@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.1.6](https://github.com/iOfficeAI/AionUi/compare/v2.1.5...v2.1.6) (2026-05-28)
+## [2.1.6](https://github.com/ActiveInAI/PanAI/compare/v2.1.5...v2.1.6) (2026-05-28)
 
 ### Desktop
 
@@ -25,7 +25,7 @@
 
 ---
 
-## [2.1.5](https://github.com/iOfficeAI/AionUi/compare/v2.1.4...v2.1.5) (2026-05-27)
+## [2.1.5](https://github.com/ActiveInAI/PanAI/compare/v2.1.4...v2.1.5) (2026-05-27)
 
 ### Desktop
 
@@ -69,7 +69,7 @@
 
 ---
 
-## [2.1.4](https://github.com/iOfficeAI/AionUi/compare/v2.1.3...v2.1.4) (2026-05-27)
+## [2.1.4](https://github.com/ActiveInAI/PanAI/compare/v2.1.3...v2.1.4) (2026-05-27)
 
 ### Desktop
 

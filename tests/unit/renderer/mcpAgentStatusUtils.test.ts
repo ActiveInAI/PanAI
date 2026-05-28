@@ -5,7 +5,7 @@ import { isDisplayableMcpAgentSource, sanitizeMcpAgentInstallStatus } from '@/re
 describe('mcpAgentStatusUtils', () => {
   it('hides the internal aionui config source from install status', () => {
     expect(isDisplayableMcpAgentSource('aionui')).toBe(false);
-    expect(isDisplayableMcpAgentSource('AionUi')).toBe(false);
+    expect(isDisplayableMcpAgentSource('PanAI')).toBe(false);
     expect(isDisplayableMcpAgentSource('claude')).toBe(true);
   });
 

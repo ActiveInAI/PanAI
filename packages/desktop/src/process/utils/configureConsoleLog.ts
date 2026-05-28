@@ -10,9 +10,9 @@
  * daily log files on disk.
  *
  * Log file location (managed by electron-log):
- *   - macOS:   ~/Library/Logs/AionUi/YYYY-MM-DD.log
- *   - Windows: %USERPROFILE%\AppData\Roaming\AionUi\logs\YYYY-MM-DD.log
- *   - Linux:   ~/.config/AionUi/logs/YYYY-MM-DD.log
+ *   - macOS:   ~/Library/Logs/PanAI/YYYY-MM-DD.log
+ *   - Windows: %USERPROFILE%\AppData\Roaming\PanAI\logs\YYYY-MM-DD.log
+ *   - Linux:   ~/.config/PanAI/logs/YYYY-MM-DD.log
  *
  * Users can share the relevant date's file for debugging (#1157).
  *

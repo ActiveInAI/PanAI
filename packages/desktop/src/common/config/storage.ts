@@ -146,7 +146,7 @@ export interface IConfigStorageRefer {
     custom_agent_id?: string;
     name?: string;
   };
-  // Skills Market: whether the aionui-skills builtin skill is enabled
+  // Skills Market: whether the PanAI builtin skills pack is enabled
   'skillsMarket.enabled'?: boolean;
   /**
    * One-shot completion flag for the legacy `model.config` → backend providers
@@ -177,7 +177,12 @@ export interface IConfigStorageRefer {
 }
 
 export interface IEnvStorageRefer {
-  'aionui.dir': {
+  'panai.dir': {
+    workDir: string;
+    cacheDir: string;
+  };
+  /** @deprecated Legacy upstream key kept for one-way migration compatibility. */
+  'aionui.dir'?: {
     workDir: string;
     cacheDir: string;
   };
@@ -576,14 +581,14 @@ export interface IMcpServer {
   created_at: number;
   updated_at: number;
   original_json: string; // 存储原始JSON配置，用于编辑时的准确显示
-  /** Built-in MCP server managed by AionUi (hide edit/delete in UI) */
+  /** Built-in MCP server managed by PanAI (hide edit/delete in UI) */
   builtin?: boolean;
 }
 
 /** Stable ID for the built-in image generation MCP server */
 export const BUILTIN_IMAGE_GEN_ID = 'builtin-image-gen';
-export const BUILTIN_IMAGE_GEN_NAME = 'aionui-image-generation';
-export const BUILTIN_IMAGE_GEN_LEGACY_NAMES = ['AionUi Image Generation', BUILTIN_IMAGE_GEN_ID] as const;
+export const BUILTIN_IMAGE_GEN_NAME = 'panai-image-generation';
+export const BUILTIN_IMAGE_GEN_LEGACY_NAMES = ['aionui-image-generation', BUILTIN_IMAGE_GEN_ID] as const;
 
 export interface IMcpTool {
   name: string;

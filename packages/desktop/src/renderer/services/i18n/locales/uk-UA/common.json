@@ -59,10 +59,10 @@
   "historyBack": "Назад",
   "more": "Більше",
   "refresh": "Оновити",
-  "tray.showWindow": "Показати AionUi",
+  "tray.showWindow": "Показати PanAI",
   "tray.newChat": "Новий чат",
   "tray.closeToTray": "Згорнути в трей",
-  "tray.about": "Про AionUi",
+  "tray.about": "Про PanAI",
   "tray.restart": "Перезапустити програму",
   "tray.quit": "Вийти",
   "tray.runningTasks": "Запущені завдання",
@@ -73,12 +73,12 @@
   "backendStartup": {
     "incompatibleRuntime": {
       "title": "Ця система не підтримується вбудованим backend",
-      "description": "AionUi відкрився, але локальний backend AionCore не може працювати в цій версії Linux. Оновіться до підтримуваного дистрибутива Linux і перезапустіть AionUi.",
+      "description": "PanAI відкрився, але локальний backend AionCore не може працювати в цій версії Linux. Оновіться до підтримуваного дистрибутива Linux і перезапустіть PanAI.",
       "requiredVersions": "Потрібні символи середовища виконання: {{versions}}"
     },
     "incompleteInstallation": {
-      "title": "Встановлення AionUi неповне",
-      "description": "У цьому встановленні бракує потрібних локальних ресурсів, тому AionCore не може запуститися. Завантажте та перевстановіть останню версію AionUi.",
+      "title": "Встановлення PanAI неповне",
+      "description": "У цьому встановленні бракує потрібних локальних ресурсів, тому AionCore не може запуститися. Завантажте та перевстановіть останню версію PanAI.",
       "downloadLatest": "Завантажити останню версію",
       "sendDiagnostics": "Надіслати діагностику"
     }

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./resources/aionui-banner-1.png" alt="PanAI - Cowork with AI Agents" width="100%">
+  <img src="./resources/panai-banner-1.png" alt="PanAI - Cowork with AI Agents" width="100%">
 </p>
 
 <p align="center">
@@ -39,10 +39,10 @@
 
 ---
 
-> **PanAI fork notice:** PanAI is an independent desktop AI agent workbench
-> forked from AionUI under Apache-2.0. The upstream source is
-> https://github.com/iOfficeAI/AionUi. PanAI is maintained separately by
-> ActiveInAI and is not the ArchIToken repository.
+> **PanAI project notice:** PanAI is an independent desktop AI agent workbench
+> derived from an Apache-2.0 upstream. Attribution and upstream license details
+> are maintained in NOTICE. PanAI is maintained separately by ActiveInAI and is
+> not the ArchIToken repository.
 
 ---
 
@@ -167,7 +167,7 @@ If you already use Claude Code, Codex, Hermes Agent, or OpenClaw, PanAI auto-det
 Run multiple AI agents as an organized team: a **Leader** agent receives your instructions, breaks them into subtasks, and delegates to **Teammate** agents via a built-in Team MCP Server. Teammates execute in parallel, share results through an async mailbox, and write to a shared task board.
 
 <p align="center">
-  <img src="./resources/AionUi_team.gif" alt="PanAI Team Mode overview" width="800">
+  <img src="./resources/PanAI_team.gif" alt="PanAI Team Mode overview" width="800">
 </p>
 
 - **Parallel multi-agent execution** — Leader breaks tasks into subtasks and delegates to Teammate agents running in parallel; each Teammate uses its own model via ACP (Agent Communication Protocol, PanAI's multi-agent coordination layer), Gemini, or Aionrs
@@ -384,7 +384,7 @@ _10+ formats: PDF, Word, Excel, PPT, code, Markdown, images, HTML, Diff — view
 _Batch renaming, automatic organization, smart classification, file merging — the Cowork agent handles it for you._
 
 <p align="center">
-  <img src="./resources/aionui sort file 2.gif" alt="Smart File Management" width="800">
+  <img src="./resources/panai-sort-file-2.gif" alt="Smart File Management" width="800">
 </p>
 
 <details>
@@ -574,15 +574,15 @@ A: All data is stored locally in a SQLite database. Nothing is uploaded to any s
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=vWxE6VO9TKo" target="_blank">
-    <img src="https://img.youtube.com/vi/vWxE6VO9TKo/maxresdefault.jpg" alt="Hermes + Aion UI is Insane (FREE)!" width="400">
+    <img src="https://img.youtube.com/vi/vWxE6VO9TKo/maxresdefault.jpg" alt="Hermes + PanAI is Insane (FREE)!" width="400">
   </a>
   &nbsp;&nbsp;
   <a href="https://www.youtube.com/watch?v=RgSLdOhICZw" target="_blank">
-    <img src="https://img.youtube.com/vi/RgSLdOhICZw/maxresdefault.jpg" alt="OpenClaw + Aion UI is Insane (FREE!)" width="400">
+    <img src="https://img.youtube.com/vi/RgSLdOhICZw/maxresdefault.jpg" alt="OpenClaw + PanAI is Insane (FREE!)" width="400">
   </a>
 </p>
 <p align="center">
-  <em>Julian Goldie SEO — Hermes + Aion UI is Insane (FREE!) · 27K views</em> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Julian Goldie SEO — OpenClaw + Aion UI is Insane (FREE!) · 11K views</em>
+  <em>Julian Goldie SEO — Hermes + PanAI is Insane (FREE!) · 27K views</em> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Julian Goldie SEO — OpenClaw + PanAI is Insane (FREE!) · 11K views</em>
 </p>
 
 <p align="center">
@@ -630,7 +630,7 @@ Click the button above to go to the Releases page and download the installer for
 
 ```bash
 # Alternatively, macOS via Homebrew
-brew install aionui
+brew install panai
 ```
 
 ### Get Started in 3 Steps
@@ -725,8 +725,8 @@ This project is licensed under [Apache-2.0](LICENSE).
 ## Star History
 
 <p align="center">
-  <a href="https://www.star-history.com/#iOfficeAI/aionui&Date" target="_blank">
-    <img src="https://api.star-history.com/svg?repos=iOfficeAI/aionui&type=Date" alt="Star History" width="600">
+  <a href="https://www.star-history.com/#ActiveInAI/PanAI&Date" target="_blank">
+    <img src="https://api.star-history.com/svg?repos=ActiveInAI/PanAI&type=Date" alt="Star History" width="600">
   </a>
 </p>
 

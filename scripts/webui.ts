@@ -8,14 +8,14 @@
  * starting Electron. Replaces the former `electron-vite dev -- --webui` flow.
  *
  * Env vars:
- *   AIONUI_PORT           : static server port (default 33000)
- *   AIONUI_HOST           : listen host; set to 0.0.0.0 to imply --remote
- *   AIONUI_ALLOW_REMOTE   : "1"/"true" to expose to LAN
- *   AIONUI_DATA_DIR       : override userData path (default Electron-compatible)
- *   AIONUI_LOG_DIR        : override log dir (default <dataDir>/logs)
- *   AIONUI_STATIC_DIR     : override static dir (default out/renderer)
- *   AIONUI_BACKEND_BIN    : absolute path to aioncore binary (else PATH lookup)
- *   AIONUI_BACKEND_BUNDLED_DIR : dir containing bundled-aioncore/<plat-arch>/binary
+ *   PANAI_PORT           : static server port (default 33000)
+ *   PANAI_HOST           : listen host; set to 0.0.0.0 to imply --remote
+ *   PANAI_ALLOW_REMOTE   : "1"/"true" to expose to LAN
+ *   PANAI_DATA_DIR       : override userData path (default Electron-compatible)
+ *   PANAI_LOG_DIR        : override log dir (default <dataDir>/logs)
+ *   PANAI_STATIC_DIR     : override static dir (default out/renderer)
+ *   PANAI_BACKEND_BIN    : absolute path to aioncore binary (else PATH lookup)
+ *   PANAI_BACKEND_BUNDLED_DIR : dir containing bundled-aioncore/<plat-arch>/binary
  */
 
 import { execSync } from 'child_process';
@@ -23,12 +23,12 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { startWebHost } from '@aionui/web-host';
+import { startWebHost } from '@panai/web-host';
 
 // Aligned with packages/desktop/src/common/config/constants.ts WEBUI_DEFAULT_PORT.
 const DEFAULT_PORT = (() => {
   if (process.env.NODE_ENV === 'production') return 25808;
-  if (process.env.AIONUI_MULTI_INSTANCE === '1') return 25810;
+  if (process.env.PANAI_MULTI_INSTANCE === '1') return 25810;
   return 25809;
 })();
 const BACKEND_BINARY = process.platform === 'win32' ? 'aioncore.exe' : 'aioncore';
@@ -49,43 +49,43 @@ const getFlag = (name: string): string | undefined => {
  * Resolve the directory where aioncore persists its SQLite DB.
  *
  * `bun run webui` runs **independently of the Electron desktop app** — it must
- * work on hosts that never installed AionUi.app, and its default work dir must
+ * work on hosts that never installed PanAI.app, and its default work dir must
  * NOT collide with Electron's.
  *
  *   --data-dir <path>       CLI override (highest priority)
- *   $AIONUI_DATA_DIR        env override (same effect)
- *   otherwise               ~/.aionui-web         (production)
- *                           ~/.aionui-web-dev     (dev, default)
- *                           ~/.aionui-web-dev-2   (dev + AIONUI_MULTI_INSTANCE=1)
+ *   $PANAI_DATA_DIR        env override (same effect)
+ *   otherwise               ~/.panai-web         (production)
+ *                           ~/.panai-web-dev     (dev, default)
+ *                           ~/.panai-web-dev-2   (dev + PANAI_MULTI_INSTANCE=1)
  *
- * Why a dedicated `-web` name, not the same `~/.aionui[-dev]` that Electron
+ * Why a dedicated `-web` name, not the same `~/.panai[-dev]` that Electron
  * uses: on macOS, Electron's getDataPath() (packages/desktop/src/process/utils/
- * utils.ts) creates `~/.aionui-dev` as a **symlink** to
- * `~/Library/Application Support/AionUi-Dev/aionui` so CLI tools (claude,
+ * utils.ts) creates `~/.panai-dev` as a **symlink** to
+ * `~/Library/Application Support/PanAI-Dev/panai` so CLI tools (claude,
  * gemini, qwen…) don't choke on the literal space in "Application Support".
  * If standalone webui runs first on a clean machine, it would create the
  * symlink location as a **real directory** instead. When Electron is later
  * installed, its `ensureCliSafeSymlink` refuses to overwrite a real dir and
  * falls back to returning the space-containing path — and then every ACP
  * agent inside the desktop app starts failing on CLI commands. Using
- * `.aionui-web` keeps standalone webui's data dir off of the path Electron's
+ * `.panai-web` keeps standalone webui's data dir off of the path Electron's
  * symlink needs.
  *
  * If the user wants the two to share data they opt-in explicitly via
- *   --data-dir ~/.aionui-dev                     (or equivalent on other OSes)
+ *   --data-dir ~/.panai-dev                     (or equivalent on other OSes)
  * which is safe because by that point Electron has created the symlink and
  * `bun run webui` just follows it.
  */
 function resolveBackendDataDir(): string {
-  const override = getFlag('--data-dir') ?? process.env.AIONUI_DATA_DIR;
+  const override = getFlag('--data-dir') ?? process.env.PANAI_DATA_DIR;
   if (override && override.trim().length > 0) {
     const resolved = path.resolve(override);
     fs.mkdirSync(resolved, { recursive: true });
     return resolved;
   }
   const suffix =
-    process.env.NODE_ENV === 'production' ? '' : process.env.AIONUI_MULTI_INSTANCE === '1' ? '-dev-2' : '-dev';
-  const dir = path.join(os.homedir(), `.aionui-web${suffix}`);
+    process.env.NODE_ENV === 'production' ? '' : process.env.PANAI_MULTI_INSTANCE === '1' ? '-dev-2' : '-dev';
+  const dir = path.join(os.homedir(), `.panai-web${suffix}`);
   fs.mkdirSync(dir, { recursive: true });
   return dir;
 }
@@ -98,36 +98,36 @@ function parseBoolean(v: string | undefined): boolean {
 function resolvePort(): number {
   const cli = getFlag('--port');
   if (cli && /^\d+$/.test(cli)) return Number(cli);
-  const env = process.env.AIONUI_PORT ?? process.env.PORT;
+  const env = process.env.PANAI_PORT ?? process.env.PORT;
   if (env && /^\d+$/.test(env)) return Number(env);
   return DEFAULT_PORT;
 }
 
 function resolveAllowRemote(): boolean {
   if (has('--remote')) return true;
-  const host = process.env.AIONUI_HOST?.trim();
+  const host = process.env.PANAI_HOST?.trim();
   if (host && ['0.0.0.0', '::', '::0'].includes(host)) return true;
-  return parseBoolean(process.env.AIONUI_ALLOW_REMOTE ?? process.env.AIONUI_REMOTE);
+  return parseBoolean(process.env.PANAI_ALLOW_REMOTE ?? process.env.PANAI_REMOTE);
 }
 
 function resolveStaticDir(): string {
-  if (process.env.AIONUI_STATIC_DIR) return process.env.AIONUI_STATIC_DIR;
+  if (process.env.PANAI_STATIC_DIR) return process.env.PANAI_STATIC_DIR;
   const candidate = path.join(repoRoot, 'out', 'renderer');
   if (fs.existsSync(path.join(candidate, 'index.html'))) return candidate;
-  throw new Error(`Renderer assets not found at ${candidate}. Run "bun run package" first, or set AIONUI_STATIC_DIR.`);
+  throw new Error(`Renderer assets not found at ${candidate}. Run "bun run package" first, or set PANAI_STATIC_DIR.`);
 }
 
 /**
  * Rebuild renderer/main bundles before launching, so that `bun run webui` always
  * serves the latest source. Skipped when:
  *   --no-build flag           : explicit opt-out (e.g., iterating on this script)
- *   $AIONUI_NO_BUILD=1        : env-level opt-out
- *   $AIONUI_STATIC_DIR is set : caller is pointing us at a prebuilt artifact dir
+ *   $PANAI_NO_BUILD=1        : env-level opt-out
+ *   $PANAI_STATIC_DIR is set : caller is pointing us at a prebuilt artifact dir
  */
 function runPackageIfNeeded(): void {
   if (has('--no-build')) return;
-  if (parseBoolean(process.env.AIONUI_NO_BUILD)) return;
-  if (process.env.AIONUI_STATIC_DIR) return;
+  if (parseBoolean(process.env.PANAI_NO_BUILD)) return;
+  if (process.env.PANAI_STATIC_DIR) return;
   console.log('[webui] running "bun run package" to refresh out/renderer (pass --no-build to skip)...');
   const start = Date.now();
   execSync('bun run package', { cwd: repoRoot, stdio: 'inherit' });
@@ -135,9 +135,9 @@ function runPackageIfNeeded(): void {
 }
 
 function resolveBackendBinary(): string {
-  if (process.env.AIONUI_BACKEND_BIN) return process.env.AIONUI_BACKEND_BIN;
+  if (process.env.PANAI_BACKEND_BIN) return process.env.PANAI_BACKEND_BIN;
 
-  const bundledBase = process.env.AIONUI_BACKEND_BUNDLED_DIR ?? path.join(repoRoot, 'resources', 'bundled-aioncore');
+  const bundledBase = process.env.PANAI_BACKEND_BUNDLED_DIR ?? path.join(repoRoot, 'resources', 'bundled-aioncore');
   const runtimeKey = `${process.platform}-${process.arch}`;
   const bundled = path.join(bundledBase, runtimeKey, BACKEND_BINARY);
   if (fs.existsSync(bundled)) return bundled;
@@ -151,7 +151,7 @@ function resolveBackendBinary(): string {
   }
 
   throw new Error(
-    `Cannot find "${BACKEND_BINARY}". Set AIONUI_BACKEND_BIN, put it on PATH, or place it at ${bundled}.`
+    `Cannot find "${BACKEND_BINARY}". Set PANAI_BACKEND_BIN, put it on PATH, or place it at ${bundled}.`
   );
 }
 
@@ -204,11 +204,11 @@ async function main(): Promise<void> {
   const allowRemote = resolveAllowRemote();
   // One working dir for the whole standalone webui: backend SQLite and chat
   // history live here. Admin credentials live in the backend's users table.
-  // This keeps `bun run webui` fully self-contained on hosts without AionUi.app.
+  // This keeps `bun run webui` fully self-contained on hosts without PanAI.app.
   const workDir = resolveBackendDataDir();
   const staticDir = resolveStaticDir();
   const backendBin = resolveBackendBinary();
-  const logDir = process.env.AIONUI_LOG_DIR ?? path.join(workDir, 'logs');
+  const logDir = process.env.PANAI_LOG_DIR ?? path.join(workDir, 'logs');
 
   console.log('[webui] work dir   :', workDir);
   console.log('[webui] static dir :', staticDir);
@@ -242,7 +242,7 @@ async function main(): Promise<void> {
   });
 
   console.log('');
-  console.log('AionUi WebUI is ready');
+  console.log('PanAI WebUI is ready');
   console.log(`  Local  : ${handle.localUrl}`);
   if (handle.networkUrl) console.log(`  Network: ${handle.networkUrl}`);
 

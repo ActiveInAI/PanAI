@@ -203,15 +203,15 @@ export function getFileExtension(file_name: string): string {
 
 import { AIONUI_TIMESTAMP_REGEX } from '@/common/config/constants';
 
-// 清理AionUI时间戳后缀，返回原始文件名
-export function cleanAionUITimestamp(file_name: string): string {
+// 清理PanAI时间戳后缀，返回原始文件名
+export function cleanPanAITimestamp(file_name: string): string {
   return file_name.replace(AIONUI_TIMESTAMP_REGEX, '$1');
 }
 
 // 从文件路径获取清理后的文件名（用于UI显示）
 export function getCleanFileName(file_path: string): string {
   const file_name = file_path.split(/[\\/]/).pop() || '';
-  return cleanAionUITimestamp(file_name);
+  return cleanPanAITimestamp(file_name);
 }
 
 // 从文件路径数组获取清理后的文件名数组（用于消息格式化）

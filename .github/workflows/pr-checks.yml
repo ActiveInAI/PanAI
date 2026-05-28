@@ -171,7 +171,7 @@ jobs:
         run: bun run test:coverage
 
       - name: Upload coverage to Codecov (Linux coverage only)
-        if: always() && hashFiles('coverage/lcov.info') != '' && github.repository == 'iOfficeAI/AionUi'
+        if: always() && hashFiles('coverage/lcov.info') != '' && github.repository == 'ActiveInAI/PanAI'
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -180,7 +180,7 @@ jobs:
           fail_ci_if_error: false
           verbose: true
       - name: Skip Codecov upload when preconditions are not met
-        if: always() && hashFiles('coverage/lcov.info') != '' && github.repository != 'iOfficeAI/AionUi'
+        if: always() && hashFiles('coverage/lcov.info') != '' && github.repository != 'ActiveInAI/PanAI'
         shell: bash
         run: |
           echo 'Skipping Codecov upload due to unmet preconditions.'
@@ -466,7 +466,7 @@ jobs:
           Write-Host "SMOKE INSTALL: windows-x64"
           Write-Host "=========================================="
 
-          $installer = Get-ChildItem -Path out -Filter "AionUi-*-win-*.exe" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+          $installer = Get-ChildItem -Path out -Filter "PanAI-*-win-*.exe" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
           if (-not $installer) {
             throw "No Windows installer found in out/"
           }
@@ -475,9 +475,9 @@ jobs:
           Start-Process -FilePath $installer.FullName -ArgumentList '/S' -Wait -NoNewWindow
 
           $candidates = @(
-            "$env:LOCALAPPDATA\\Programs\\AionUi\\AionUi.exe",
-            "$env:ProgramFiles\\AionUi\\AionUi.exe",
-            "$env:ProgramFiles(x86)\\AionUi\\AionUi.exe"
+            "$env:LOCALAPPDATA\\Programs\\PanAI\\PanAI.exe",
+            "$env:ProgramFiles\\PanAI\\PanAI.exe",
+            "$env:ProgramFiles(x86)\\PanAI\\PanAI.exe"
           )
 
           $installedExe = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
@@ -492,7 +492,7 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Skipping runtime install smoke for windows-arm64: runner is windows-x64, cannot reliably execute arm64 installer."
-          Get-ChildItem -Path out -Filter "AionUi-*-win-*.exe" | Format-Table Name, Length
+          Get-ChildItem -Path out -Filter "PanAI-*-win-*.exe" | Format-Table Name, Length
 
       - name: Install smoke test (macOS arm64)
         if: matrix.platform == 'macos-arm64'
@@ -515,7 +515,7 @@ jobs:
           hdiutil detach "$MOUNT_POINT"
 
           APP_PATH=$(ls -d "$APP_DIR"/*.app | head -n 1)
-          APP_BIN="$APP_PATH/Contents/MacOS/AionUi"
+          APP_BIN="$APP_PATH/Contents/MacOS/PanAI"
 
           test -x "$APP_BIN"
           "$APP_BIN" --version || true

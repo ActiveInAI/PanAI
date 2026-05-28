@@ -10,6 +10,10 @@
  * All places that need to display agent icons should use this utility instead of maintaining separate lists
  */
 
+import claudeLogoUrl from '@/renderer/assets/logos/ai-major/claude.png';
+import openAILogoUrl from '@/renderer/assets/logos/ai-major/openai.png';
+import hermesLogoUrl from '@/renderer/assets/logos/brand/hermes.png';
+import panAILogoUrl from '@/renderer/assets/logos/brand/app.png';
 import { resolveBackendAssetUrl } from '@/renderer/utils/platform';
 
 /**
@@ -20,7 +24,6 @@ import { resolveBackendAssetUrl } from '@/renderer/utils/platform';
  * Note: keys are lowercase, supports multiple variants (e.g., openclaw-gateway and openclaw)
  */
 const AGENT_LOGO_PATH_MAP = {
-  aionrs: 'brand/aion.svg',
   claude: 'ai-major/claude.svg',
   gemini: 'ai-major/gemini.svg',
   qwen: 'ai-china/qwen.svg',
@@ -43,6 +46,14 @@ const AGENT_LOGO_PATH_MAP = {
   qoder: 'tools/coding/qoder.png',
   cursor: 'tools/coding/cursor.png',
 } as const satisfies Record<string, string>;
+
+const LOCAL_AGENT_LOGO_URL_MAP: Record<string, string> = {
+  aionrs: panAILogoUrl,
+  anthropic: claudeLogoUrl,
+  claude: claudeLogoUrl,
+  hermes: hermesLogoUrl,
+  openai: openAILogoUrl,
+};
 
 const OPEN_CODE_LIGHT_FILE_NAME = 'opencode-light.svg';
 const OPEN_CODE_DARK_FILE_NAME = 'opencode-dark.svg';
@@ -81,8 +92,10 @@ function isDarkTheme(): boolean {
  */
 export function getAgentLogo(agent: string | undefined | null): string | null {
   if (!agent || typeof agent !== 'string') return null;
-  const key = agent.toLowerCase() as keyof typeof AGENT_LOGO_PATH_MAP;
-  const path = AGENT_LOGO_PATH_MAP[key];
+  const key = agent.toLowerCase();
+  const localLogo = LOCAL_AGENT_LOGO_URL_MAP[key];
+  if (localLogo) return normalizeLogoUrl(localLogo);
+  const path = AGENT_LOGO_PATH_MAP[key as keyof typeof AGENT_LOGO_PATH_MAP];
   return path ? normalizeLogoUrl(buildAssetUrl(path)) : null;
 }
 
@@ -101,6 +114,8 @@ export function resolveAgentLogo(opts: {
   custom_agent_id?: string | null;
   isExtension?: boolean;
 }): string | null {
+  const backendLogo = getAgentLogo(opts.backend);
+  if (backendLogo && opts.backend && LOCAL_AGENT_LOGO_URL_MAP[opts.backend.toLowerCase()]) return backendLogo;
   if (opts.icon) return normalizeLogoUrl(opts.icon);
 
   // For extension agents, extract adapter ID from custom_agent_id
@@ -110,7 +125,7 @@ export function resolveAgentLogo(opts: {
     if (logo) return logo;
   }
 
-  return getAgentLogo(opts.backend);
+  return backendLogo;
 }
 
 /**

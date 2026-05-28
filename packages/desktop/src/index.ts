@@ -26,14 +26,14 @@ import { installQuitCleanup } from './process/startup/quitCleanup';
 import { ProcessConfig } from './process/utils/initStorage';
 import type { BackendStartupFailureInfo } from './common/types/platform/electron';
 import { registerWindowMaximizeListeners } from '@process/bridge';
-import { BackendLifecycleManager } from '@aionui/web-host';
+import { BackendLifecycleManager } from '@panai/web-host';
 import { resolveBinaryPath } from '@process/backend';
 import './process/bridge/feedbackBridge';
 import { wasLaunchedAtLogin } from '@process/bridge/applicationBridge';
 import { onLanguageChanged } from './process/bridge/systemSettingsBridge';
 import { setInitialLanguage } from '@process/services/i18n';
 import { setupApplicationMenu } from './process/utils/appMenu';
-import { startWebHost } from '@aionui/web-host';
+import { startWebHost } from '@panai/web-host';
 import { initializeZoomFactor, setupZoomForWindow } from './process/utils/zoom';
 import {
   MIN_WINDOW_WIDTH,
@@ -75,12 +75,12 @@ import electronSquirrelStartup from 'electron-squirrel-startup';
 // Acquire lock early so the second instance quits before doing unnecessary work.
 // When a second instance starts (e.g. from protocol URL), it sends its data
 // to the first instance via second-instance event, then quits.
-const isE2ETestMode = process.env.AIONUI_E2E_TEST === '1';
-const skipSingleInstanceLock = isE2ETestMode || process.env.AIONUI_MULTI_INSTANCE === '1';
+const isE2ETestMode = (process.env.PANAI_E2E_TEST ?? process.env.AIONUI_E2E_TEST) === '1';
+const skipSingleInstanceLock = isE2ETestMode || process.env.PANAI_MULTI_INSTANCE === '1';
 const deepLinkFromArgv = process.argv.find((arg) => arg.startsWith(`${PROTOCOL_SCHEME}://`));
 const gotTheLock = skipSingleInstanceLock ? true : app.requestSingleInstanceLock({ deepLinkUrl: deepLinkFromArgv });
 if (!gotTheLock) {
-  console.warn('[AionUi] Another instance is already running; current process will exit.');
+  console.warn('[PanAI] Another instance is already running; current process will exit.');
   app.quit();
 } else {
   app.on('second-instance', (_event, argv, _workingDirectory, additionalData) => {
@@ -103,7 +103,7 @@ if (!gotTheLock) {
       showOrCreateMainWindow({
         mainWindow,
         createWindow: () => {
-          console.log('[AionUi] second-instance received with no active main window, recreating main window');
+          console.log('[PanAI] second-instance received with no active main window, recreating main window');
           createWindow();
         },
       });
@@ -234,7 +234,7 @@ function registerCronResumeBridge(backendPort: number): void {
         'x-aionui-internal': '1',
       },
     }).catch((error) => {
-      console.error('[AionUi] Failed to notify backend about system resume:', error);
+      console.error('[PanAI] Failed to notify backend about system resume:', error);
     });
   };
 
@@ -257,9 +257,9 @@ const scheduleBackendMigrations = (): void => {
     try {
       const { runBackendMigrations } = await import('./process/utils/runBackendMigrations');
       await runBackendMigrations(ProcessConfig);
-      console.info('[AionUi] runBackendMigrations completed');
+      console.info('[PanAI] runBackendMigrations completed');
     } catch (error) {
-      console.error('[AionUi] Backend migration hook threw:', error);
+      console.error('[PanAI] Backend migration hook threw:', error);
     }
   })();
 };
@@ -288,7 +288,7 @@ function ensureAdminUserOnce(backendPort: number): Promise<void> {
 
 function markBackendReady(backendPort: number, source: string): void {
   if (backendStartedOk) return;
-  console.log(`[AionUi] ${source} ready (port=${backendPort})`);
+  console.log(`[PanAI] ${source} ready (port=${backendPort})`);
   exposeBackendPort(backendPort);
   registerCronResumeBridge(backendPort);
   backendStartedOk = true;
@@ -300,7 +300,7 @@ function markBackendReady(backendPort: number, source: string): void {
 }
 
 const createWindow = ({ showOnReady = true }: { showOnReady?: boolean } = {}): void => {
-  console.log('[AionUi] Creating main window...');
+  console.log('[PanAI] Creating main window...');
   const { x: windowX, y: windowY, width: windowWidth, height: windowHeight } = resolveInitialBounds();
 
   // Get app icon for development mode (Windows/Linux need icon in BrowserWindow)
@@ -349,7 +349,7 @@ const createWindow = ({ showOnReady = true }: { showOnReady?: boolean } = {}): v
       webviewTag: true, // 启用 webview 标签用于 HTML 预览 / Enable webview tag for HTML preview
     },
   });
-  console.log(`[AionUi] Main window created (id=${mainWindow.id})`);
+  console.log(`[PanAI] Main window created (id=${mainWindow.id})`);
 
   scheduleStartupLogReport(mainWindow);
 
@@ -359,18 +359,18 @@ const createWindow = ({ showOnReady = true }: { showOnReady?: boolean } = {}): v
   if (showOnReady) {
     const showWindow = () => {
       if (!mainWindow.isDestroyed() && !mainWindow.isVisible()) {
-        console.log('[AionUi] Showing main window');
+        console.log('[PanAI] Showing main window');
         mainWindow.show();
         mainWindow.focus();
       }
     };
     mainWindow.once('ready-to-show', () => {
-      console.log('[AionUi] Window ready-to-show');
+      console.log('[PanAI] Window ready-to-show');
       showWindow();
     });
     // Belt-and-suspenders: also show on did-finish-load in case ready-to-show already fired
     mainWindow.webContents.once('did-finish-load', () => {
-      console.log('[AionUi] Renderer did-finish-load');
+      console.log('[PanAI] Renderer did-finish-load');
       showWindow();
       scheduleBackendMigrations();
     });
@@ -393,7 +393,9 @@ const createWindow = ({ showOnReady = true }: { showOnReady?: boolean } = {}): v
   // 初始化自动更新服务（通过环境变量禁用时跳过，例如 E2E / CI 场景）
   const isCiRuntime = process.env.CI === 'true' || process.env.CI === '1' || process.env.GITHUB_ACTIONS === 'true';
   const disableAutoUpdater =
-    process.env.AIONUI_DISABLE_AUTO_UPDATE === '1' || process.env.AIONUI_E2E_TEST === '1' || isCiRuntime;
+    (process.env.PANAI_DISABLE_AUTO_UPDATE ?? process.env.AIONUI_DISABLE_AUTO_UPDATE) === '1' ||
+    isE2ETestMode ||
+    isCiRuntime;
   if (!disableAutoUpdater) {
     Promise.all([import('./process/services/autoUpdaterService'), import('./process/bridge/updateBridge')])
       .then(([{ autoUpdaterService }, { createAutoUpdateStatusBroadcast }]) => {
@@ -410,7 +412,7 @@ const createWindow = ({ showOnReady = true }: { showOnReady?: boolean } = {}): v
         console.error('[App] Failed to initialize autoUpdaterService:', error);
       });
   } else {
-    console.log('[AionUi] Auto-updater disabled via env/CI guard');
+    console.log('[PanAI] Auto-updater disabled via env/CI guard');
   }
 
   // Load the renderer: dev server URL in development, built HTML file in production
@@ -418,51 +420,51 @@ const createWindow = ({ showOnReady = true }: { showOnReady?: boolean } = {}): v
   const fallbackFile = path.join(__dirname, '../renderer/index.html');
 
   if (!app.isPackaged && rendererUrl) {
-    console.log(`[AionUi] Loading renderer URL: ${rendererUrl}`);
+    console.log(`[PanAI] Loading renderer URL: ${rendererUrl}`);
     mainWindow.loadURL(rendererUrl).catch((error) => {
-      console.error('[AionUi] loadURL failed, falling back to file:', error.message || error);
+      console.error('[PanAI] loadURL failed, falling back to file:', error.message || error);
       mainWindow.loadFile(fallbackFile).catch((e2) => {
-        console.error('[AionUi] loadFile fallback also failed:', e2.message || e2);
+        console.error('[PanAI] loadFile fallback also failed:', e2.message || e2);
       });
     });
   } else {
-    console.log(`[AionUi] Loading renderer file: ${fallbackFile}`);
+    console.log(`[PanAI] Loading renderer file: ${fallbackFile}`);
     mainWindow.loadFile(fallbackFile).catch((error) => {
-      console.error('[AionUi] loadFile failed:', error.message || error);
+      console.error('[PanAI] loadFile failed:', error.message || error);
     });
   }
 
   mainWindow.webContents.on('did-fail-load', (_event, errorCode, errorDescription, validatedURL, isMainFrame) => {
-    console.error('[AionUi] did-fail-load:', { errorCode, errorDescription, validatedURL, isMainFrame });
+    console.error('[PanAI] did-fail-load:', { errorCode, errorDescription, validatedURL, isMainFrame });
   });
 
   mainWindow.webContents.on('render-process-gone', (_event, details) => {
-    console.error('[AionUi] render-process-gone:', details);
+    console.error('[PanAI] render-process-gone:', details);
 
     // Reload the renderer to recover from the crash.
     // The isDestroyed() guard in adapter/main.ts prevents further sends
     // to the dead webContents while the reload is in progress.
     if (!mainWindow.isDestroyed()) {
-      console.log('[AionUi] Attempting to recover from renderer crash by reloading...');
+      console.log('[PanAI] Attempting to recover from renderer crash by reloading...');
 
       if (!app.isPackaged && rendererUrl) {
         mainWindow.loadURL(rendererUrl).catch((error) => {
-          console.error('[AionUi] Recovery loadURL failed:', error.message || error);
+          console.error('[PanAI] Recovery loadURL failed:', error.message || error);
         });
       } else {
         mainWindow.loadFile(fallbackFile).catch((error) => {
-          console.error('[AionUi] Recovery loadFile failed:', error.message || error);
+          console.error('[PanAI] Recovery loadFile failed:', error.message || error);
         });
       }
     }
   });
 
   mainWindow.webContents.on('unresponsive', () => {
-    console.warn('[AionUi] Renderer became unresponsive');
+    console.warn('[PanAI] Renderer became unresponsive');
   });
 
   mainWindow.on('closed', () => {
-    console.log('[AionUi] Main window closed');
+    console.log('[PanAI] Main window closed');
   });
 
   // DevTools is no longer auto-opened at startup.
@@ -490,7 +492,7 @@ const createWindow = ({ showOnReady = true }: { showOnReady?: boolean } = {}): v
 
 const handleAppReady = async (): Promise<void> => {
   const t0 = performance.now();
-  const mark = (label: string) => console.log(`[AionUi:ready] ${label} +${Math.round(performance.now() - t0)}ms`);
+  const mark = (label: string) => console.log(`[PanAI:ready] ${label} +${Math.round(performance.now() - t0)}ms`);
   mark('start');
 
   if (!app.isPackaged) {
@@ -608,7 +610,7 @@ const handleAppReady = async (): Promise<void> => {
     initializeZoomFactor(await ProcessConfig.get('ui.zoomFactor'));
     mark('initializeZoomFactor');
   } catch (error) {
-    console.error('[AionUi] Failed to restore zoom factor:', error);
+    console.error('[PanAI] Failed to restore zoom factor:', error);
     initializeZoomFactor(undefined);
   }
 
@@ -616,7 +618,7 @@ const handleAppReady = async (): Promise<void> => {
     loadSavedWindowBounds(await ProcessConfig.get('window.bounds'));
     mark('restoreWindowBounds');
   } catch (error) {
-    console.error('[AionUi] Failed to restore window bounds:', error);
+    console.error('[PanAI] Failed to restore window bounds:', error);
     loadSavedWindowBounds(undefined);
   }
 
@@ -640,14 +642,14 @@ const handleAppReady = async (): Promise<void> => {
     const resolvedPort = resolveWebUIPort(userConfigInfo.config, getSwitchValue);
     const allowRemote = resolveRemoteAccess(userConfigInfo.config, isRemoteMode);
     try {
-      // Inside Electron (`AionUi --webui` or packaged `aionui-web` mode that
+      // Inside Electron (`PanAI --webui` or packaged `panai-web` mode that
       // launches via the Electron shell), reuse the desktop app's data-dir so
       // that conversations / cron jobs created in any path show up everywhere.
       // Matches the desktop IPC path at line 493 above.
       const { getDataPath } = await import('./process/utils/utils');
       const { getSystemDir } = await import('./process/utils/initStorage');
       const sysDirWebUI = getSystemDir();
-      // M6: Switch to @aionui/web-host
+      // M6: Switch to @panai/web-host
       const handle = await startWebHost({
         app: {
           version: app.getVersion(),
@@ -664,7 +666,7 @@ const handleAppReady = async (): Promise<void> => {
         allowRemote,
         dataDir: getDataPath(),
         logDir: sysDirWebUI.logDir,
-        // Expose the same AIONUI_{CACHE,WORK,LOG}_DIR env the desktop IPC path
+        // Expose backend AIONUI_{CACHE,WORK,LOG}_DIR env the desktop IPC path
         // passes at line 493, so /api/system/info reports the symlink workDir
         // instead of the path-with-spaces userData root.
         dirs: {
@@ -793,7 +795,7 @@ const handleAppReady = async (): Promise<void> => {
 };
 
 // ============ Protocol Registration ============
-// Register aionui:// as the default protocol client
+// Register panai:// as the default protocol client
 if (process.defaultApp) {
   // Dev mode: need to pass execPath explicitly
   app.setAsDefaultProtocolClient(PROTOCOL_SCHEME, process.execPath, [path.resolve(process.argv[1])]);
@@ -801,7 +803,7 @@ if (process.defaultApp) {
   app.setAsDefaultProtocolClient(PROTOCOL_SCHEME);
 }
 
-// macOS: handle aionui:// URLs via the open-url event
+// macOS: handle panai:// URLs via the open-url event
 app.on('open-url', (event, url) => {
   event.preventDefault();
   handleDeepLinkUrl(url);
@@ -821,7 +823,7 @@ void app
   .then(handleAppReady)
   .catch((error) => {
     // App initialization failed
-    console.error('[AionUi] App initialization failed:', error);
+    console.error('[PanAI] App initialization failed:', error);
     app.quit();
   });
 
@@ -882,11 +884,11 @@ installQuitCleanup({
 });
 
 app.on('will-quit', () => {
-  console.log('[AionUi] will-quit — all cleanup should be complete');
+  console.log('[PanAI] will-quit — all cleanup should be complete');
 });
 
 app.on('quit', (_event, exitCode) => {
-  console.log(`[AionUi] quit (exitCode=${exitCode})`);
+  console.log(`[PanAI] quit (exitCode=${exitCode})`);
 });
 
 // In this file you can include the rest of your app's specific main process

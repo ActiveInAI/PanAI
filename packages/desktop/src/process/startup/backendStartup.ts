@@ -21,7 +21,7 @@ export async function startBackendOrExit(options: StartBackendOrExitOptions): Pr
     options.onStarted(port);
     return { ok: true, port };
   } catch (error) {
-    options.logError?.('[AionUi] Failed to start aioncore:', error);
+    options.logError?.('[PanAI] Failed to start aioncore:', error);
     await options.captureFailure(error);
     if (options.exitOnFailure ?? true) {
       options.exitApp(1);

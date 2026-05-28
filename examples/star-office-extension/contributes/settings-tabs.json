@@ -9,16 +9,16 @@
   },
   {
     "id": "aionui-home",
-    "name": "AionUI Home",
-    "entryPoint": "https://aionui.com/",
+    "name": "PanAI Home",
+    "entryPoint": "https://www.panai.local/",
     "icon": "assets/star-office-icon.svg",
     "position": { "anchor": "display", "placement": "after" },
     "order": 80
   },
   {
     "id": "aionui-issues",
-    "name": "AionUI Issues",
-    "entryPoint": "https://github.com/AionUi/AionUi/issues",
+    "name": "PanAI Issues",
+    "entryPoint": "https://github.com/PanAI/PanAI/issues",
     "icon": "assets/star-office-icon.svg",
     "position": { "anchor": "display", "placement": "after" },
     "order": 81

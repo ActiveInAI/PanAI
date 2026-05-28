@@ -1,7 +1,7 @@
 {
   "name": "PanAI",
   "version": "2.1.6",
-  "description": "PanAI desktop AI agent workbench, forked from AionUI under Apache-2.0.",
+  "description": "PanAI desktop AI agent workbench.",
   "keywords": [],
   "license": "Apache-2.0",
   "author": {
@@ -15,7 +15,7 @@
   "scripts": {
     "dev": "electron-vite dev --config packages/desktop/electron.vite.config.ts",
     "start": "electron-vite dev --config packages/desktop/electron.vite.config.ts",
-    "start:multi": "cross-env AIONUI_MULTI_INSTANCE=1 electron-vite dev --config packages/desktop/electron.vite.config.ts",
+    "start:multi": "cross-env PANAI_MULTI_INSTANCE=1 electron-vite dev --config packages/desktop/electron.vite.config.ts",
     "cli": "electron-vite dev --config packages/desktop/electron.vite.config.ts",
     "webui": "tsx scripts/webui.ts",
     "webui:remote": "tsx scripts/webui.ts --remote",
@@ -70,7 +70,6 @@
   },
   "dependencies": {
     "@agentclientprotocol/sdk": "^0.18.2",
-    "@aionui/web-host": "workspace:*",
     "@anthropic-ai/sdk": "^0.71.2",
     "@arco-design/web-react": "^2.66.1",
     "@aws-sdk/client-bedrock": "^3.987.0",
@@ -92,6 +91,7 @@
     "@monaco-editor/react": "^4.7.0",
     "@office-ai/aioncli-core": "^0.30.6",
     "@office-ai/platform": "^0.3.16",
+    "@panai/web-host": "workspace:*",
     "@sentry/electron": "^7.10.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
