@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../resources/panai-banner-1.png" alt="PanAI - Cowork with AI Agents" width="100%">
+  <img src="../../resources/panai-banner-1.svg" alt="PanAI - Cowork with AI Agents" width="100%">
 </p>
 
 <p align="center">
@@ -737,11 +737,9 @@ bun run test       # 运行单元测试
 
 ## 贡献者
 
-<p align="center">
-  <a href="https://github.com/ActiveInAI/PanAI/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=ActiveInAI/PanAI&max=100" alt="Contributors" />
-  </a>
-</p>
+## Attribution
+
+PanAI is derived from an Apache-2.0 upstream. Required copyright, license, and NOTICE attribution is preserved in [NOTICE](../../NOTICE).
 
 ## Star 历史
 

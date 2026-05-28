@@ -1,0 +1,35 @@
+<svg width="1739" height="743" viewBox="0 0 1739 743" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1739" height="743" rx="42" fill="#F7FAFC"/>
+  <rect x="78" y="78" width="1583" height="587" rx="32" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="4"/>
+  <g transform="translate(238 168)">
+    <rect width="172" height="172" rx="38" fill="#050A0F"/>
+    <path d="M59 47H94C120 47 138 64 138 89C138 114 120 131 94 131H78V104H94C103 104 110 98 110 89C110 80 103 74 94 74H59V47Z" fill="#F8FAFC"/>
+    <path d="M59 47V131H31V47H59Z" fill="#F8FAFC"/>
+    <circle cx="126" cy="139" r="11" fill="#18C29C"/>
+    <path d="M33 139C54 156 85 162 115 151" stroke="#18C29C" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <text x="454" y="262" font-family="Inter, Arial, sans-serif" font-size="104" font-weight="800" fill="#0F172A">PanAI</text>
+  <text x="454" y="336" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="600" fill="#475569">Open Source Cowork with AI Agents</text>
+  <g transform="translate(454 410)">
+    <rect width="208" height="64" rx="32" fill="#ECFDF5" stroke="#A7F3D0"/>
+    <circle cx="42" cy="32" r="13" fill="#18C29C"/>
+    <text x="70" y="41" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#064E3B">Pan CLI</text>
+  </g>
+  <g transform="translate(690 410)">
+    <rect width="208" height="64" rx="32" fill="#EFF6FF" stroke="#BFDBFE"/>
+    <circle cx="42" cy="32" r="13" fill="#2563EB"/>
+    <text x="70" y="41" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#1E3A8A">Gemini</text>
+  </g>
+  <g transform="translate(926 410)">
+    <rect width="208" height="64" rx="32" fill="#FFF7ED" stroke="#FED7AA"/>
+    <circle cx="42" cy="32" r="13" fill="#F97316"/>
+    <text x="70" y="41" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#7C2D12">Claude</text>
+  </g>
+  <g transform="translate(1162 410)">
+    <rect width="208" height="64" rx="32" fill="#F8FAFC" stroke="#CBD5E1"/>
+    <circle cx="42" cy="32" r="13" fill="#0F172A"/>
+    <text x="70" y="41" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#0F172A">OpenAI</text>
+  </g>
+  <rect x="238" y="540" width="1263" height="5" rx="2.5" fill="#CBD5E1"/>
+  <text x="238" y="594" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="600" fill="#64748B">Multi-agent desktop workbench, local files, remote access, automation.</text>
+</svg>
