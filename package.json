@@ -1,12 +1,12 @@
 {
-  "name": "AionUi",
+  "name": "PanAI",
   "version": "2.1.6",
-  "description": "Transform your command-line AI agent into a modern, efficient AI Chat interface.",
+  "description": "PanAI desktop AI agent workbench, forked from AionUI under Apache-2.0.",
   "keywords": [],
   "license": "Apache-2.0",
   "author": {
-    "name": "AionUi",
-    "email": "service@aionui.com"
+    "name": "ActiveInAI",
+    "email": "support@panai.local"
   },
   "workspaces": [
     "packages/*"
@@ -259,5 +259,5 @@
   "patchedDependencies": {
     "7zip-bin@5.2.0": "patches/7zip-bin@5.2.0.patch"
   },
-  "productName": "AionUi"
+  "productName": "PanAI"
 }

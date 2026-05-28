@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="./resources/aionui-banner-1.png" alt="AionUi - Cowork with AI Agents" width="100%">
+  <img src="./resources/aionui-banner-1.png" alt="PanAI - Cowork with AI Agents" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/v/release/iOfficeAI/AionUi?style=flat-square&color=32CD32" alt="Version">
+  <img src="https://img.shields.io/github/v/release/ActiveInAI/PanAI?style=flat-square&color=32CD32" alt="Version">
   &nbsp;
   <img src="https://img.shields.io/badge/license-Apache--2.0-32CD32?style=flat-square&logo=apache&logoColor=white" alt="License">
   &nbsp;
@@ -24,18 +24,25 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/iOfficeAI/AionUi/releases">
+  <a href="https://github.com/ActiveInAI/PanAI/releases">
     <img src="https://img.shields.io/badge/⬇️%20Download%20Now-Latest%20Release-32CD32?style=for-the-badge&logo=github&logoColor=white" alt="Download Latest Release" height="50">
   </a>
 </p>
 
 <p align="center">
-  <strong>English</strong> | <a href="./docs/readme/readme_ch.md">简体中文</a> | <a href="./docs/readme/readme_tw.md">繁體中文</a> | <a href="./docs/readme/readme_jp.md">日本語</a> | <a href="./docs/readme/readme_ko.md">한국어</a> | <a href="./docs/readme/readme_es.md">Español</a> | <a href="./docs/readme/readme_pt.md">Português</a> | <a href="./docs/readme/readme_tr.md">Türkçe</a> | <a href="./docs/readme/readme_ru.md">Русский</a> | <a href="./docs/readme/readme_uk.md">Українська</a> | <a href="https://www.aionui.com" target="_blank">Official Website</a>
+  <strong>English</strong> | <a href="./docs/readme/readme_ch.md">简体中文</a> | <a href="./docs/readme/readme_tw.md">繁體中文</a> | <a href="./docs/readme/readme_jp.md">日本語</a> | <a href="./docs/readme/readme_ko.md">한국어</a> | <a href="./docs/readme/readme_es.md">Español</a> | <a href="./docs/readme/readme_pt.md">Português</a> | <a href="./docs/readme/readme_tr.md">Türkçe</a> | <a href="./docs/readme/readme_ru.md">Русский</a> | <a href="./docs/readme/readme_uk.md">Українська</a> | <a href="https://www.panai.local" target="_blank">Official Website</a>
 </p>
 
 <p align="center">
-  <strong>💬 Community:</strong> <a href="https://discord.gg/2QAwJn7Egx" target="_blank">Discord (English)</a> | <a href="./resources/wx-9.png" target="_blank">微信 (中文群)</a> | <a href="https://twitter.com/AionUI" target="_blank">Twitter</a>
+  <strong>💬 Community:</strong> <a href="https://discord.gg/2QAwJn7Egx" target="_blank">Discord (English)</a> | <a href="./resources/wx-9.png" target="_blank">微信 (中文群)</a> | <a href="https://twitter.com/PanAI" target="_blank">Twitter</a>
 </p>
+
+---
+
+> **PanAI fork notice:** PanAI is an independent desktop AI agent workbench
+> forked from AionUI under Apache-2.0. The upstream source is
+> https://github.com/iOfficeAI/AionUi. PanAI is maintained separately by
+> ActiveInAI and is not the ArchIToken repository.
 
 ---
 
@@ -44,7 +51,7 @@
 <p align="center">
 
 [Cowork in Action](#-cowork-in-action) ·
-[Why Choose AionUi?](#-why-choose-aionui-over-claude-cowork) ·
+[Why Choose PanAI?](#-why-choose-panai-over-claude-cowork) ·
 [Quick Start](#-quick-start) ·
 [Community](#-community--support)
 
@@ -54,9 +61,9 @@
 
 ## Cowork — AI Agents That Work Alongside You
 
-**AionUi is more than a chat client.** It's a Cowork platform where AI agents work alongside you on your computer — reading files, writing code, browsing the web, and automating tasks. You see everything the agent does, and you're always in control.
+**PanAI is more than a chat client.** It's a Cowork platform where AI agents work alongside you on your computer — reading files, writing code, browsing the web, and automating tasks. You see everything the agent does, and you're always in control.
 
-|                                 | Traditional AI Chat Clients | **AionUi (Cowork)**                                                                                                     |
+|                                 | Traditional AI Chat Clients | **PanAI (Cowork)**                                                                                                     |
 | :------------------------------ | :-------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
 | AI can operate on your files    | Limited or No               | **Yes — built-in agent with full file access**                                                                          |
 | AI can execute multi-step tasks | Limited                     | **Yes — autonomous with your approval**                                                                                 |
@@ -66,14 +73,14 @@
 | Price                           | Free / Paid                 | **Free & Open Source**                                                                                                  |
 
 <p align="center">
-  <img src="./resources/offica-ai BANNER-function.png" alt="AionUi Cowork Platform" width="800">
+  <img src="./resources/offica-ai BANNER-function.png" alt="PanAI Cowork Platform" width="800">
 </p>
 
 ---
 
 ## Built-in Agent — Install & Go, Zero Configuration
 
-AionUi ships with a complete AI agent engine. Unlike tools that require you to install CLI agents separately, **AionUi works the moment you install it**.
+PanAI ships with a complete AI agent engine. Unlike tools that require you to install CLI agents separately, **PanAI works the moment you install it**.
 
 - **No CLI tools to install** — the agent engine is built in
 - **No complex setup** — sign in with Google or paste any API key
@@ -86,7 +93,7 @@ AionUi ships with a complete AI agent engine. Unlike tools that require you to i
 
 ### **Office assistants — PPT, Word & Excel**
 
-These tracks match what the app actually ships: **Morph PPT** presets and the **`pptx` / `docx` / `xlsx` skills** (see `assistant/` presets and `skills/` in the repo). Want document/table output? AionUi’s built-in **[OfficeCLI](https://github.com/iOfficeAI/OfficeCli)** helps PPT (Morph), Word (`.docx`), and Excel (`.xlsx/.xlsm/.csv`) go from request to deliverable faster and more reliably.
+These tracks match what the app actually ships: **Morph PPT** presets and the **`pptx` / `docx` / `xlsx` skills** (see `assistant/` presets and `skills/` in the repo). Want document/table output? PanAI’s built-in **[OfficeCLI](https://github.com/iOfficeAI/OfficeCli)** helps PPT (Morph), Word (`.docx`), and Excel (`.xlsx/.xlsm/.csv`) go from request to deliverable faster and more reliably.
 The three assistant types map to file workflows, and the final outputs are directly editable and reusable.
 
 #### **PPT assistant**
@@ -141,9 +148,9 @@ The three assistant types map to file workflows, and the final outputs are direc
 
 ## Multi-Agent Mode — Already Have CLI Agents? Bring Them In
 
-If you already use Claude Code, Codex, Hermes Agent, or OpenClaw, AionUi auto-detects them and lets you Cowork with all of them — alongside the built-in agent.
+If you already use Claude Code, Codex, Hermes Agent, or OpenClaw, PanAI auto-detects them and lets you Cowork with all of them — alongside the built-in agent.
 
-**Supported Agents:** Built-in Agent (zero setup) • Claude Code • Codex • Qwen Code • Goose AI • OpenClaw • Augment Code • CodeBuddy • Kimi CLI • OpenCode • Factory Droid • GitHub Copilot • Qoder CLI • Mistral Vibe • Nanobot • Aion CLI (aionrs, the Rust-based backend service shipped with AionUi) • Snow CLI • Hermes Agent • Cursor Agent and more
+**Supported Agents:** Built-in Agent (zero setup) • Claude Code • Codex • Qwen Code • Goose AI • OpenClaw • Augment Code • CodeBuddy • Kimi CLI • OpenCode • Factory Droid • GitHub Copilot • Qoder CLI • Mistral Vibe • Nanobot • Pan CLI (aionrs, the Rust-based backend service shipped with PanAI) • Snow CLI • Hermes Agent • Cursor Agent and more
 
 <p align="center">
   <img src="./resources/multi-agent支持openclaw.gif" alt="Multi-Agent Cowork" width="800">
@@ -160,11 +167,11 @@ If you already use Claude Code, Codex, Hermes Agent, or OpenClaw, AionUi auto-de
 Run multiple AI agents as an organized team: a **Leader** agent receives your instructions, breaks them into subtasks, and delegates to **Teammate** agents via a built-in Team MCP Server. Teammates execute in parallel, share results through an async mailbox, and write to a shared task board.
 
 <p align="center">
-  <img src="./resources/AionUi_team.gif" alt="Team Mode overview" width="800">
+  <img src="./resources/AionUi_team.gif" alt="PanAI Team Mode overview" width="800">
 </p>
 
-- **Parallel multi-agent execution** — Leader breaks tasks into subtasks and delegates to Teammate agents running in parallel; each Teammate uses its own model via ACP (Agent Communication Protocol, AionUi's multi-agent coordination layer), Gemini, or Aionrs
-- **Leader orchestration** — Leader assigns, tracks, and aggregates results; supported backends include Claude Code, Codex, Hermes Agent, Gemini, Snow CLI, and Aion CLI
+- **Parallel multi-agent execution** — Leader breaks tasks into subtasks and delegates to Teammate agents running in parallel; each Teammate uses its own model via ACP (Agent Communication Protocol, PanAI's multi-agent coordination layer), Gemini, or Aionrs
+- **Leader orchestration** — Leader assigns, tracks, and aggregates results; supported backends include Claude Code, Codex, Hermes Agent, Gemini, Snow CLI, and Pan CLI
 - **Team-isolated workspace** — all agents share the same folder; each has its own permission dialog with sidebar badge for pending approvals
 
 <details>
@@ -173,7 +180,7 @@ Run multiple AI agents as an organized team: a **Leader** agent receives your in
 <br>
 
 - **Shared Workspace** — all agents read/write the same folder; the file panel stays visible throughout
-- **Supported backends** — Claude Code, Codex, Gemini, Snow CLI, Aion CLI (aionrs); other ACP backends with `mcpCapabilities.stdio` are auto-supported
+- **Supported backends** — Claude Code, Codex, Gemini, Snow CLI, Pan CLI (aionrs); other ACP backends with `mcpCapabilities.stdio` are auto-supported
 - **Dynamic scaling** — add or remove Teammates while the team is running; silent agents auto-escalate to failed with one-click removal
 - **Granular permissions** — each agent has its own permission confirmation dialog; sidebar badge shows pending approvals
 - **File sharing** — Leader can pass file attachments to Teammates
@@ -184,18 +191,18 @@ Run multiple AI agents as an organized team: a **Leader** agent receives your in
 
 ## Any API Key, Full Cowork Agent Power
 
-Other AI apps give you a chatbox with your API key. **AionUi gives you a full Cowork agent.**
+Other AI apps give you a chatbox with your API key. **PanAI gives you a full Cowork agent.**
 
 | Your API Key                            | What You Get                                |
 | :-------------------------------------- | :------------------------------------------ |
 | Gemini API Key (or Google login — free) | Gemini-powered Cowork Agent                 |
 | OpenAI API Key                          | GPT-powered Cowork Agent                    |
 | Anthropic API Key                       | Claude-powered Cowork Agent                 |
-| AWS Bedrock credentials                 | Bedrock-powered Agent via Aion CLI (aionrs) |
+| AWS Bedrock credentials                 | Bedrock-powered Agent via Pan CLI (aionrs) |
 | Ollama / LM Studio (local)              | Local model Cowork Agent                    |
 | NewAPI Gateway                          | Unified access to 20+ models                |
 
-Same agent capabilities — file read/write, web search, image generation, tool use — regardless of which model powers it. AionUi supports **30+ AI platforms** including cloud services and local deployments.
+Same agent capabilities — file read/write, web search, image generation, tool use — regardless of which model powers it. PanAI supports **30+ AI platforms** including cloud services and local deployments.
 
 <p align="center">
   <img src="./resources/llm_newapi.png" alt="Multi-Model Support" width="800">
@@ -214,7 +221,7 @@ Same agent capabilities — file read/write, web search, image generation, tool 
 - **International Platforms** — DeepSeek, MiniMax, Novita, OpenRouter, SiliconFlow, xAI, Ark (Volcengine), Poe
 - **Local Models** — Ollama, LM Studio (via Custom platform with local API endpoint)
 
-AionUi also supports [NewAPI](https://github.com/QuantumNous/new-api) gateway service — a unified AI model hub that aggregates and distributes various LLMs. Flexibly switch between different models in the same interface to meet various task requirements.
+PanAI also supports [NewAPI](https://github.com/QuantumNous/new-api) gateway service — a unified AI model hub that aggregates and distributes various LLMs. Flexibly switch between different models in the same interface to meet various task requirements.
 
 </details>
 
@@ -225,21 +232,21 @@ AionUi also supports [NewAPI](https://github.com/QuantumNous/new-api) gateway se
 _Extensible assistant system with 21 built-in professional assistants and a three-tier skill system. Create and manage your own assistants and skills._
 
 - **Create Custom Assistants** — Define your own assistants with custom rules and capabilities
-- **Three-tier Skills** — Builtin skills (shipped with AionUi), custom skills (your own), and Extension skills (contributed by third-party extensions); enable/disable per conversation with the skill indicator
+- **Three-tier Skills** — Builtin skills (shipped with PanAI), custom skills (your own), and Extension skills (contributed by third-party extensions); enable/disable per conversation with the skill indicator
 - **Per-conversation Control** — A skill indicator in the chat header shows active skills for the current conversation; search and exclude skills as needed
 
 <p align="center">
   <img src="./resources/assitants.png" alt="AI Assistants & Skills Ecosystem" width="800">
 </p>
 
-AionUi supports three skill layers: **built-in** skills (shipped with the app), **custom** skills (user-defined), and **extension** skills (loaded from the Extension SDK).
+PanAI supports three skill layers: **built-in** skills (shipped with the app), **custom** skills (user-defined), and **extension** skills (loaded from the Extension SDK).
 
 <details>
 <summary><strong>🔍 View Assistant Details and Custom Skills ▶️</strong></summary>
 
 <br>
 
-AionUi includes **21 professional assistants** with predefined capabilities, extendable through custom skills:
+PanAI includes **21 professional assistants** with predefined capabilities, extendable through custom skills:
 
 - **🤝 Cowork** — Autonomous task execution (file operations, document processing, workflow planning)
 - **📊 PPT Creator / Morph PPT / Morph PPT 3D** — Generate and animate PPTX presentations with Morph transitions
@@ -261,7 +268,7 @@ AionUi includes **21 professional assistants** with predefined capabilities, ext
 - **🔧 OpenClaw Setup** — Setup and configuration assistant for OpenClaw integration
 - **📖 Story Roleplay** — Immersive story roleplay with character cards and world info (SillyTavern compatible)
 
-**Custom Skills**: Create skills in the `skills/` directory, enable/disable skills for assistants to extend AI capabilities. Skills come from three sources: builtin (shipped with AionUi), custom (your own), and Extension (contributed via the Extension SDK). Built-in skills include `pptx`, `docx`, `pdf`, `xlsx`, `mermaid`, and more.
+**Custom Skills**: Create skills in the `skills/` directory, enable/disable skills for assistants to extend AI capabilities. Skills come from three sources: builtin (shipped with PanAI), custom (your own), and Extension (contributed via the Extension SDK). Built-in skills include `pptx`, `docx`, `pdf`, `xlsx`, `mermaid`, and more.
 
 > 💡 Each assistant is defined by a markdown file. Check the `assistant/` directory for examples.
 
@@ -271,7 +278,7 @@ AionUi includes **21 professional assistants** with predefined capabilities, ext
 
 ## Cowork from Anywhere
 
-_Your 24/7 AI assistant — access AionUi from any device, anywhere._
+_Your 24/7 AI assistant — access PanAI from any device, anywhere._
 
 - **WebUI Mode** — access via browser from phone, tablet, or any computer. Supports LAN, cross-network, and server deployment. QR code or password login.
 
@@ -282,7 +289,7 @@ _Your 24/7 AI assistant — access AionUi from any device, anywhere._
   - **WeChat** — Personal WeChat account integration
   - **WeCom (企业微信)**, **Slack**, **Discord** and more platforms coming soon
 
-> **Setup:** AionUi Settings → WebUI Settings → Channel, configure the Bot Token.
+> **Setup:** PanAI Settings → WebUI Settings → Channel, configure the Bot Token.
 
 <p align="center">
   <img src="./resources/webui-remote.gif" alt="WebUI remote access demo" width="800">
@@ -290,7 +297,7 @@ _Your 24/7 AI assistant — access AionUi from any device, anywhere._
 
 <p align="center"><em>Remote control &amp; monitor your agent — Claude, Gemini, Codex. Use from browser or phone, same as Claude Code remote.</em></p>
 
-> [Remote Internet Access Tutorial](https://github.com/iOfficeAI/AionUi/wiki/Remote-Internet-Access-Guide-Chinese)
+> [Remote Internet Access Tutorial](https://github.com/ActiveInAI/PanAI/wiki/Remote-Internet-Access-Guide-Chinese)
 
 ## ✨ Cowork in Action
 
@@ -328,7 +335,7 @@ _Set it up once, the AI agent runs automatically on schedule — truly 24/7 unat
 - **Conversation-Bound** — Each scheduled task is bound to a conversation, maintaining context and history
 - **Automatic Execution** — Tasks run automatically at scheduled times, sending messages to the conversation
 - **Easy Management** — Create, modify, enable/disable, delete, and view scheduled tasks anytime
-- **Keep-awake** — AionUi automatically prevents system sleep while tasks are active, and detects missed triggers after wake
+- **Keep-awake** — PanAI automatically prevents system sleep while tasks are active, and detects missed triggers after wake
 - **Advanced config** — each task can have its own model, workspace directory, and reasoning effort settings
 
 **Real-World Examples:**
@@ -449,7 +456,7 @@ _Intelligent image generation, editing, and recognition, powered by Gemini_
 
 </details>
 
-> [Image generation model configuration guide](https://github.com/iOfficeAI/AionUi/wiki/AionUi-Image-Generation-Tool-Model-Configuration-Guide)
+> [Image generation model configuration guide](https://github.com/ActiveInAI/PanAI/wiki/PanAI-Image-Generation-Tool-Model-Configuration-Guide)
 
 ---
 
@@ -506,16 +513,16 @@ _Open multiple conversations, tasks don't get mixed up, independent memory, doub
 
 ---
 
-## 🤔 Why Choose AionUi Over Claude Cowork?
+## 🤔 Why Choose PanAI Over Claude Cowork?
 
 <details>
 <summary><strong>Click to see detailed comparison</strong></summary>
 
 <br>
 
-AionUi is a **free and open-source Multi-AI Agent Desktop**. Compared to Claude Cowork which only runs on macOS and is locked to Claude, AionUi is its full-model, cross-platform enhanced version.
+PanAI is a **free and open-source Multi-AI Agent Desktop**. Compared to Claude Cowork which only runs on macOS and is locked to Claude, PanAI is its full-model, cross-platform enhanced version.
 
-| Dimension     | Claude Cowork | AionUi                                                    |
+| Dimension     | Claude Cowork | PanAI                                                    |
 | :------------ | :------------ | :-------------------------------------------------------- |
 | OS            | macOS Only    | macOS / Windows / Linux                                   |
 | Model Support | Claude Only   | Gemini, Claude, DeepSeek, OpenAI, Ollama, ...             |
@@ -538,22 +545,22 @@ Deep AI Office Scenario Support:
 
 <details>
 <summary><strong>Q: Do I need to install Gemini CLI or Claude Code first?</strong></summary>
-A: <strong>No.</strong> AionUi has a built-in AI agent that works immediately after installation. Just sign in with Google or enter any API key. If you also have CLI tools like Claude Code or Gemini CLI installed, AionUi will auto-detect and integrate them for even more capabilities.
+A: <strong>No.</strong> PanAI has a built-in AI agent that works immediately after installation. Just sign in with Google or enter any API key. If you also have CLI tools like Claude Code or Gemini CLI installed, PanAI will auto-detect and integrate them for even more capabilities.
 </details>
 
 <details>
-<summary><strong>Q: What can I do with AionUi?</strong></summary>
-A: AionUi is your <strong>private Cowork workspace</strong>. The built-in agent can batch organize folders, process Excel data, generate documents, search the web, and generate images. With Multi-Agent Mode, you can also leverage Claude Code, Codex, and other powerful CLI agents through the same interface.
+<summary><strong>Q: What can I do with PanAI?</strong></summary>
+A: PanAI is your <strong>private Cowork workspace</strong>. The built-in agent can batch organize folders, process Excel data, generate documents, search the web, and generate images. With Multi-Agent Mode, you can also leverage Claude Code, Codex, and other powerful CLI agents through the same interface.
 </details>
 
 <details>
 <summary><strong>Q: Is it free?</strong></summary>
-A: AionUi is completely free and open source. You can sign in with Google to use Gemini for free, or use API keys from any provider you prefer.
+A: PanAI is completely free and open source. You can sign in with Google to use Gemini for free, or use API keys from any provider you prefer.
 </details>
 
 <details>
-<summary><strong>Q: Can I run AionUi on a server (headless)?</strong></summary>
-A: Yes — AionUi WebUI mode runs as a standalone HTTP server. See the WebUI section above for setup instructions.
+<summary><strong>Q: Can I run PanAI on a server (headless)?</strong></summary>
+A: Yes — PanAI WebUI mode runs as a standalone HTTP server. See the WebUI section above for setup instructions.
 </details>
 
 <details>
@@ -563,7 +570,7 @@ A: All data is stored locally in a SQLite database. Nothing is uploaded to any s
 
 ---
 
-## See How People Use AionUi
+## See How People Use PanAI
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=vWxE6VO9TKo" target="_blank">
@@ -597,7 +604,7 @@ A: All data is stored locally in a SQLite database. Nothing is uploaded to any s
 - [Making ordinary people use Claude Code like an APP](https://mp.weixin.qq.com/s/TsMojSbkUUFvsd-HQCazZg) — Lazy Cat Loves Fishing
 - [5500 Stars: How Open Source Breaks Anthropic's AI Tool Moat](https://mp.weixin.qq.com/s/saEk49cYV6MqBgw19Lw6Gw) — AI Silicon Moment
 
-> **Made a video about AionUi?** [Let us know on X](https://x.com/AionUi) and we'll feature it here!
+> **Made a video about PanAI?** [Let us know on X](https://x.com/PanAI) and we'll feature it here!
 
 ---
 
@@ -614,7 +621,7 @@ A: All data is stored locally in a SQLite database. Nothing is uploaded to any s
 ### Install
 
 <p>
-  <a href="https://github.com/iOfficeAI/AionUi/releases">
+  <a href="https://github.com/ActiveInAI/PanAI/releases">
     <img src="https://img.shields.io/badge/Download-Latest%20Release-32CD32?style=for-the-badge&logo=github&logoColor=white" alt="Download Latest Release" height="50">
   </a>
 </p>
@@ -628,7 +635,7 @@ brew install aionui
 
 ### Get Started in 3 Steps
 
-1. **Install** AionUi
+1. **Install** PanAI
 2. **Sign in** with Google account or enter any API key
 3. **Start Coworking** — the built-in AI agent is ready to go
 
@@ -641,23 +648,23 @@ brew install aionui
 
 **🚀 Quick Start**
 
-- [📖 Complete Installation Guide](https://github.com/iOfficeAI/AionUi/wiki/Getting-Started) — Detailed steps from download to configuration
-- [⚙️ LLM Configuration Guide](https://github.com/iOfficeAI/AionUi/wiki/LLM-Configuration) — Multi-platform AI model configuration
-- [🤖 Multi-Agent Mode Setup](https://github.com/iOfficeAI/AionUi/wiki/ACP-Setup) — Integrate terminal AI agents
-- [🔌 MCP Tool Configuration](https://github.com/iOfficeAI/AionUi/wiki/MCP-Configuration-Guide) — Model Context Protocol server setup
-- [🌐 WebUI Configuration Guide](https://github.com/iOfficeAI/AionUi/wiki/WebUI-Configuration-Guide) — Complete WebUI setup and configuration tutorial
+- [📖 Complete Installation Guide](https://github.com/ActiveInAI/PanAI/wiki/Getting-Started) — Detailed steps from download to configuration
+- [⚙️ LLM Configuration Guide](https://github.com/ActiveInAI/PanAI/wiki/LLM-Configuration) — Multi-platform AI model configuration
+- [🤖 Multi-Agent Mode Setup](https://github.com/ActiveInAI/PanAI/wiki/ACP-Setup) — Integrate terminal AI agents
+- [🔌 MCP Tool Configuration](https://github.com/ActiveInAI/PanAI/wiki/MCP-Configuration-Guide) — Model Context Protocol server setup
+- [🌐 WebUI Configuration Guide](https://github.com/ActiveInAI/PanAI/wiki/WebUI-Configuration-Guide) — Complete WebUI setup and configuration tutorial
 
 **🎯 Use Cases**
 
-- [📁 File Management](https://github.com/iOfficeAI/AionUi/wiki/file-management) — Smart file organization
-- [📊 Excel Processing](https://github.com/iOfficeAI/AionUi/wiki/excel-processing) — AI-driven data processing
-- [🎨 Image Generation](https://github.com/iOfficeAI/AionUi/wiki/AionUi-Image-Generation-Tool-Model-Configuration-Guide) — AI image creation
-- [📚 More Use Cases](https://github.com/iOfficeAI/AionUi/wiki/Use-Cases-Overview)
+- [📁 File Management](https://github.com/ActiveInAI/PanAI/wiki/file-management) — Smart file organization
+- [📊 Excel Processing](https://github.com/ActiveInAI/PanAI/wiki/excel-processing) — AI-driven data processing
+- [🎨 Image Generation](https://github.com/ActiveInAI/PanAI/wiki/PanAI-Image-Generation-Tool-Model-Configuration-Guide) — AI image creation
+- [📚 More Use Cases](https://github.com/ActiveInAI/PanAI/wiki/Use-Cases-Overview)
 
 **❓ Support & Help**
 
-- [❓ FAQ](https://github.com/iOfficeAI/AionUi/wiki/FAQ) — Questions and troubleshooting
-- [🔧 Configuration & Usage Tutorials](https://github.com/iOfficeAI/AionUi/wiki/Configuration-Guides) — Complete configuration documentation
+- [❓ FAQ](https://github.com/ActiveInAI/PanAI/wiki/FAQ) — Questions and troubleshooting
+- [🔧 Configuration & Usage Tutorials](https://github.com/ActiveInAI/PanAI/wiki/Configuration-Guides) — Complete configuration documentation
 
 </details>
 
@@ -668,14 +675,14 @@ brew install aionui
 **Your ideas matter!** We value every suggestion and feedback.
 
 <p align="center">
-  <a href="https://x.com/AionUi" target="_blank">
+  <a href="https://x.com/PanAI" target="_blank">
     <img src="./resources/contactus-x.png" alt="Contact Us on X" width="600">
   </a>
 </p>
 
-- [GitHub Discussions](https://github.com/iOfficeAI/AionUi/discussions) — share ideas and exchange tips
-- [Report Issues](https://github.com/iOfficeAI/AionUi/issues) — bugs and feature requests
-- [Release Updates](https://github.com/iOfficeAI/AionUi/releases) — get the latest version
+- [GitHub Discussions](https://github.com/ActiveInAI/PanAI/discussions) — share ideas and exchange tips
+- [Report Issues](https://github.com/ActiveInAI/PanAI/issues) — bugs and feature requests
+- [Release Updates](https://github.com/ActiveInAI/PanAI/releases) — get the latest version
 - [Discord Community](https://discord.gg/2QAwJn7Egx) — English community
 - [WeChat Group](./resources/wx-9.png) — Chinese community
 
@@ -710,8 +717,8 @@ This project is licensed under [Apache-2.0](LICENSE).
 ## Contributors
 
 <p align="center">
-  <a href="https://github.com/iOfficeAI/AionUi/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=iOfficeAI/AionUi&max=100" alt="Contributors" />
+  <a href="https://github.com/ActiveInAI/PanAI/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=ActiveInAI/PanAI&max=100" alt="Contributors" />
   </a>
 </p>
 
@@ -727,7 +734,7 @@ This project is licensed under [Apache-2.0](LICENSE).
 
 **If you like it, give us a star**
 
-[Report Bug](https://github.com/iOfficeAI/AionUi/issues) · [Request Feature](https://github.com/iOfficeAI/AionUi/issues)
+[Report Bug](https://github.com/ActiveInAI/PanAI/issues) · [Request Feature](https://github.com/ActiveInAI/PanAI/issues)
 
 </div>
 

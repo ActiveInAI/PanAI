@@ -1,0 +1,12 @@
+PanAI
+Copyright 2026 ActiveInAI
+
+PanAI is an independent fork and modification of AionUI.
+
+Upstream project:
+  AionUI by iOfficeAI
+  https://github.com/iOfficeAI/AionUi
+
+The upstream AionUI code is licensed under Apache-2.0. PanAI preserves the
+Apache-2.0 license terms for upstream-derived code. New PanAI-specific changes
+are also distributed under Apache-2.0 unless a file states otherwise.
