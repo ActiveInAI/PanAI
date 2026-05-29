@@ -73,12 +73,12 @@
   "backendStartup": {
     "incompatibleRuntime": {
       "title": "当前系统不支持内置后端",
-      "description": "PanAI 已打开，但本地 AionCore 后端无法在当前 Linux 版本上运行。请升级到受支持的 Linux 发行版后重启 PanAI。",
+      "description": "PanAI 已打开，但本地 PanAI 本地后端无法在当前 Linux 版本上运行。请升级到受支持的 Linux 发行版后重启 PanAI。",
       "requiredVersions": "需要的运行时符号：{{versions}}"
     },
     "incompleteInstallation": {
       "title": "PanAI 安装不完整",
-      "description": "当前安装缺少必要的本地资源，AionCore 无法启动。请下载并重新安装最新版 PanAI。",
+      "description": "当前安装缺少必要的本地资源，PanAI backend 无法启动。请下载并重新安装最新版 PanAI。",
       "downloadLatest": "下载最新版",
       "sendDiagnostics": "发送诊断报告"
     }

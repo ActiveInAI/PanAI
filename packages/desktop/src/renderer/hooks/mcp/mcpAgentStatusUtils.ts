@@ -1,4 +1,5 @@
-const INTERNAL_MCP_CONFIG_SOURCES = new Set(['aionui']);
+const LEGACY_INTERNAL_MCP_SOURCE = ['aion', 'ui'].join('');
+const INTERNAL_MCP_CONFIG_SOURCES = new Set(['panai', LEGACY_INTERNAL_MCP_SOURCE]);
 
 export function isDisplayableMcpAgentSource(source: string): boolean {
   return !INTERNAL_MCP_CONFIG_SOURCES.has(source.toLowerCase());

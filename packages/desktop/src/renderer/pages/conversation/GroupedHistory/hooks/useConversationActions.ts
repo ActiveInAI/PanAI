@@ -232,8 +232,8 @@ export const useConversationActions = ({
   }, []);
 
   /**
-   * Remove project state — rendered via AionModal in the GroupedHistory component.
-   * Uses project's design system: AionModal component with danger-styled action button.
+   * Remove project state — rendered via PanModal in the GroupedHistory component.
+   * Uses project's design system: PanModal component with danger-styled action button.
    */
   const [removeProjectTarget, setRemoveProjectTarget] = useState<{
     name: string;

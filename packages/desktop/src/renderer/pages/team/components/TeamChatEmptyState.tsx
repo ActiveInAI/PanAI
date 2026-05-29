@@ -18,7 +18,7 @@ const useOpenClawDraft = getSendBoxDraftHook('openclaw-gateway', {
 });
 const useNanobotDraft = getSendBoxDraftHook('nanobot', { _type: 'nanobot', atPath: [], content: '', uploadFile: [] });
 const useRemoteDraft = getSendBoxDraftHook('remote', { _type: 'remote', atPath: [], content: '', uploadFile: [] });
-const useAionrsDraft = getSendBoxDraftHook('aionrs', { _type: 'aionrs', atPath: [], content: '', uploadFile: [] });
+const usePanCliDraft = getSendBoxDraftHook('aionrs', { _type: 'aionrs', atPath: [], content: '', uploadFile: [] });
 
 type Props = {
   conversation_id: string;
@@ -82,7 +82,7 @@ const TeamChatEmptyState: React.FC<Props> = ({ conversation_id, icon, isLeader =
   // `satisfies Record<DetectedAgentKind, ...>` keeps the map exhaustive — adding a new
   // DetectedAgentKind without wiring up a draft setter here becomes a typecheck error.
   const acpDraft = useAcpDraft(conversation_id);
-  const aionrsDraft = useAionrsDraft(conversation_id);
+  const aionrsDraft = usePanCliDraft(conversation_id);
   const nanobotDraft = useNanobotDraft(conversation_id);
   const remoteDraft = useRemoteDraft(conversation_id);
   const openClawDraft = useOpenClawDraft(conversation_id);

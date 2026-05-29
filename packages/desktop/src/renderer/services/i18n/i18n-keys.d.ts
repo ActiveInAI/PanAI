@@ -1338,6 +1338,7 @@ export type I18nKey =
   | 'settings.healthStatusCleared'
   | 'settings.helpDocumentation'
   | 'settings.imageGenSupportedTooltipAntigravity'
+  | 'settings.imageGenSupportedTooltipBaidu'
   | 'settings.imageGenSupportedTooltipGemini'
   | 'settings.imageGenSupportedTooltipOpenRouter'
   | 'settings.imageGenSupportedTooltipTitle'

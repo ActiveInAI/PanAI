@@ -75,7 +75,7 @@ import electronSquirrelStartup from 'electron-squirrel-startup';
 // Acquire lock early so the second instance quits before doing unnecessary work.
 // When a second instance starts (e.g. from protocol URL), it sends its data
 // to the first instance via second-instance event, then quits.
-const isE2ETestMode = (process.env.PANAI_E2E_TEST ?? process.env.AIONUI_E2E_TEST) === '1';
+const isE2ETestMode = (process.env.PANAI_E2E_TEST ?? process.env.PANAI_E2E_TEST) === '1';
 const skipSingleInstanceLock = isE2ETestMode || process.env.PANAI_MULTI_INSTANCE === '1';
 const deepLinkFromArgv = process.argv.find((arg) => arg.startsWith(`${PROTOCOL_SCHEME}://`));
 const gotTheLock = skipSingleInstanceLock ? true : app.requestSingleInstanceLock({ deepLinkUrl: deepLinkFromArgv });
@@ -231,7 +231,7 @@ function registerCronResumeBridge(backendPort: number): void {
     void fetch(`http://127.0.0.1:${backendPort}/api/cron/internal/system-resume`, {
       method: 'POST',
       headers: {
-        'x-aionui-internal': '1',
+        'x-panai-internal': '1',
       },
     }).catch((error) => {
       console.error('[PanAI] Failed to notify backend about system resume:', error);
@@ -393,7 +393,7 @@ const createWindow = ({ showOnReady = true }: { showOnReady?: boolean } = {}): v
   // 初始化自动更新服务（通过环境变量禁用时跳过，例如 E2E / CI 场景）
   const isCiRuntime = process.env.CI === 'true' || process.env.CI === '1' || process.env.GITHUB_ACTIONS === 'true';
   const disableAutoUpdater =
-    (process.env.PANAI_DISABLE_AUTO_UPDATE ?? process.env.AIONUI_DISABLE_AUTO_UPDATE) === '1' ||
+    (process.env.PANAI_DISABLE_AUTO_UPDATE ?? process.env.PANAI_DISABLE_AUTO_UPDATE) === '1' ||
     isE2ETestMode ||
     isCiRuntime;
   if (!disableAutoUpdater) {
@@ -666,7 +666,7 @@ const handleAppReady = async (): Promise<void> => {
         allowRemote,
         dataDir: getDataPath(),
         logDir: sysDirWebUI.logDir,
-        // Expose backend AIONUI_{CACHE,WORK,LOG}_DIR env the desktop IPC path
+        // Expose backend PANAI_{CACHE,WORK,LOG}_DIR env the desktop IPC path
         // passes at line 493, so /api/system/info reports the symlink workDir
         // instead of the path-with-spaces userData root.
         dirs: {
@@ -681,7 +681,7 @@ const handleAppReady = async (): Promise<void> => {
             // Spawning a second backend here would race the first on SQLite.
             const port = (globalThis as typeof globalThis & { __backendPort?: number }).__backendPort;
             if (!port) {
-              throw new Error('[WebUI] Cannot start: aioncore is not running (globalThis.__backendPort unset)');
+              throw new Error('[WebUI] Cannot start: PanAI backend is not running (globalThis.__backendPort unset)');
             }
             return port;
           })(),

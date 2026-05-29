@@ -1,16 +1,16 @@
 ---
 name: bump-version
-description: Use when bumping the PanAI version: query AionCore release, verify artifacts, update package.json, generate CHANGELOG, branch, commit, push, create PR, wait for merge, tag release.
+description: Use when bumping the PanAI version: query PanAI backend release, verify artifacts, update package.json, generate CHANGELOG, branch, commit, push, create PR, wait for merge, tag release.
 ---
 
 # Bump Version
 
-Automate the PanAI release preparation: query AionCore release → verify artifacts → update versions → generate CHANGELOG → branch → PR → tag.
+Automate the PanAI release preparation: query PanAI backend release → verify artifacts → update versions → generate CHANGELOG → branch → PR → tag.
 
 **Usage:** `/bump-version [version] [flags]`
 
-- `/bump-version` — auto patch + latest AionCore
-- `/bump-version 2.2.0` — explicit PanAI version + latest AionCore
+- `/bump-version` — auto patch + latest PanAI backend
+- `/bump-version 2.2.0` — explicit PanAI version + latest PanAI backend
 - `/bump-version 2.2.0 --core v0.1.12` — explicit both versions
 - `/bump-version --skip-core` — pure frontend release (don't touch aioncoreVersion)
 
@@ -43,24 +43,24 @@ Read `package.json` → extract `version` field.
 
 Display: "Bumping PanAI: {current} → {target}"
 
-### Step 4: Query AionCore Latest Release
+### Step 4: Query PanAI backend Latest Release
 
 **Skip entirely if `--skip-core` is set.**
 
 ```bash
-gh release view --repo iOfficeAI/AionCore --json tagName,body
+gh release view --repo iOfficeAI/PanAI backend --json tagName,body
 ```
 
 - If `--core <version>` provided → use that tag instead of latest
-- Display the AionCore version and ask user to confirm before continuing
+- Display the PanAI backend version and ask user to confirm before continuing
 - Also read current `aioncoreVersion` from `package.json` — if it already matches the queried version, warn the user and ask whether to proceed or use `--skip-core`
 
-### Step 5: Verify AionCore Artifacts
+### Step 5: Verify PanAI backend Artifacts
 
 **Skip if `--skip-core`.**
 
 ```bash
-gh release view <tag> --repo iOfficeAI/AionCore --json assets --jq '.assets[].name'
+gh release view <tag> --repo iOfficeAI/PanAI backend --json assets --jq '.assets[].name'
 ```
 
 Verify all 7 expected assets exist:
@@ -73,7 +73,7 @@ Verify all 7 expected assets exist:
 - `aioncore-<tag>-aarch64-pc-windows-msvc.zip`
 - `aioncore-checksums.txt`
 
-Missing → Stop: "AionCore {tag} is missing artifacts: {list}. Wait for CI to complete or check for build failures."
+Missing → Stop: "PanAI backend {tag} is missing artifacts: {list}. Wait for CI to complete or check for build failures."
 
 ### Step 6: Update package.json
 
@@ -103,7 +103,7 @@ git log v{previous}..HEAD --oneline --no-merges --format="%s"
 - Group by type (Features, Bug Fixes, Refactoring, Performance, Styling)
 - Format each as: `- **scope:** description (#PR)`
 
-#### 7c: Collect AionCore Changes
+#### 7c: Collect PanAI backend Changes
 
 From step 4's release body (already in conventional-changelog format from release-please). Parse into same grouped format.
 
@@ -131,7 +131,7 @@ Prepend the new entry in this format:
 
 - **thinking:** add streaming indicator (#3015)
 
-### Core ([{core tag}](https://github.com/iOfficeAI/AionCore/releases/tag/{core tag}))
+### Core ([{core tag}](https://github.com/iOfficeAI/PanAI backend/releases/tag/{core tag}))
 
 #### Bug Fixes
 
@@ -234,10 +234,10 @@ Display: "Tag v{target} created and pushed. Release build triggered! Action: {ru
  1. Must be on clean main
  2. git pull --rebase
  3. Determine PanAI target version (patch+1 or explicit)
- 4. Query AionCore latest release (or --core / --skip-core)
- 5. Verify AionCore artifacts (7 files)
+ 4. Query PanAI backend latest release (or --core / --skip-core)
+ 5. Verify PanAI backend artifacts (7 files)
  6. Edit package.json (version + aioncoreVersion)
- 7. Generate CHANGELOG entry (frontend commits + AionCore release body)
+ 7. Generate CHANGELOG entry (frontend commits + PanAI backend release body)
  8. lint + format + tsc
  9. vitest run
 10. branch → commit → push

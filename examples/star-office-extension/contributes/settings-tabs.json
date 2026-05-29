@@ -8,7 +8,7 @@
     "order": 70
   },
   {
-    "id": "aionui-home",
+    "id": "panai-home",
     "name": "PanAI Home",
     "entryPoint": "https://www.panai.local/",
     "icon": "assets/star-office-icon.svg",
@@ -16,7 +16,7 @@
     "order": 80
   },
   {
-    "id": "aionui-issues",
+    "id": "panai-issues",
     "name": "PanAI Issues",
     "entryPoint": "https://github.com/PanAI/PanAI/issues",
     "icon": "assets/star-office-icon.svg",

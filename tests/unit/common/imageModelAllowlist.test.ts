@@ -29,6 +29,11 @@ describe('isImageGenSupported', () => {
     expect(isImageGenSupported(provider, 'gemini-3-pro-image-1x1')).toBe(true);
   });
 
+  it('accepts Baidu Qianfan image models as the PanAI default', () => {
+    const provider = { platform: 'custom', name: 'Baidu Qianfan', base_url: 'https://qianfan.baidubce.com/v2' };
+    expect(isImageGenSupported(provider, 'baidu/ERNIE-Image')).toBe(true);
+  });
+
   it('rejects models without an image-style suffix even on supported providers', () => {
     const provider = { platform: 'gemini', name: 'Gemini' };
     expect(isImageGenSupported(provider, 'gemini-2.5-pro')).toBe(false);

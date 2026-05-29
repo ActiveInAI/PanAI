@@ -111,7 +111,7 @@ When you have two clones of the repository (e.g. `PanAI` and `PanAI-refactor`) a
 bun run start:multi
 ```
 
-This sets `AIONUI_MULTI_INSTANCE=1`, which:
+This sets `PANAI_MULTI_INSTANCE=1`, which:
 
 - Skips the Electron single-instance lock
 - Uses a separate userData directory (`PanAI-Dev-2`) to avoid database and config conflicts

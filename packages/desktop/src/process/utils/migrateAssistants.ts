@@ -55,7 +55,7 @@ function normalisePresetAgentType(raw: unknown): string {
 /**
  * Frozen snapshot of built-in assistant ids. Must stay in sync with the
  * backend manifest at
- * `AionCore/crates/aionui-app/assets/builtin-assistants/preset-id-whitelist.json`
+ * `PanAI backend/backend builtin assistants catalogpreset-id-whitelist.json`
  * — add/remove ids in the same PR. Drift means a user-authored assistant
  * whose id accidentally matches a built-in slug will be imported into the
  * user table and then silently overwritten the next time the backend ships
@@ -318,7 +318,7 @@ function collectBuiltinPresetAgentTypeOverrides(
 /**
  * Replay user-picked `preset_agent_type` choices onto `assistant_overrides`
  * via `PUT /api/assistants/{id}`. The backend accepts only `preset_agent_type`
- * on built-in rows (see `aionui-assistant/src/service.rs`). 404 is treated as
+ * on built-in rows (see `backend assistant service`). 404 is treated as
  * skip for the same reason as {@link applyBuiltinOverrides}: the built-in was
  * retired between versions and the user preference is moot.
  */
@@ -505,11 +505,11 @@ async function uploadLegacyAssistantRules(legacyAssistantIds: Set<string>): Prom
  * `false` so the caller can log the partial state, but next launch
  * naturally retries the remaining work.
  *
- * Honors `AIONUI_SKIP_ELECTRON_MIGRATION=1` so E2E fixtures can seed via
+ * Honors `PANAI_SKIP_ELECTRON_MIGRATION=1` so E2E fixtures can seed via
  * `POST /api/assistants/import` directly.
  */
 export async function migrateAssistantsToBackend(configFile: ConfigFile): Promise<boolean> {
-  if (process.env.AIONUI_SKIP_ELECTRON_MIGRATION === '1') {
+  if (process.env.PANAI_SKIP_ELECTRON_MIGRATION === '1') {
     console.log('[PanAI] Assistant migration skipped (env flag set)');
     return false;
   }

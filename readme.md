@@ -63,7 +63,7 @@
 
 **PanAI is more than a chat client.** It's a Cowork platform where AI agents work alongside you on your computer — reading files, writing code, browsing the web, and automating tasks. You see everything the agent does, and you're always in control.
 
-|                                 | Traditional AI Chat Clients | **PanAI (Cowork)**                                                                                                     |
+|                                 | Traditional AI Chat Clients | **PanAI (Cowork)**                                                                                                      |
 | :------------------------------ | :-------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
 | AI can operate on your files    | Limited or No               | **Yes — built-in agent with full file access**                                                                          |
 | AI can execute multi-step tasks | Limited                     | **Yes — autonomous with your approval**                                                                                 |
@@ -73,7 +73,7 @@
 | Price                           | Free / Paid                 | **Free & Open Source**                                                                                                  |
 
 <p align="center">
-  <img src="./resources/offica-ai BANNER-function.png" alt="PanAI Cowork Platform" width="800">
+  <img src="./resources/panai-feature-cowork.svg" alt="PanAI Cowork Platform" width="800">
 </p>
 
 ---
@@ -88,7 +88,7 @@ PanAI ships with a complete AI agent engine. Unlike tools that require you to in
 - **Ready-to-use assistants** — 21 built-in professional assistants (Cowork, PPT Creator, Word Creator, Word Form Creator, Excel Creator, Morph PPT, Morph PPT 3D, Pitch Deck Creator, Dashboard Creator, Academic Paper Writer, Financial Model Creator, and more) ready to use immediately
 
 <p align="center">
-  <img src="./resources/homepage.png" alt="Built-in Agents" width="800">
+  <img src="./resources/panai-feature-agent.svg" alt="Built-in Agents" width="800">
 </p>
 
 ### **Office assistants — PPT, Word & Excel**
@@ -104,10 +104,10 @@ The three assistant types map to file workflows, and the final outputs are direc
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="./resources/morph-ppt-balanced.gif" alt="Morph PPT — slide-to-slide transitions (OfficeCLI)" width="390">
+      <img src="./resources/panai-feature-office.svg" alt="Morph PPT — slide-to-slide transitions (OfficeCLI)" width="390">
     </td>
     <td align="center" width="50%">
-      <img src="./resources/readme-demo-assistant-ppt.gif" alt="PPT assistant — screen recording" width="390">
+      <img src="./resources/panai-feature-office.svg" alt="PPT assistant — screen recording" width="390">
     </td>
   </tr>
 </table>
@@ -120,10 +120,10 @@ The three assistant types map to file workflows, and the final outputs are direc
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="./resources/readme-demo-generate-academic-paper.gif" alt="Generate academic paper demo" width="390">
+      <img src="./resources/panai-feature-research.svg" alt="Generate academic paper demo" width="390">
     </td>
     <td align="center" width="50%">
-      <img src="./resources/readme-demo-assistant-write-paper.gif" alt="Paper writing assistant demo" width="390">
+      <img src="./resources/panai-feature-research.svg" alt="Paper writing assistant demo" width="390">
     </td>
   </tr>
 </table>
@@ -136,10 +136,10 @@ The three assistant types map to file workflows, and the final outputs are direc
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="./resources/readme-demo-generate-excel.gif" alt="Excel generation demo" width="390">
+      <img src="./resources/panai-feature-office.svg" alt="Excel generation demo" width="390">
     </td>
     <td align="center" width="50%">
-      <img src="./resources/readme-demo-assistant-excel.gif" alt="Excel assistant demo" width="390">
+      <img src="./resources/panai-feature-office.svg" alt="Excel assistant demo" width="390">
     </td>
   </tr>
 </table>
@@ -150,10 +150,10 @@ The three assistant types map to file workflows, and the final outputs are direc
 
 If you already use Claude Code, Codex, Hermes Agent, or OpenClaw, PanAI auto-detects them and lets you Cowork with all of them — alongside the built-in agent.
 
-**Supported Agents:** Built-in Agent (zero setup) • Claude Code • Codex • Qwen Code • Goose AI • OpenClaw • Augment Code • CodeBuddy • Kimi CLI • OpenCode • Factory Droid • GitHub Copilot • Qoder CLI • Mistral Vibe • Nanobot • Pan CLI (aionrs, the Rust-based backend service shipped with PanAI) • Snow CLI • Hermes Agent • Cursor Agent and more
+**Supported Agents:** Built-in Agent (zero setup) • Claude Code • Codex • Qwen Code • Goose AI • OpenClaw • Augment Code • CodeBuddy • Kimi CLI • OpenCode • Factory Droid • GitHub Copilot • Qoder CLI • Mistral Vibe • Nanobot • Pan CLI • Snow CLI • Hermes Agent • Cursor Agent and more
 
 <p align="center">
-  <img src="./resources/multi-agent支持openclaw.gif" alt="Multi-Agent Cowork" width="800">
+  <img src="./resources/panai-feature-multiagent.svg" alt="Multi-Agent Cowork" width="800">
 </p>
 
 - **Auto Detection** — automatically recognizes installed CLI tools
@@ -167,10 +167,10 @@ If you already use Claude Code, Codex, Hermes Agent, or OpenClaw, PanAI auto-det
 Run multiple AI agents as an organized team: a **Leader** agent receives your instructions, breaks them into subtasks, and delegates to **Teammate** agents via a built-in Team MCP Server. Teammates execute in parallel, share results through an async mailbox, and write to a shared task board.
 
 <p align="center">
-  <img src="./resources/PanAI_team.gif" alt="PanAI Team Mode overview" width="800">
+  <img src="./resources/panai-feature-team.svg" alt="PanAI Team Mode overview" width="800">
 </p>
 
-- **Parallel multi-agent execution** — Leader breaks tasks into subtasks and delegates to Teammate agents running in parallel; each Teammate uses its own model via ACP (Agent Communication Protocol, PanAI's multi-agent coordination layer), Gemini, or Aionrs
+- **Parallel multi-agent execution** — Leader breaks tasks into subtasks and delegates to Teammate agents running in parallel; each Teammate uses its own model via ACP (Agent Communication Protocol, PanAI's multi-agent coordination layer), Gemini, or PanCli
 - **Leader orchestration** — Leader assigns, tracks, and aggregates results; supported backends include Claude Code, Codex, Hermes Agent, Gemini, Snow CLI, and Pan CLI
 - **Team-isolated workspace** — all agents share the same folder; each has its own permission dialog with sidebar badge for pending approvals
 
@@ -180,7 +180,7 @@ Run multiple AI agents as an organized team: a **Leader** agent receives your in
 <br>
 
 - **Shared Workspace** — all agents read/write the same folder; the file panel stays visible throughout
-- **Supported backends** — Claude Code, Codex, Gemini, Snow CLI, Pan CLI (aionrs); other ACP backends with `mcpCapabilities.stdio` are auto-supported
+- **Supported backends** — Claude Code, Codex, Gemini, Snow CLI, Pan CLI; other ACP backends with `mcpCapabilities.stdio` are auto-supported
 - **Dynamic scaling** — add or remove Teammates while the team is running; silent agents auto-escalate to failed with one-click removal
 - **Granular permissions** — each agent has its own permission confirmation dialog; sidebar badge shows pending approvals
 - **File sharing** — Leader can pass file attachments to Teammates
@@ -193,19 +193,19 @@ Run multiple AI agents as an organized team: a **Leader** agent receives your in
 
 Other AI apps give you a chatbox with your API key. **PanAI gives you a full Cowork agent.**
 
-| Your API Key                            | What You Get                                |
-| :-------------------------------------- | :------------------------------------------ |
-| Gemini API Key (or Google login — free) | Gemini-powered Cowork Agent                 |
-| OpenAI API Key                          | GPT-powered Cowork Agent                    |
-| Anthropic API Key                       | Claude-powered Cowork Agent                 |
-| AWS Bedrock credentials                 | Bedrock-powered Agent via Pan CLI (aionrs) |
-| Ollama / LM Studio (local)              | Local model Cowork Agent                    |
-| NewAPI Gateway                          | Unified access to 20+ models                |
+| Your API Key                            | What You Get                      |
+| :-------------------------------------- | :-------------------------------- |
+| Gemini API Key (or Google login — free) | Gemini-powered Cowork Agent       |
+| OpenAI API Key                          | GPT-powered Cowork Agent          |
+| Anthropic API Key                       | Claude-powered Cowork Agent       |
+| AWS Bedrock credentials                 | Bedrock-powered Agent via Pan CLI |
+| Ollama / LM Studio (local)              | Local model Cowork Agent          |
+| NewAPI Gateway                          | Unified access to 20+ models      |
 
 Same agent capabilities — file read/write, web search, image generation, tool use — regardless of which model powers it. PanAI supports **30+ AI platforms** including cloud services and local deployments.
 
 <p align="center">
-  <img src="./resources/llm_newapi.png" alt="Multi-Model Support" width="800">
+  <img src="./resources/panai-feature-models.svg" alt="Multi-Model Support" width="800">
 </p>
 
 <details>
@@ -236,7 +236,7 @@ _Extensible assistant system with 21 built-in professional assistants and a thre
 - **Per-conversation Control** — A skill indicator in the chat header shows active skills for the current conversation; search and exclude skills as needed
 
 <p align="center">
-  <img src="./resources/assitants.png" alt="AI Assistants & Skills Ecosystem" width="800">
+  <img src="./resources/panai-feature-skills.svg" alt="AI Assistants & Skills Ecosystem" width="800">
 </p>
 
 PanAI supports three skill layers: **built-in** skills (shipped with the app), **custom** skills (user-defined), and **extension** skills (loaded from the Extension SDK).
@@ -292,7 +292,7 @@ _Your 24/7 AI assistant — access PanAI from any device, anywhere._
 > **Setup:** PanAI Settings → WebUI Settings → Channel, configure the Bot Token.
 
 <p align="center">
-  <img src="./resources/webui-remote.gif" alt="WebUI remote access demo" width="800">
+  <img src="./resources/panai-feature-remote.svg" alt="WebUI remote access demo" width="800">
 </p>
 
 <p align="center"><em>Remote control &amp; monitor your agent — Claude, Gemini, Codex. Use from browser or phone, same as Claude Code remote.</em></p>
@@ -311,7 +311,7 @@ _Set it up once, the AI agent runs automatically on schedule — truly 24/7 unat
 - **Use Cases:** scheduled data aggregation, report generation, file organization, reminders
 
 <p align="center">
-  <img src="./resources/alart-task.png" alt="Scheduled Tasks" width="800">
+  <img src="./resources/panai-feature-scheduled.svg" alt="Scheduled Tasks" width="800">
 </p>
 
 <details>
@@ -359,7 +359,7 @@ _10+ formats: PDF, Word, Excel, PPT, code, Markdown, images, HTML, Diff — view
 - **Version History** — view and restore historical versions of files (Git-based)
 
 <p align="center">
-  <img src="./resources/preview.gif" alt="Preview Panel" width="800">
+  <img src="./resources/panai-feature-preview.svg" alt="Preview Panel" width="800">
 </p>
 
 <details>
@@ -384,7 +384,7 @@ _10+ formats: PDF, Word, Excel, PPT, code, Markdown, images, HTML, Diff — view
 _Batch renaming, automatic organization, smart classification, file merging — the Cowork agent handles it for you._
 
 <p align="center">
-  <img src="./resources/panai-sort-file-2.gif" alt="Smart File Management" width="800">
+  <img src="./resources/panai-feature-files.svg" alt="Smart File Management" width="800">
 </p>
 
 <details>
@@ -412,7 +412,7 @@ _Batch renaming, automatic organization, smart classification, file merging — 
 _Deeply analyze Excel data, automatically beautify reports, and generate insights — all powered by AI agents._
 
 <p align="center">
-  <img src="./resources/generate_xlsx.gif" alt="Excel Processing" width="800">
+  <img src="./resources/panai-feature-office.svg" alt="Excel Processing" width="800">
 </p>
 
 <details>
@@ -441,7 +441,7 @@ _Deeply analyze Excel data, automatically beautify reports, and generate insight
 _Intelligent image generation, editing, and recognition, powered by Gemini_
 
 <p align="center">
-  <img src="./resources/Image_Generation.gif" alt="AI Image Generation" width="800">
+  <img src="./resources/panai-feature-image.svg" alt="AI Image Generation" width="800">
 </p>
 
 <details>
@@ -465,7 +465,7 @@ _Intelligent image generation, editing, and recognition, powered by Gemini_
 _Automatically generate professional documents — presentations, reports, and more — with AI agents._
 
 <p align="center">
-  <img src="./resources/file_generation_preview.png" alt="Document Generation" width="800">
+  <img src="./resources/panai-feature-preview.svg" alt="Document Generation" width="800">
 </p>
 
 <details>
@@ -492,7 +492,7 @@ _Automatically generate professional documents — presentations, reports, and m
 _Customize with your own CSS code, make your interface match your preferences_
 
 <p align="center">
-  <img src="./resources/css with skin.gif" alt="CSS Customization" width="800">
+  <img src="./resources/panai-feature-theme.svg" alt="CSS Customization" width="800">
 </p>
 
 - ✅ **Fully Customizable** — Freely customize interface colors, styles, layout through CSS code, create your exclusive experience
@@ -504,7 +504,7 @@ _Customize with your own CSS code, make your interface match your preferences_
 _Open multiple conversations, tasks don't get mixed up, independent memory, double efficiency_
 
 <p align="center">
-  <img src="./resources/multichat-side-by-side.gif" alt="Multi-Task Parallel" width="800">
+  <img src="./resources/panai-feature-parallel.svg" alt="Multi-Task Parallel" width="800">
 </p>
 
 - ✅ **Independent Context** — Each conversation maintains its own context and history
@@ -522,7 +522,7 @@ _Open multiple conversations, tasks don't get mixed up, independent memory, doub
 
 PanAI is a **free and open-source Multi-AI Agent Desktop**. Compared to Claude Cowork which only runs on macOS and is locked to Claude, PanAI is its full-model, cross-platform enhanced version.
 
-| Dimension     | Claude Cowork | PanAI                                                    |
+| Dimension     | Claude Cowork | PanAI                                                     |
 | :------------ | :------------ | :-------------------------------------------------------- |
 | OS            | macOS Only    | macOS / Windows / Linux                                   |
 | Model Support | Claude Only   | Gemini, Claude, DeepSeek, OpenAI, Ollama, ...             |

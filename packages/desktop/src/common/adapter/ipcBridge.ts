@@ -127,14 +127,14 @@ export const conversation = {
     httpPost<TChatConversation, ICreateConversationParams>('/api/conversations', (p) => {
       // Top-level `model` is aionrs-only on the backend (spec 2026-05-12).
       // Other agent types carry model info via `extra`.
-      const isAionrs = p.type === 'aionrs';
+      const isPanCli = p.type === 'aionrs';
       const body: Record<string, unknown> = {
         type: p.type,
         id: p.id,
         name: p.name,
         extra: p.extra,
       };
-      if (isAionrs) {
+      if (isPanCli) {
         const model = toApiModelOptional(p.model);
         if (model) body.model = model;
       }
@@ -144,12 +144,12 @@ export const conversation = {
   ),
   createWithConversation: withResponseMap(
     httpPost<TChatConversation, { conversation: TChatConversation }>('/api/conversations/clone', (p) => {
-      const isAionrs = p.conversation.type === 'aionrs';
+      const isPanCli = p.conversation.type === 'aionrs';
       const { model: _rawModel, ...rest } = p.conversation as TChatConversation & {
         model?: TProviderWithModel;
       };
       const clonedConversation: Record<string, unknown> = { ...rest };
-      if (isAionrs) {
+      if (isPanCli) {
         const model = toApiModelOptional(_rawModel);
         if (model) clonedConversation.model = model;
       }
@@ -371,7 +371,7 @@ export const application = {
   ),
   getPath: bridge.buildProvider<string, { name: 'desktop' | 'home' | 'downloads' }>('app.get-path'),
   // Electron-local: copies cache dir + persists to ProcessEnv, paired with restart.
-  // The backend reads AIONUI_*_DIR env vars on boot, so it does not own this config.
+  // The backend reads PANAI_*_DIR env vars on boot, so it does not own this config.
   updateSystemInfo: bridge.buildProvider<void, { cacheDir: string; workDir: string }>('update-system-info'),
   getZoomFactor: bridge.buildProvider<number, void>('app.get-zoom-factor'),
   setZoomFactor: bridge.buildProvider<number, { factor: number }>('app.set-zoom-factor'),

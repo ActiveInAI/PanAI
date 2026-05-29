@@ -13,7 +13,7 @@ import { getAgents } from '@/renderer/hooks/agent/useAgents';
  *
  * Backend `service.rs` consumes `input.model` verbatim with no default, so an
  * empty or backend-name-only value (e.g. "gemini") ends up persisted as
- * `use_model: null`. Downstream, GeminiSendBox / AionrsSendBox gate the
+ * `use_model: null`. Downstream, GeminiSendBox / PanCliSendBox gate the
  * textarea on `current_model?.useModel` and render disabled. See mnemo #297.
  *
  * This resolver reads the user's configured default model for provider-based
@@ -36,7 +36,7 @@ export async function resolveDefaultTeamAgentModel(params: {
   }
 
   if (conversation_type === 'aionrs' || agent_type === 'aionrs') {
-    return resolveAionrsDefaultModel();
+    return resolvePanCliDefaultModel();
   }
 
   return resolveAcpDefaultModel(agent_type);
@@ -66,7 +66,7 @@ async function resolveGeminiDefaultModel(): Promise<string> {
   return 'auto';
 }
 
-async function resolveAionrsDefaultModel(): Promise<string> {
+async function resolvePanCliDefaultModel(): Promise<string> {
   const saved = configService.get('aionrs.defaultModel');
   if (saved && typeof saved === 'object' && typeof saved.use_model === 'string' && saved.use_model.length > 0) {
     return saved.use_model;

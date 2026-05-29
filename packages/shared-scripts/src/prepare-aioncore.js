@@ -15,7 +15,7 @@ const os = require('os');
 const path = require('path');
 
 const GITHUB_OWNER = 'iOfficeAI';
-const GITHUB_REPO = 'AionCore';
+const GITHUB_REPO = 'PanAI backend';
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -154,7 +154,7 @@ describe('initSentry beforeSend', () => {
       exception: {
         values: [
           {
-            value: '[WebUI] Cannot start: aioncore is not running (globalThis.__backendPort unset)',
+            value: '[WebUI] Cannot start: PanAI backend is not running (globalThis.__backendPort unset)',
           },
         ],
       },
@@ -171,7 +171,7 @@ describe('initSentry beforeSend', () => {
 
     const event = {
       tags: {
-        'aionui.failure': 'backend_startup',
+        'panai.failure': 'backend_startup',
       },
       exception: {
         values: [

@@ -25,7 +25,7 @@ and every HTTP call from the renderer (or from e2e helpers that use
 
 ```bash
 # Install the backend binary (builds to ~/.cargo/bin/aioncore)
-cd ../AionCore && cargo install --path crates/aionui-app
+cd ../PanAI backend && cargo install --path backend app crate
 
 # Make sure it's on PATH when running tests
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -208,12 +208,12 @@ Failed tests automatically get screenshots attached to the HTML report.
 
 Variables set automatically during test launch:
 
-| Variable                     | Value | Purpose                  |
-| ---------------------------- | ----- | ------------------------ |
-| `AIONUI_E2E_TEST`            | `1`   | App recognizes test mode |
-| `AIONUI_DISABLE_AUTO_UPDATE` | `1`   | No update checks         |
-| `AIONUI_DISABLE_DEVTOOLS`    | `1`   | No DevTools windows      |
-| `AIONUI_CDP_PORT`            | `0`   | CDP disabled             |
+| Variable                    | Value | Purpose                  |
+| --------------------------- | ----- | ------------------------ |
+| `PANAI_E2E_TEST`            | `1`   | App recognizes test mode |
+| `PANAI_DISABLE_AUTO_UPDATE` | `1`   | No update checks         |
+| `PANAI_DISABLE_DEVTOOLS`    | `1`   | No DevTools windows      |
+| `PANAI_CDP_PORT`            | `0`   | CDP disabled             |
 
 ---
 
@@ -285,7 +285,7 @@ bunx electron-vite build
 
 ```bash
 # Clean via database
-sqlite3 "~/Library/Application Support/PanAI-Dev/aionui/aionui.db" \
+sqlite3 "~/Library/Application Support/PanAI-Dev/panai/panai.db" \
   "DELETE FROM teams WHERE name LIKE 'E2E%';"
 ```
 

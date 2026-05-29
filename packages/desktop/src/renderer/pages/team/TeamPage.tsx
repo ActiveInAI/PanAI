@@ -12,9 +12,9 @@ import ChatLayout from '@/renderer/pages/conversation/components/ChatLayout';
 import ChatSlider from '@renderer/pages/conversation/components/ChatSlider.tsx';
 import { useTeamPendingPermissions } from './hooks/useTeamPendingPermissions';
 import AcpModelSelector from '@/renderer/components/agent/AcpModelSelector';
-import AionrsModelSelector from '@/renderer/pages/conversation/platforms/aionrs/AionrsModelSelector';
-import { useAionrsModelSelection } from '@/renderer/pages/conversation/platforms/aionrs/useAionrsModelSelection';
-import { saveAionrsDefaultModel } from '@/renderer/pages/guid/hooks/agentSelectionUtils';
+import PanCliModelSelector from '@/renderer/pages/conversation/platforms/pancli/PanCliModelSelector';
+import { usePanCliModelSelection } from '@/renderer/pages/conversation/platforms/pancli/usePanCliModelSelection';
+import { savePanCliDefaultModel } from '@/renderer/pages/guid/hooks/agentSelectionUtils';
 import TeamTabs from './components/TeamTabs';
 import TeamChatView from './components/TeamChatView';
 import TeamAgentIdentity from './components/TeamAgentIdentity';
@@ -33,7 +33,7 @@ type TeamPageContentProps = {
 };
 
 /** Compact aionrs model selector for the agent header */
-const AionrsHeaderModelSelector: React.FC<{ conversation_id: string; initialModel?: TProviderWithModel }> = ({
+const PanCliHeaderModelSelector: React.FC<{ conversation_id: string; initialModel?: TProviderWithModel }> = ({
   conversation_id,
   initialModel,
 }) => {
@@ -41,13 +41,13 @@ const AionrsHeaderModelSelector: React.FC<{ conversation_id: string; initialMode
     async (_provider: IProvider, modelName: string) => {
       const selected = { ..._provider, use_model: modelName } as TProviderWithModel;
       const ok = await ipcBridge.conversation.update.invoke({ id: conversation_id, updates: { model: selected } });
-      if (ok) void saveAionrsDefaultModel(_provider.id, modelName);
+      if (ok) void savePanCliDefaultModel(_provider.id, modelName);
       return Boolean(ok);
     },
     [conversation_id]
   );
-  const modelSelection = useAionrsModelSelection({ initialModel, onSelectModel });
-  return <AionrsModelSelector selection={modelSelection} />;
+  const modelSelection = usePanCliModelSelection({ initialModel, onSelectModel });
+  return <PanCliModelSelector selection={modelSelection} />;
 };
 
 /** Fetches conversation for a single agent and renders TeamChatView */
@@ -66,7 +66,7 @@ const AgentChatSlot: React.FC<{
     () => getConversationOrNull(agent.conversation_id)
   );
 
-  const isAionrs = conversation?.type === 'aionrs';
+  const isPanCli = conversation?.type === 'aionrs';
   const initialModelId = (conversation?.extra as { current_model_id?: string })?.current_model_id;
   const isAcpLike =
     agent.conversation_type === 'acp' || agent.conversation_type === 'codex' || conversation?.type === 'acp';
@@ -101,7 +101,7 @@ const AgentChatSlot: React.FC<{
           nameClassName='text-13px text-[color:var(--color-text-2)] font-medium'
         />
         <div className='flex items-center gap-8px shrink-0'>
-          {!isMobile && agent.conversation_id && !isAionrs && isAcpLike && (
+          {!isMobile && agent.conversation_id && !isPanCli && isAcpLike && (
             <div className='min-w-0 max-w-140px [&_button]:max-w-full [&_button_span]:truncate'>
               <AcpModelSelector
                 key={agent.conversation_id}
@@ -111,9 +111,9 @@ const AgentChatSlot: React.FC<{
               />
             </div>
           )}
-          {!isMobile && isAionrs && agent.conversation_id && (
+          {!isMobile && isPanCli && agent.conversation_id && (
             <div className='min-w-0 max-w-140px [&_button]:max-w-full [&_button_span]:truncate'>
-              <AionrsHeaderModelSelector
+              <PanCliHeaderModelSelector
                 key={agent.conversation_id}
                 conversation_id={agent.conversation_id}
                 initialModel={conversation?.model as TProviderWithModel | undefined}

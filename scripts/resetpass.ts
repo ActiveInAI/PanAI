@@ -63,7 +63,7 @@ function getFlag(name: string): string | undefined {
 /**
  * Same resolution as scripts/webui.ts:resolveBackendDataDir — keep both in sync
  * so `bun run webui` and `bun run resetpass` always target the same SQLite DB.
- * See the comment there for why the default is `~/.panai-web*` (not `~/.aionui*`).
+ * See the comment there for why the default is `~/.panai-web*`.
  */
 function resolveWorkDir(): string {
   const override = getFlag('--data-dir') ?? process.env.PANAI_DATA_DIR;
@@ -95,9 +95,7 @@ function resolveBackendBinary(): string {
     // fall through
   }
 
-  throw new Error(
-    `Cannot find "${BACKEND_BINARY}". Set PANAI_BACKEND_BIN, put it on PATH, or place it at ${bundled}.`
-  );
+  throw new Error(`Cannot find "${BACKEND_BINARY}". Set PANAI_BACKEND_BIN, put it on PATH, or place it at ${bundled}.`);
 }
 
 /**

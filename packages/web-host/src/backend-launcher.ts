@@ -38,7 +38,7 @@ export type BackendLaunchOptions = {
   dataDir?: string;
   logDir?: string;
   /**
-   * System dirs exposed to the backend via AIONUI_{CACHE,WORK,LOG}_DIR env.
+   * System dirs exposed to the backend via PANAI_{CACHE,WORK,LOG}_DIR env.
    * Surfaces on `/api/system/info`. If omitted, the backend inherits
    * process.env and will likely report wrong/empty dirs.
    */
@@ -97,7 +97,7 @@ export class BackendStartupError extends Error {
 }
 
 export function buildSpawnArgs(config: SpawnConfig): string[] {
-  const logLevel = process.env.AIONUI_LOG_LEVEL || (config.isPackaged ? 'info' : 'debug');
+  const logLevel = process.env.PANAI_LOG_LEVEL || (config.isPackaged ? 'info' : 'debug');
   const args = [
     '--port',
     String(config.port),
@@ -115,17 +115,17 @@ export function buildSpawnArgs(config: SpawnConfig): string[] {
 }
 
 /**
- * Backend reads AIONUI_{CACHE,WORK,LOG}_DIR env vars to report system dirs
- * (see AionCore/crates/aionui-system/src/sysinfo.rs). Inject them so the
+ * Backend reads PANAI_{CACHE,WORK,LOG}_DIR env vars to report system dirs
+ * (see PanAI backend/backend sysinfo service). Inject them so the
  * backend's `/api/system/info` matches what Electron main persists in
- * ProcessEnv('aionui.dir').
+ * ProcessEnv('panai.dir').
  */
 export function buildSpawnEnv(dirs: BackendDirConfig): NodeJS.ProcessEnv {
   return {
     ...process.env,
-    AIONUI_CACHE_DIR: dirs.cacheDir,
-    AIONUI_WORK_DIR: dirs.workDir,
-    AIONUI_LOG_DIR: dirs.logDir,
+    PANAI_CACHE_DIR: dirs.cacheDir,
+    PANAI_WORK_DIR: dirs.workDir,
+    PANAI_LOG_DIR: dirs.logDir,
   };
 }
 
@@ -273,7 +273,7 @@ export class BackendLifecycleManager {
       appVersion,
       isPackaged: this.appMeta.isPackaged,
     });
-    console.log(`[aioncore] starting: ${binaryPath} ${args.join(' ')}`);
+    console.log(`[panai-backend] starting: ${binaryPath} ${args.join(' ')}`);
 
     try {
       this.childProcess = spawn(binaryPath, args, {
@@ -328,7 +328,7 @@ export class BackendLifecycleManager {
               })
             )
           ).catch((error) => {
-            console.error('[aioncore] pending exit handler failed:', error);
+            console.error('[panai-backend] pending exit handler failed:', error);
           });
           return;
         }
@@ -339,14 +339,14 @@ export class BackendLifecycleManager {
     this.childProcess.stdout?.on('data', (data: Buffer) => {
       stdoutTail = appendOutputTail(stdoutTail, data);
       for (const line of data.toString().split('\n')) {
-        if (line.trim()) console.log(`[aioncore] ${line}`);
+        if (line.trim()) console.log(`[panai-backend] ${line}`);
       }
     });
 
     this.childProcess.stderr?.on('data', (data: Buffer) => {
       stderrTail = appendOutputTail(stderrTail, data);
       for (const line of data.toString().split('\n')) {
-        if (line.trim()) console.error(`[aioncore] ${line}`);
+        if (line.trim()) console.error(`[panai-backend] ${line}`);
       }
     });
 
@@ -355,9 +355,9 @@ export class BackendLifecycleManager {
       const healthTimeoutError = makeStartupError('health_timeout', 'aioncore failed to start within timeout');
       if (options?.allowPendingOnHealthTimeout && this.childProcess) {
         startupSettled = true;
-        console.warn(`[aioncore] health check timed out; keeping process alive on port ${this._port}`);
+        console.warn(`[panai-backend] health check timed out; keeping process alive on port ${this._port}`);
         void Promise.resolve(options.onHealthTimeout?.(healthTimeoutError)).catch((error) => {
-          console.error('[aioncore] health timeout handler failed:', error);
+          console.error('[panai-backend] health timeout handler failed:', error);
         });
         this.continueWaitingForHealth(this._port, this.childProcess, options.onReady);
         return this._port;
@@ -372,7 +372,7 @@ export class BackendLifecycleManager {
     startupSettled = true;
     this._status = 'running';
     this.restartCount = 0;
-    console.log(`[aioncore] listening on port ${this._port}, data-dir: ${dbPath}`);
+    console.log(`[panai-backend] listening on port ${this._port}, data-dir: ${dbPath}`);
     return this._port;
   }
 
@@ -426,10 +426,10 @@ export class BackendLifecycleManager {
       if (!ready || this.childProcess !== childProcess || this._status !== 'starting') return;
       this._status = 'running';
       this.restartCount = 0;
-      console.log(`[aioncore] listening on port ${port}, data-dir: ${this._lastDbPath}`);
+      console.log(`[panai-backend] listening on port ${port}, data-dir: ${this._lastDbPath}`);
       await onReady?.(port);
     })().catch((error) => {
-      console.error('[aioncore] background health wait failed:', error);
+      console.error('[panai-backend] background health wait failed:', error);
     });
   }
 

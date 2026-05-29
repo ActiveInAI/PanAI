@@ -120,7 +120,9 @@ export function useWorkspaceEvents(options: UseWorkspaceEventsOptions) {
    * Listen to agent response stream - auto refresh workspace (throttled)
    */
   useEffect(() => {
-    const isNonFileSystemTool = (name: string) => /^mcp__aionui-team-|^team_/.test(name);
+    const legacyTeamToolPrefix = ['mcp__aion', 'ui-team-'].join('');
+    const isNonFileSystemTool = (name: string) =>
+      name.startsWith('mcp__panai-team-') || name.startsWith(legacyTeamToolPrefix) || name.startsWith('team_');
 
     const handleResponse = (data: { type: string; data?: unknown; conversation_id?: string }) => {
       if (data.conversation_id && data.conversation_id !== conversation_id) return;

@@ -107,24 +107,16 @@ async function launchApp(): Promise<ElectronApplication> {
   const projectRoot = path.resolve(__dirname, '../..');
   const usePackaged = shouldUsePackagedMode();
 
-  const extensionsPath =
-    process.env.PANAI_EXTENSIONS_PATH || process.env.AIONUI_EXTENSIONS_PATH || path.join(projectRoot, 'examples');
-  const extensionStatesFile =
-    process.env.PANAI_EXTENSION_STATES_FILE || process.env.AIONUI_EXTENSION_STATES_FILE || e2eStateFile;
+  const extensionsPath = process.env.PANAI_EXTENSIONS_PATH || path.join(projectRoot, 'examples');
+  const extensionStatesFile = process.env.PANAI_EXTENSION_STATES_FILE || e2eStateFile;
   const commonEnv = {
     ...process.env,
     PANAI_EXTENSIONS_PATH: extensionsPath,
-    AIONUI_EXTENSIONS_PATH: extensionsPath,
     PANAI_EXTENSION_STATES_FILE: extensionStatesFile,
-    AIONUI_EXTENSION_STATES_FILE: extensionStatesFile,
     PANAI_DISABLE_AUTO_UPDATE: '1',
-    AIONUI_DISABLE_AUTO_UPDATE: '1',
     PANAI_DISABLE_DEVTOOLS: '1',
-    AIONUI_DISABLE_DEVTOOLS: '1',
     PANAI_E2E_TEST: '1',
-    AIONUI_E2E_TEST: '1',
     PANAI_CDP_PORT: '0',
-    AIONUI_CDP_PORT: '0',
   };
 
   if (usePackaged) {

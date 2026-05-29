@@ -7,7 +7,7 @@ import { ipcBridge } from '@/common';
 import type { TTeam, TeamAgent } from '@/common/types/team/teamTypes';
 import { useAuth } from '@renderer/hooks/context/AuthContext';
 import { useConversationAgents } from '@renderer/pages/conversation/hooks/useConversationAgents';
-import AionModal from '@renderer/components/base/AionModal';
+import PanModal from '@renderer/components/base/PanModal';
 import { WorkspaceFolderSelect } from '@renderer/components/workspace';
 import {
   agentKey,
@@ -197,7 +197,7 @@ const TeamCreateModal: React.FC<Props> = ({ visible, onClose, onCreated }) => {
     }
   };
   return (
-    <AionModal
+    <PanModal
       visible={visible}
       onCancel={handleClose}
       className='team-create-modal'
@@ -353,7 +353,7 @@ const TeamCreateModal: React.FC<Props> = ({ visible, onClose, onCreated }) => {
           </FormItem>
         </Form>
       </div>
-    </AionModal>
+    </PanModal>
   );
 };
 

@@ -26,12 +26,12 @@ import NanobotChat from '../platforms/nanobot/NanobotChat';
 import OpenClawChat from '../platforms/openclaw/OpenClawChat';
 import RemoteChat from '../platforms/remote/RemoteChat';
 import AcpModelSelector from '@/renderer/components/agent/AcpModelSelector';
-import { saveAionrsDefaultModel } from '@/renderer/pages/guid/hooks/agentSelectionUtils';
+import { savePanCliDefaultModel } from '@/renderer/pages/guid/hooks/agentSelectionUtils';
 import { getConversationOrNull } from '@/renderer/pages/conversation/utils/conversationCache';
 import GoogleModelSelector from '../platforms/gemini/GoogleModelSelector';
-import AionrsChat from '../platforms/aionrs/AionrsChat';
-import AionrsModelSelector from '../platforms/aionrs/AionrsModelSelector';
-import { useAionrsModelSelection } from '../platforms/aionrs/useAionrsModelSelection';
+import PanCliChat from '../platforms/pancli/PanCliChat';
+import PanCliModelSelector from '../platforms/pancli/PanCliModelSelector';
+import { usePanCliModelSelection } from '../platforms/pancli/usePanCliModelSelection';
 import { usePreviewContext } from '../Preview';
 import StarOfficeMonitorCard from '../platforms/openclaw/StarOfficeMonitorCard.tsx';
 // import SkillRuleGenerator from './components/SkillRuleGenerator'; // Temporarily hidden
@@ -134,9 +134,9 @@ const _AddNewConversation: React.FC<{ conversation: TChatConversation }> = ({ co
   );
 };
 
-type AionrsConversation = Extract<TChatConversation, { type: 'aionrs' }>;
+type PanCliConversation = Extract<TChatConversation, { type: 'aionrs' }>;
 
-const AionrsConversationPanel: React.FC<{ conversation: AionrsConversation; sliderTitle: React.ReactNode }> = ({
+const PanCliConversationPanel: React.FC<{ conversation: PanCliConversation; sliderTitle: React.ReactNode }> = ({
   conversation,
   sliderTitle,
 }) => {
@@ -146,13 +146,13 @@ const AionrsConversationPanel: React.FC<{ conversation: AionrsConversation; slid
       // Kill running agent on model switch — will be rebuilt with new model on next message
       await ipcBridge.conversation.stop.invoke({ conversation_id: conversation.id });
       const ok = await ipcBridge.conversation.update.invoke({ id: conversation.id, updates: { model: selected } });
-      if (ok) void saveAionrsDefaultModel(_provider.id, modelName);
+      if (ok) void savePanCliDefaultModel(_provider.id, modelName);
       return Boolean(ok);
     },
     [conversation.id]
   );
 
-  const modelSelection = useAionrsModelSelection({
+  const modelSelection = usePanCliModelSelection({
     initialModel: conversation.model,
     onSelectModel,
   });
@@ -175,7 +175,7 @@ const AionrsConversationPanel: React.FC<{ conversation: AionrsConversation; slid
           cron_job_id={conversation.extra?.cron_job_id as string | undefined}
           hasCronSkill={hasLoadedSkill(conversation, 'cron')}
         />
-        {!isMobile && <AionrsModelSelector selection={modelSelection} />}
+        {!isMobile && <PanCliModelSelector selection={modelSelection} />}
       </div>
     ),
     workspaceEnabled,
@@ -188,7 +188,7 @@ const AionrsConversationPanel: React.FC<{ conversation: AionrsConversation; slid
 
   return (
     <ChatLayout {...chatLayoutProps} conversation_id={conversation.id}>
-      <AionrsChat
+      <PanCliChat
         conversation_id={conversation.id}
         workspace={conversation.extra.workspace}
         modelSelection={modelSelection}
@@ -211,11 +211,11 @@ const ChatConversation: React.FC<{
   const layout = useLayoutContext();
   const isMobile = Boolean(layout?.isMobile);
 
-  const isAionrsConversation = conversation?.type === 'aionrs';
+  const isPanCliConversation = conversation?.type === 'aionrs';
 
   // 使用统一的 Hook 获取预设助手信息（ACP/Codex 会话）
   // Use unified hook for preset assistant info (ACP/Codex conversations)
-  const acpConversation = isAionrsConversation ? undefined : conversation;
+  const acpConversation = isPanCliConversation ? undefined : conversation;
   const { info: presetAssistantInfo, isLoading: isLoadingPreset } = usePresetAssistantInfo(acpConversation);
   const acpAssistantId = acpConversation ? (resolveAssistantConfigId(acpConversation) ?? undefined) : undefined;
 
@@ -223,7 +223,7 @@ const ChatConversation: React.FC<{
   const assistantDisplayName = presetAssistantInfo?.name || conversationAgentName;
 
   const conversationNode = useMemo(() => {
-    if (!conversation || isAionrsConversation) return null;
+    if (!conversation || isPanCliConversation) return null;
     switch (conversation.type) {
       case 'acp':
         return (
@@ -244,7 +244,7 @@ const ChatConversation: React.FC<{
         // removed. The message history is still served by the shared messages
         // table, so AcpChat renders it fine. The composer is left enabled —
         // any send attempt will get a BadRequest from the factory branch in
-        // aionui-common/src/enums.rs → factory.rs, surfacing a clear error
+        // backend enums → factory.rs, surfacing a clear error
         // to the user.
         return (
           <AcpChat
@@ -303,7 +303,7 @@ const ChatConversation: React.FC<{
       default:
         return null;
     }
-  }, [conversation, isAionrsConversation, assistantDisplayName, hideSendBox]);
+  }, [conversation, isPanCliConversation, assistantDisplayName, hideSendBox]);
 
   const sliderTitle = useMemo(() => {
     return (
@@ -318,7 +318,7 @@ const ChatConversation: React.FC<{
   // Mobile: model selection moves into the sendbox `+` action sheet, so the
   // header selector is suppressed to free up vertical space.
   const modelSelector = useMemo(() => {
-    if (!conversation || isAionrsConversation) return undefined;
+    if (!conversation || isPanCliConversation) return undefined;
     if (isMobile) return undefined;
     if (conversation.type === 'acp') {
       const extra = conversation.extra as { backend?: string; current_model_id?: string };
@@ -331,10 +331,10 @@ const ChatConversation: React.FC<{
       );
     }
     return <GoogleModelSelector disabled={true} />;
-  }, [conversation, isAionrsConversation, isMobile]);
+  }, [conversation, isPanCliConversation, isMobile]);
 
   if (conversation && conversation.type === 'aionrs') {
-    return <AionrsConversationPanel key={conversation.id} conversation={conversation} sliderTitle={sliderTitle} />;
+    return <PanCliConversationPanel key={conversation.id} conversation={conversation} sliderTitle={sliderTitle} />;
   }
 
   // 如果有预设助手信息，使用预设助手的 logo 和名称；加载中时不进入 fallback；否则使用 backend 的 logo

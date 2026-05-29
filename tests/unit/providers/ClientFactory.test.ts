@@ -162,7 +162,7 @@ describe('ClientFactory', () => {
       const calls = (OpenAIRotatingClient as any).mock.calls;
       const config = calls[0][1];
       expect(config.defaultHeaders).toEqual({
-        'HTTP-Referer': 'https://aionui.com',
+        'HTTP-Referer': 'https://github.com/ActiveInAI/PanAI',
         'X-Title': 'PanAI',
       });
     });

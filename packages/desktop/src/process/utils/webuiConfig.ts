@@ -152,7 +152,7 @@ export const resolveWebUIPort = (
 
 export const resolveRemoteAccess = (config: WebUIUserConfig, isRemoteMode: boolean): boolean => {
   const envRemote = parseBooleanEnv(process.env.PANAI_ALLOW_REMOTE || process.env.PANAI_REMOTE);
-  const hostHint = (process.env.PANAI_HOST ?? process.env.AIONUI_HOST)?.trim();
+  const hostHint = (process.env.PANAI_HOST ?? process.env.PANAI_HOST)?.trim();
   const hostRequestsRemote = hostHint ? ['0.0.0.0', '::', '::0'].includes(hostHint) : false;
   const configRemote = config.allowRemote === true;
 
@@ -229,7 +229,7 @@ export async function startDesktopWebUI(opts: { port?: number; allowRemote?: boo
   // Spawning a second backend here would race the first on the same SQLite file.
   const backendPort = (globalThis as typeof globalThis & { __backendPort?: number }).__backendPort;
   if (!backendPort) {
-    throw new Error('[WebUI] Cannot start: aioncore is not running (globalThis.__backendPort unset)');
+    throw new Error('[WebUI] Cannot start: PanAI backend is not running (globalThis.__backendPort unset)');
   }
 
   const handle = await startWebHost({

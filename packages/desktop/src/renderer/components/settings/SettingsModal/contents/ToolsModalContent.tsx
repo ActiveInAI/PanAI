@@ -9,7 +9,11 @@ import type { ConfigKeyMap } from '@/common/config/configKeys';
 import { removeImageGenerationEnvKeys, resolveImageGenerationMcpEnv } from '@/common/config/imageGenerationMcpEnv';
 import { mcpService } from '@/common/adapter/ipcBridge';
 import { type IMcpServer, BUILTIN_IMAGE_GEN_ID, BUILTIN_IMAGE_GEN_NAME } from '@/common/config/storage';
-import { isImageGenSupported } from '@/common/utils/imageModelAllowlist';
+import {
+  DEFAULT_BAIDU_IMAGE_MODEL,
+  isBaiduImageProvider,
+  isImageGenSupported,
+} from '@/common/utils/imageModelAllowlist';
 import type { SpeechToTextConfig, SpeechToTextProvider } from '@/common/types/provider/speech';
 import { getAgents } from '@/renderer/hooks/agent/useAgents';
 import { Divider, Form, Tooltip, Message, Button, Dropdown, Menu, Modal, Switch, Input } from '@arco-design/web-react';
@@ -17,8 +21,8 @@ import { Help, Down, Plus } from '@icon-park/react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useConfigModelListWithImage from '@/renderer/hooks/agent/useConfigModelListWithImage';
-import AionScrollArea from '@/renderer/components/base/AionScrollArea';
-import AionSelect from '@/renderer/components/base/AionSelect';
+import PanScrollArea from '@/renderer/components/base/PanScrollArea';
+import PanSelect from '@/renderer/components/base/PanSelect';
 import AddMcpServerModal from '@/renderer/pages/settings/components/AddMcpServerModal';
 import McpAgentStatusDisplay from '@/renderer/pages/settings/ToolsSettings/McpAgentStatusDisplay';
 import McpServerItem from '@/renderer/pages/settings/ToolsSettings/McpServerItem';
@@ -37,7 +41,7 @@ type MessageInstance = ReturnType<typeof Message.useMessage>[0];
 
 const isBuiltinImageGenServer = (server: IMcpServer) =>
   server.builtin === true && (server.id === BUILTIN_IMAGE_GEN_ID || server.name === BUILTIN_IMAGE_GEN_NAME);
-const SPEECH_TO_TEXT_CONFIG_CHANGED_EVENT = 'aionui:speech-to-text-config-changed';
+const SPEECH_TO_TEXT_CONFIG_CHANGED_EVENT = 'panai:speech-to-text-config-changed';
 const areEnvRecordsEqual = (a: Record<string, string>, b: Record<string, string>) => {
   const aKeys = Object.keys(a);
   const bKeys = Object.keys(b);
@@ -153,10 +157,10 @@ const SpeechToTextSettingsSection: React.FC<{
 
           <Form layout='horizontal' labelAlign='left' className='space-y-12px'>
             <Form.Item label={t('settings.speechToTextProvider')}>
-              <AionSelect value={config.provider} onChange={handleProviderChange}>
-                <AionSelect.Option value='openai'>{t('settings.speechToTextProviderOpenAI')}</AionSelect.Option>
-                <AionSelect.Option value='deepgram'>{t('settings.speechToTextProviderDeepgram')}</AionSelect.Option>
-              </AionSelect>
+              <PanSelect value={config.provider} onChange={handleProviderChange}>
+                <PanSelect.Option value='openai'>{t('settings.speechToTextProviderOpenAI')}</PanSelect.Option>
+                <PanSelect.Option value='deepgram'>{t('settings.speechToTextProviderDeepgram')}</PanSelect.Option>
+              </PanSelect>
             </Form.Item>
 
             {config.provider === 'openai' ? (
@@ -431,10 +435,7 @@ const ModalMcpManagementSection: React.FC<{
             {t('settings.mcpNoServersFound')}
           </div>
         ) : (
-          <AionScrollArea
-            className={classNames('max-h-360px', isPageMode && 'max-h-none')}
-            disableOverflow={isPageMode}
-          >
+          <PanScrollArea className={classNames('max-h-360px', isPageMode && 'max-h-none')} disableOverflow={isPageMode}>
             <div className='space-y-12px'>
               {visibleMcpServers.map((server) => (
                 <McpServerItem
@@ -472,7 +473,7 @@ const ModalMcpManagementSection: React.FC<{
                 />
               ))}
             </div>
-          </AionScrollArea>
+          </PanScrollArea>
         )}
       </div>
 
@@ -517,6 +518,7 @@ const ToolsModalContent: React.FC = () => {
   const { agentInstallStatus, setAgentInstallStatus, isServerLoading, checkSingleServerInstallStatus } =
     useMcpAgentStatus();
   const builtinImageGenServer = useMemo(() => mcpServers.find(isBuiltinImageGenServer), [mcpServers]);
+  const defaultBaiduImageAppliedRef = useRef(false);
   const skipNextImageGenerationAutoCheckRef = useRef(false);
   const imageGenerationInstalledAgents = builtinImageGenServer?.name
     ? (agentInstallStatus[builtinImageGenServer.name] ?? [])
@@ -531,6 +533,27 @@ const ToolsModalContent: React.FC = () => {
       }))
       .filter((provider) => provider.models.length > 0);
   }, [data]);
+
+  const defaultBaiduImageModel = useMemo(() => {
+    for (const provider of imageGenerationModelList) {
+      if (!isBaiduImageProvider(provider)) continue;
+      const model =
+        provider.models.find((modelName) => modelName === DEFAULT_BAIDU_IMAGE_MODEL) ||
+        provider.models.find((modelName) => /ernie.*image|baidu.*image/i.test(modelName));
+
+      if (model) {
+        return {
+          id: provider.id,
+          name: provider.name,
+          platform: provider.platform,
+          base_url: provider.base_url,
+          use_model: model,
+        } as ConfigKeyMap['tools.imageGenerationModel'];
+      }
+    }
+
+    return undefined;
+  }, [imageGenerationModelList]);
 
   useEffect(() => {
     const loadConfigs = async () => {
@@ -657,6 +680,19 @@ const ToolsModalContent: React.FC = () => {
     },
     [data, mcpServers, reloadMcpServers]
   );
+
+  useEffect(() => {
+    if (defaultBaiduImageAppliedRef.current || imageGenerationModel || !defaultBaiduImageModel) return;
+
+    defaultBaiduImageAppliedRef.current = true;
+    setImageGenerationModel(defaultBaiduImageModel);
+    configService.set('tools.imageGenerationModel', defaultBaiduImageModel).catch((error) => {
+      console.error('Failed to save default Baidu image generation model:', error);
+    });
+    void syncMcpServerEnv(defaultBaiduImageModel).catch((error) => {
+      console.error('Failed to sync default Baidu image generation model:', error);
+    });
+  }, [defaultBaiduImageModel, imageGenerationModel, syncMcpServerEnv]);
 
   // Keep the saved image model as a provider/model reference. Secrets stay in providers.
   useEffect(() => {
@@ -788,12 +824,12 @@ const ToolsModalContent: React.FC = () => {
       {mcpMessageContext}
 
       {/* Content Area */}
-      <AionScrollArea className='flex-1 min-h-0 pb-16px' disableOverflow={isPageMode}>
+      <PanScrollArea className='flex-1 min-h-0 pb-16px' disableOverflow={isPageMode}>
         <div className='space-y-16px'>
           {/* MCP 工具配置 */}
           <div className='px-[12px] md:px-[32px] py-[24px] bg-2 rd-12px md:rd-16px flex flex-col min-h-0 border border-border-2'>
             <div className='flex-1 min-h-0'>
-              <AionScrollArea
+              <PanScrollArea
                 className={classNames('h-full', isPageMode && 'overflow-visible')}
                 disableOverflow={isPageMode}
               >
@@ -805,7 +841,7 @@ const ToolsModalContent: React.FC = () => {
                   reloadMcpServers={reloadMcpServers}
                   isPageMode={isPageMode}
                 />
-              </AionScrollArea>
+              </PanScrollArea>
             </div>
           </div>
           {/* 图像生成 */}
@@ -848,13 +884,14 @@ const ToolsModalContent: React.FC = () => {
                       <li>{t('settings.imageGenSupportedTooltipGemini')}</li>
                       <li>{t('settings.imageGenSupportedTooltipOpenRouter')}</li>
                       <li>{t('settings.imageGenSupportedTooltipAntigravity')}</li>
+                      <li>{t('settings.imageGenSupportedTooltipBaidu')}</li>
                     </ul>
                     <div>{t('settings.imageGenUnsupportedTooltip')}</div>
                   </div>
                 }
               >
                 {imageGenerationModelList.length > 0 ? (
-                  <AionSelect
+                  <PanSelect
                     value={
                       imageGenerationModel?.id && imageGenerationModel?.use_model
                         ? `${imageGenerationModel.id}|${imageGenerationModel.use_model}`
@@ -872,15 +909,15 @@ const ToolsModalContent: React.FC = () => {
                     }}
                   >
                     {imageGenerationModelList.map(({ models, ...platform }) => (
-                      <AionSelect.OptGroup label={platform.name} key={platform.id}>
+                      <PanSelect.OptGroup label={platform.name} key={platform.id}>
                         {models.map((modelName) => (
-                          <AionSelect.Option key={platform.id + modelName} value={platform.id + '|' + modelName}>
+                          <PanSelect.Option key={platform.id + modelName} value={platform.id + '|' + modelName}>
                             {modelName}
-                          </AionSelect.Option>
+                          </PanSelect.Option>
                         ))}
-                      </AionSelect.OptGroup>
+                      </PanSelect.OptGroup>
                     ))}
-                  </AionSelect>
+                  </PanSelect>
                 ) : (
                   <div className='text-t-secondary flex items-center'>
                     {t('settings.noAvailable')}
@@ -917,7 +954,7 @@ const ToolsModalContent: React.FC = () => {
           </div>
           <SpeechToTextSettingsSection config={speechToTextConfig} onChange={updateSpeechToTextConfig} />
         </div>
-      </AionScrollArea>
+      </PanScrollArea>
     </div>
   );
 };

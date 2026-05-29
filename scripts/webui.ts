@@ -150,9 +150,7 @@ function resolveBackendBinary(): string {
     // fall through
   }
 
-  throw new Error(
-    `Cannot find "${BACKEND_BINARY}". Set PANAI_BACKEND_BIN, put it on PATH, or place it at ${bundled}.`
-  );
+  throw new Error(`Cannot find "${BACKEND_BINARY}". Set PANAI_BACKEND_BIN, put it on PATH, or place it at ${bundled}.`);
 }
 
 /**

@@ -10,7 +10,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useModeModeList from '@renderer/hooks/agent/useModeModeList';
 import useProtocolDetection from '@renderer/hooks/system/useProtocolDetection';
-import AionModal from '@/renderer/components/base/AionModal';
+import PanModal from '@/renderer/components/base/PanModal';
 import ApiKeyEditorModal from './ApiKeyEditorModal';
 import {
   MODEL_PLATFORMS,
@@ -386,7 +386,7 @@ const AddPlatformModal = ModalHOC<{
   };
 
   return (
-    <AionModal
+    <PanModal
       visible={modalProps.visible}
       onCancel={modalCtrl.close}
       header={{ title: t('settings.addModel'), showClose: true }}
@@ -720,7 +720,7 @@ const AddPlatformModal = ModalHOC<{
           }
         }}
       />
-    </AionModal>
+    </PanModal>
   );
 });
 

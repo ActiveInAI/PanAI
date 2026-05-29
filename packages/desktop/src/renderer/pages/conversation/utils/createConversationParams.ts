@@ -87,7 +87,7 @@ async function resolvePreferredAcpModelId(backend: string): Promise<string | und
   return undefined;
 }
 
-function getAvailableAionrsModels(provider: IProvider): string[] {
+function getAvailablePanCliModels(provider: IProvider): string[] {
   return (provider.models || []).filter((modelName) => {
     if (provider.model_enabled?.[modelName] === false) {
       return false;
@@ -98,12 +98,12 @@ function getAvailableAionrsModels(provider: IProvider): string[] {
   });
 }
 
-function isAionrsCompatibleProvider(provider: IProvider): boolean {
+function isPanCliCompatibleProvider(provider: IProvider): boolean {
   const platform = provider.platform?.toLowerCase() ?? '';
   if (provider.enabled === false || platform.includes('gemini-with-google-auth')) {
     return false;
   }
-  return getAvailableAionrsModels(provider).length > 0;
+  return getAvailablePanCliModels(provider).length > 0;
 }
 
 /**
@@ -112,14 +112,14 @@ function isAionrsCompatibleProvider(provider: IProvider): boolean {
  * exists in the current provider list, otherwise falls back to the first
  * compatible provider/model pair.
  */
-export async function getDefaultAionrsModel(): Promise<TProviderWithModel> {
+export async function getDefaultPanCliModel(): Promise<TProviderWithModel> {
   const providers = await ipcBridge.mode.listProviders.invoke();
 
   if (!providers || providers.length === 0) {
     throw new Error('No model provider configured');
   }
 
-  const compatibleProviders = providers.filter(isAionrsCompatibleProvider);
+  const compatibleProviders = providers.filter(isPanCliCompatibleProvider);
   if (compatibleProviders.length === 0) {
     throw new Error('No enabled model provider for Pan CLI');
   }
@@ -127,7 +127,7 @@ export async function getDefaultAionrsModel(): Promise<TProviderWithModel> {
   const savedDefault = configService.get('aionrs.defaultModel');
   if (savedDefault?.id && savedDefault.use_model) {
     const savedProvider = compatibleProviders.find((provider) => provider.id === savedDefault.id);
-    if (savedProvider && getAvailableAionrsModels(savedProvider).includes(savedDefault.use_model)) {
+    if (savedProvider && getAvailablePanCliModels(savedProvider).includes(savedDefault.use_model)) {
       return {
         ...savedProvider,
         use_model: savedDefault.use_model,
@@ -136,7 +136,7 @@ export async function getDefaultAionrsModel(): Promise<TProviderWithModel> {
   }
 
   const provider = compatibleProviders[0];
-  const enabledModel = getAvailableAionrsModels(provider)[0];
+  const enabledModel = getAvailablePanCliModels(provider)[0];
 
   return {
     id: provider.id,
@@ -167,8 +167,8 @@ export async function buildCliAgentParams(agent: AgentMetadata, workspace: strin
 
   let model: TProviderWithModel;
   if (type === 'aionrs') {
-    // Aionrs needs a real model from configured providers (anthropic, openai, ali-intl, aws)
-    model = await getDefaultAionrsModel();
+    // PanCli needs a real model from configured providers (anthropic, openai, ali-intl, aws)
+    model = await getDefaultPanCliModel();
   } else {
     model = {} as TProviderWithModel;
   }

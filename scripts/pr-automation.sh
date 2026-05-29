@@ -73,7 +73,7 @@ cleanup_labels() {
   fi
   # Clean up stale worktrees from killed Claude sessions
   local stale_wts
-  stale_wts=$(find /tmp -maxdepth 1 -name 'aionui-pr-*' -type d 2>/dev/null || true)
+  stale_wts=$(find /tmp -maxdepth 1 -name 'panai-pr-*' -type d 2>/dev/null || true)
   if [ -n "$stale_wts" ]; then
     log_warn "Cleaning up stale worktrees: $stale_wts"
     echo "$stale_wts" | while read -r wt; do

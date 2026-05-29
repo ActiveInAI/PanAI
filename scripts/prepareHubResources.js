@@ -1,12 +1,13 @@
 /**
  * prepareHubResources.js
  *
- * Downloads the AionHub index.json and all extension zip packages
+ * Downloads the PanAI Hub index.json and all extension zip packages
  * into resources/hub/ so they are bundled with the app as local fallback.
  *
  * Called during the build pipeline before electron-builder runs.
  *
  * Environment variables:
+ *   PANAI_HUB_REPO   - GitHub repo to fetch from (default: 'ActiveInAI/PanAIHub')
  *   PANAI_HUB_TAG    - Git tag to fetch from (default: 'dist-latest')
  *   PANAI_HUB_SKIP   - Set to '1' to skip hub resource preparation
  */
@@ -18,10 +19,12 @@ const https = require('https');
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const HUB_DIR = path.join(PROJECT_ROOT, 'resources', 'hub');
 
+const DEFAULT_REPO = 'ActiveInAI/PanAIHub';
 const DEFAULT_TAG = 'dist-latest';
+const hubRepo = process.env.PANAI_HUB_REPO || DEFAULT_REPO;
 const BASE_URLS = [
-  `https://raw.githubusercontent.com/iOfficeAI/AionHub/${process.env.PANAI_HUB_TAG || DEFAULT_TAG}/`,
-  `https://cdn.jsdelivr.net/gh/iOfficeAI/AionHub@${process.env.PANAI_HUB_TAG || DEFAULT_TAG}/`,
+  `https://raw.githubusercontent.com/${hubRepo}/${process.env.PANAI_HUB_TAG || DEFAULT_TAG}/`,
+  `https://cdn.jsdelivr.net/gh/${hubRepo}@${process.env.PANAI_HUB_TAG || DEFAULT_TAG}/`,
 ];
 
 // ---------------------------------------------------------------------------
@@ -111,7 +114,13 @@ async function prepareHubResources() {
   // Step 1: Download index.json
   const indexPath = path.join(HUB_DIR, 'index.json');
   console.log('[hub] Downloading index.json...');
-  const indexUrl = await downloadFile('index.json', indexPath);
+  let indexUrl;
+  try {
+    indexUrl = await downloadFile('index.json', indexPath);
+  } catch (error) {
+    console.warn(`[hub] PanAI Hub index is unavailable; continuing without bundled hub resources: ${error.message}`);
+    return { skipped: true, reason: 'hub_unavailable' };
+  }
   console.log(`[hub] index.json downloaded from ${indexUrl}`);
 
   // Step 2: Parse index and download all extension zips

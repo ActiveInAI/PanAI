@@ -71,7 +71,7 @@ if (isWebUI || isResetPassword) {
 //
 // Multi-instance support: a file-based registry tracks all active instances
 // so each one gets a unique port and MCP tools can discover them all.
-// Registry file: ~/.aionui-cdp-registry.json
+// Registry file: ~/.panai-cdp-registry.json
 // ---------------------------------------------------------------------------
 
 export const DEFAULT_CDP_PORT = 9230;
@@ -248,7 +248,7 @@ export function saveCdpConfig(config: CdpConfig): void {
  * Returns null if explicitly disabled via env.
  */
 function resolveCdpPortFromEnv(): number | null | undefined {
-  const envVal = (process.env.PANAI_CDP_PORT ?? process.env.AIONUI_CDP_PORT);
+  const envVal = process.env.PANAI_CDP_PORT ?? process.env.PANAI_CDP_PORT;
   if (envVal === '0' || envVal === 'false') return null;
   if (envVal) {
     const parsed = Number(envVal);
@@ -262,7 +262,7 @@ function resolveCdpPortFromEnv(): number | null | undefined {
  * Priority: env variable > config file > default (dev mode: true, production: false)
  */
 function shouldEnableCdp(config: CdpConfig): boolean {
-  const envVal = (process.env.PANAI_CDP_PORT ?? process.env.AIONUI_CDP_PORT);
+  const envVal = process.env.PANAI_CDP_PORT ?? process.env.PANAI_CDP_PORT;
   if (envVal === '0' || envVal === 'false') return false;
   if (envVal) return true;
 

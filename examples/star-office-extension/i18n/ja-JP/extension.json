@@ -3,7 +3,7 @@
   "description": "すべてのエージェントのアクティビティを可視化するStar Officeスタイルのタブ。",
   "settingsTabs": {
     "star-office": { "name": "Star Office" },
-    "aionui-home": { "name": "PanAI ホーム" },
-    "aionui-issues": { "name": "PanAI 課題" }
+    "panai-home": { "name": "PanAI ホーム" },
+    "panai-issues": { "name": "PanAI 課題" }
   }
 }

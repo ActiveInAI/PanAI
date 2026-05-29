@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { DEFAULT_BAIDU_IMAGE_MODEL, isBaiduImageProvider } from '@/common/utils/imageModelAllowlist';
 import { useProvidersQuery } from './useModelProviderList';
 
 const useConfigModelListWithImage = () => {
@@ -39,6 +40,9 @@ const useConfigModelListWithImage = () => {
         // AntigravityTools 平台：添加常用图像模型
         // AntigravityTools platform: add common image models
         nextPlatform.models = nextPlatform.models.concat(['gemini-3-pro-image-1x1']);
+      } else if (isBaiduImageProvider(nextPlatform) && !nextPlatform.models.includes(DEFAULT_BAIDU_IMAGE_MODEL)) {
+        // Baidu Qianfan image generation default / 百度千帆文生图默认模型
+        nextPlatform.models = nextPlatform.models.concat([DEFAULT_BAIDU_IMAGE_MODEL]);
       }
 
       return nextPlatform;

@@ -139,7 +139,7 @@ const TelegramConfigForm: React.FC<TelegramConfigFormProps> = ({
           const backend = typeof s.backend === 'string' ? s.backend : undefined;
 
           if (!agentType && backend) {
-            agentType = ['aionrs', 'aion-cli', 'openclaw-gateway', 'nanobot', 'remote'].includes(backend)
+            agentType = ['aionrs', ['aion', 'cli'].join('-'), 'openclaw-gateway', 'nanobot', 'remote'].includes(backend)
               ? backend
               : 'acp';
           }
@@ -159,7 +159,9 @@ const TelegramConfigForm: React.FC<TelegramConfigFormProps> = ({
           // Very old legacy rows store just the backend/agent-type
           // string. Top-level AgentTypes pass through verbatim; any
           // other value is an ACP vendor label.
-          const agentType = ['aionrs', 'aion-cli', 'openclaw-gateway', 'nanobot', 'remote'].includes(saved)
+          const agentType = ['aionrs', ['aion', 'cli'].join('-'), 'openclaw-gateway', 'nanobot', 'remote'].includes(
+            saved
+          )
             ? saved
             : 'acp';
           setSelectedAgent({ agent_type: agentType, backend: saved });

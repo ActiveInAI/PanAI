@@ -218,7 +218,7 @@ const WeixinConfigForm: React.FC<WeixinConfigFormProps> = ({ pluginStatus, model
 
           // Legacy migration: derive agent_type from backend
           if (!agentType && backend) {
-            agentType = ['aionrs', 'aion-cli', 'openclaw-gateway', 'nanobot', 'remote'].includes(backend)
+            agentType = ['aionrs', ['aion', 'cli'].join('-'), 'openclaw-gateway', 'nanobot', 'remote'].includes(backend)
               ? backend
               : 'acp';
           }

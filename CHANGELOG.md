@@ -17,11 +17,11 @@
 - lazy-load full tool message content (#3086)
 - improve message startup latency (#3082)
 
-### Core ([v0.1.15](https://github.com/iOfficeAI/AionCore/releases/tag/v0.1.15))
+### Core ([v0.1.15](https://github.com/iOfficeAI/PanAI backend/releases/tag/v0.1.15))
 
 #### Bug Fixes
 
-- **agent:** add provider health check probe ([#358](https://github.com/iOfficeAI/AionCore/issues/358))
+- **agent:** add provider health check probe ([#358](https://github.com/iOfficeAI/PanAI backend/issues/358))
 
 ---
 
@@ -56,16 +56,16 @@
 - recover pending permission prompts (#3059)
 - preserve timezone for scheduled tasks (#3056)
 
-### Core ([v0.1.14](https://github.com/iOfficeAI/AionCore/releases/tag/v0.1.14))
+### Core ([v0.1.14](https://github.com/iOfficeAI/PanAI backend/releases/tag/v0.1.14))
 
 #### Bug Fixes
 
-- preserve cron timezone on legacy schedule updates ([#344](https://github.com/iOfficeAI/AionCore/issues/344))
-- **startup:** add backend readiness diagnostics ([#346](https://github.com/iOfficeAI/AionCore/issues/346))
+- preserve cron timezone on legacy schedule updates ([#344](https://github.com/iOfficeAI/PanAI backend/issues/344))
+- **startup:** add backend readiness diagnostics ([#346](https://github.com/iOfficeAI/PanAI backend/issues/346))
 
 #### Refactoring
 
-- four-layer architecture (connect / conv / biz) ([#349](https://github.com/iOfficeAI/AionCore/issues/349))
+- four-layer architecture (connect / conv / biz) ([#349](https://github.com/iOfficeAI/PanAI backend/issues/349))
 
 ---
 

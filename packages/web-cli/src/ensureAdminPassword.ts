@@ -136,8 +136,6 @@ export async function ensureAdminPassword(
     deps.log(`[panai-web] Generated initial admin password: ${newPassword}`);
     deps.log(`[panai-web] Log in with username "${username}" and change it from the UI.`);
   } catch (err) {
-    deps.warn(
-      `[panai-web] failed to seed initial admin password: ${err instanceof Error ? err.message : String(err)}`
-    );
+    deps.warn(`[panai-web] failed to seed initial admin password: ${err instanceof Error ? err.message : String(err)}`);
   }
 }

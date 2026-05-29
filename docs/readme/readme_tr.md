@@ -56,7 +56,7 @@
 
 **PanAI sadece bir sohbet istemcisi değil.** AI Agents'ın bilgisayarınızda sizinle çalıştığı bir Cowork platformudur — dosya okuma, kod yazma, web'de gezinme ve görevleri otomatikleştirme. Agent'ın yaptığı her şeyi görürsünüz ve her zaman kontrol sizdedir.
 
-|                                        | Geleneksel AI Sohbet İstemcileri | **PanAI (Cowork)**                                                                                                             |
+|                                        | Geleneksel AI Sohbet İstemcileri | **PanAI (Cowork)**                                                                                                              |
 | :------------------------------------- | :------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
 | AI dosyalarınızda işlem yapabilir      | Sınırlı veya Yok                 | **Evet — tam dosya erişimi ile yerleşik Agent**                                                                                 |
 | AI çok adımlı görevleri çalıştırabilir | Sınırlı                          | **Evet — onayınızla özerk**                                                                                                     |
@@ -66,7 +66,7 @@
 | Fiyat                                  | Ücretsiz / Ücretli               | **Ücretsiz ve Açık Kaynak**                                                                                                     |
 
 <p align="center">
-  <img src="../../resources/offica-ai BANNER-function.png" alt="PanAI Cowork Platform" width="800">
+  <img src="../../resources/panai-feature-cowork.svg" alt="PanAI Cowork Platform" width="800">
 </p>
 
 ---
@@ -81,7 +81,7 @@ PanAI tam bir AI Agent motoru ile birlikte gelir. CLI Agent'ları ayrı olarak k
 - **Kullanıma hazır asistanlar** — 21 yerleşik profesyonel asistan (Cowork, PPT Creator, Morph PPT, Morph PPT 3D, Word Creator, Word Form Creator, Excel Creator, Pitch Deck Creator, Dashboard Creator, Academic Paper Writer, Financial Model Creator ve daha fazlası) hemen kullanıma hazır
 
 <p align="center">
-  <img src="../../resources/homepage.png" alt="Built-in Agents" width="800">
+  <img src="../../resources/panai-feature-agent.svg" alt="Built-in Agents" width="800">
 </p>
 
 ---
@@ -90,10 +90,10 @@ PanAI tam bir AI Agent motoru ile birlikte gelir. CLI Agent'ları ayrı olarak k
 
 Zaten Claude Code, Codex, Hermes Agent veya OpenClaw kullanıyorsanız, PanAI bunları otomatik olarak algılar ve hepsiyle Cowork yapmanıza izin verir — yerleşik Agent ile birlikte.
 
-**Desteklenen Agents:** Yerleşik Agent (sıfır kurulum) • Claude Code • Codex • Qwen Code • Goose AI • OpenClaw • Augment Code • CodeBuddy • Kimi CLI • OpenCode • Factory Droid • GitHub Copilot • Qoder CLI • Mistral Vibe • Nanobot • Pan CLI (aionrs, PanAI ile birlikte dağıtılan Rust tabanlı arka uç servisi) • Snow CLI • Hermes Agent • Cursor Agent ve daha fazlası
+**Desteklenen Agents:** Yerleşik Agent (sıfır kurulum) • Claude Code • Codex • Qwen Code • Goose AI • OpenClaw • Augment Code • CodeBuddy • Kimi CLI • OpenCode • Factory Droid • GitHub Copilot • Qoder CLI • Mistral Vibe • Nanobot • Pan CLI • Snow CLI • Hermes Agent • Cursor Agent ve daha fazlası
 
 <p align="center">
-  <img src="../../resources/multi-agent支持openclaw.gif" alt="Multi-Agent Cowork" width="800">
+  <img src="../../resources/panai-feature-multiagent.svg" alt="Multi-Agent Cowork" width="800">
 </p>
 
 - **Otomatik Algılama** — kurulu CLI araçlarını otomatik olarak tanır
@@ -107,10 +107,10 @@ Zaten Claude Code, Codex, Hermes Agent veya OpenClaw kullanıyorsanız, PanAI bu
 Birden fazla AI Agent'ı organize bir ekip olarak çalıştırın: bir **Leader** Agent talimatlarınızı alır, bunları alt görevlere böler ve yerleşik Team MCP Server aracılığıyla **Teammate** Agent'lara devreder. Teammate'ler paralel olarak çalışır, asenkron posta kutusu üzerinden sonuçları paylaşır ve paylaşılan görev panosuna yazar.
 
 <p align="center">
-  <img src="../../resources/PanAI_team.gif" alt="Team Mode overview" width="800">
+  <img src="../../resources/panai-feature-team.svg" alt="Team Mode overview" width="800">
 </p>
 
-- **Paralel çoklu agent çalıştırma** — Leader görevleri alt görevlere bölerek paralel çalışan Teammate Agent'lara devreder; her Teammate ACP (Agent Communication Protocol, PanAI'nin çoklu agent koordinasyon katmanı), Gemini veya Aionrs aracılığıyla kendi modelini kullanır
+- **Paralel çoklu agent çalıştırma** — Leader görevleri alt görevlere bölerek paralel çalışan Teammate Agent'lara devreder; her Teammate ACP (Agent Communication Protocol, PanAI'nin çoklu agent koordinasyon katmanı), Gemini veya PanCli aracılığıyla kendi modelini kullanır
 - **Leader orkestrasyonu** — Leader atar, izler ve sonuçları toplar; desteklenen arka uçlar: Claude Code, Codex, Hermes Agent, Gemini, Snow CLI ve Pan CLI
 - **Ekip izole çalışma alanı** — tüm Agent'lar aynı klasörü paylaşır; her birinin bekleyen onaylar için kenar çubuğu rozeti ile kendi izin onay iletişim kutusu vardır
 
@@ -120,7 +120,7 @@ Birden fazla AI Agent'ı organize bir ekip olarak çalıştırın: bir **Leader*
 <br>
 
 - **Paylaşılan çalışma alanı** — tüm Agent'lar aynı klasörü okur/yazar; dosya paneli süreç boyunca görünür kalır
-- **Desteklenen arka uçlar** — Claude Code, Codex, Gemini, Snow CLI, Pan CLI (aionrs); `mcpCapabilities.stdio` ile diğer ACP arka uçları otomatik desteklenir
+- **Desteklenen arka uçlar** — Claude Code, Codex, Gemini, Snow CLI, Pan CLI; `mcpCapabilities.stdio` ile diğer ACP arka uçları otomatik desteklenir
 - **Dinamik ölçeklendirme** — ekip çalışırken Teammate ekleyip kaldırabilirsiniz; sessiz Agent'lar otomatik olarak başarısız durumuna yükseltilir ve tek tıkla kaldırılabilir
 - **Ayrıntılı izinler** — her Agent'ın kendi izin onay iletişim kutusu var; kenar çubuğu rozeti bekleyen onayları gösterir
 - **Dosya paylaşımı** — Leader, Teammate'lere dosya eklerini iletebilir
@@ -144,7 +144,7 @@ Diğer AI uygulamaları size API anahtarınızla bir sohbet kutusu verir. **PanA
 Aynı Agent yetenekleri — dosya okuma/yazma, web arama, görüntü oluşturma, araç kullanımı — hangi modelin güç verdiğine bakılmaksızın. PanAI bulut hizmetleri ve yerel dağıtımlar dahil **30+ AI platformunu** destekler.
 
 <p align="center">
-  <img src="../../resources/llm_newapi.png" alt="Multi-Model Support" width="800">
+  <img src="../../resources/panai-feature-models.svg" alt="Multi-Model Support" width="800">
 </p>
 
 <details>
@@ -175,7 +175,7 @@ _21 yerleşik profesyonel asistan ve üç katmanlı beceri sistemi ile genişlet
 - **Konuşma Başına Kontrol** — Sohbet başlığındaki beceri göstergesi aktif becerileri gösterir; ihtiyaç halinde becerileri arayın ve hariç tutun
 
 <p align="center">
-  <img src="../../resources/assitants.png" alt="AI Assistants & Skills Ecosystem" width="800">
+  <img src="../../resources/panai-feature-skills.svg" alt="AI Assistants & Skills Ecosystem" width="800">
 </p>
 
 <details>
@@ -229,7 +229,7 @@ _7/24 AI asistanınız — PanAI'ye herhangi bir cihazdan, her yerden erişin._
 > **Kurulum:** PanAI Ayarları → WebUI Ayarları → Kanal, Bot Token'ı yapılandırın.
 
 <p align="center">
-  <img src="../../resources/webui-remote.gif" alt="WebUI remote access demo" width="800">
+  <img src="../../resources/panai-feature-remote.svg" alt="WebUI remote access demo" width="800">
 </p>
 
 <p align="center"><em>Agent'ınızı uzaktan kontrol edin ve izleyin — Claude, Gemini, Codex. Tarayıcı veya telefondan, Claude Code remote gibi.</em></p>
@@ -248,7 +248,7 @@ _Bir kez ayarlayın, AI Agent zamanlamaya göre otomatik olarak çalışır — 
 - **Kullanım Senaryoları:** zamanlanmış veri toplama, rapor oluşturma, dosya organizasyonu, hatırlatıcılar
 
 <p align="center">
-  <img src="../../resources/alart-task.png" alt="Scheduled Tasks" width="800">
+  <img src="../../resources/panai-feature-scheduled.svg" alt="Scheduled Tasks" width="800">
 </p>
 
 <details>
@@ -296,7 +296,7 @@ _10+ format: PDF, Word, Excel, PPT, kod, Markdown, görüntüler, HTML, Diff —
 - **Sürüm Geçmişi** — dosyaların geçmiş sürümlerini görüntüleyin ve geri yükleyin (Git tabanlı)
 
 <p align="center">
-  <img src="../../resources/preview.gif" alt="Preview Panel" width="800">
+  <img src="../../resources/panai-feature-preview.svg" alt="Preview Panel" width="800">
 </p>
 
 <details>
@@ -321,7 +321,7 @@ _10+ format: PDF, Word, Excel, PPT, kod, Markdown, görüntüler, HTML, Diff —
 _Toplu yeniden adlandırma, otomatik organizasyon, akıllı sınıflandırma, dosya birleştirme — Cowork Agent sizin için halleder._
 
 <p align="center">
-  <img src="../../resources/panai-sort-file-2.gif" alt="Smart File Management" width="800">
+  <img src="../../resources/panai-feature-files.svg" alt="Smart File Management" width="800">
 </p>
 
 <details>
@@ -349,7 +349,7 @@ _Toplu yeniden adlandırma, otomatik organizasyon, akıllı sınıflandırma, do
 _Excel verilerini derinlemesine analiz edin, raporları otomatik olarak güzelleştirin ve içgörüler oluşturun — hepsi AI Agent'lar tarafından desteklenir._
 
 <p align="center">
-  <img src="../../resources/readme-demo-generate-excel.gif" alt="Excel Processing" width="800">
+  <img src="../../resources/panai-feature-office.svg" alt="Excel Processing" width="800">
 </p>
 
 <details>
@@ -378,7 +378,7 @@ _Excel verilerini derinlemesine analiz edin, raporları otomatik olarak güzelle
 _Gemini tarafından desteklenen akıllı görüntü oluşturma, düzenleme ve tanıma_
 
 <p align="center">
-  <img src="../../resources/Image_Generation.gif" alt="AI Image Generation" width="800">
+  <img src="../../resources/panai-feature-image.svg" alt="AI Image Generation" width="800">
 </p>
 
 <details>
@@ -402,7 +402,7 @@ _Gemini tarafından desteklenen akıllı görüntü oluşturma, düzenleme ve ta
 _AI Agent'lar ile profesyonel belgeleri otomatik olarak oluşturun — sunumlar, raporlar ve daha fazlası._
 
 <p align="center">
-  <img src="../../resources/file_generation_preview.png" alt="Document Generation" width="800">
+  <img src="../../resources/panai-feature-preview.svg" alt="Document Generation" width="800">
 </p>
 
 <details>
@@ -429,7 +429,7 @@ _AI Agent'lar ile profesyonel belgeleri otomatik olarak oluşturun — sunumlar,
 _Kendi CSS kodunuzla özelleştirin, arayüzünüzü tercihlerinize uygun hale getirin_
 
 <p align="center">
-  <img src="../../resources/css with skin.gif" alt="CSS Customization" width="800">
+  <img src="../../resources/panai-feature-theme.svg" alt="CSS Customization" width="800">
 </p>
 
 - ✅ **Tamamen Özelleştirilebilir** — CSS kodu aracılığıyla arayüz renklerini, stillerini, düzenini özgürce özelleştirin, özel deneyiminizi oluşturun
@@ -441,7 +441,7 @@ _Kendi CSS kodunuzla özelleştirin, arayüzünüzü tercihlerinize uygun hale g
 _Birden fazla konuşma açın, görevler karışmaz, bağımsız bellek, verimlilik iki katına çıkar_
 
 <p align="center">
-  <img src="../../resources/multichat-side-by-side.gif" alt="Multi-Task Parallel" width="800">
+  <img src="../../resources/panai-feature-parallel.svg" alt="Multi-Task Parallel" width="800">
 </p>
 
 - ✅ **Bağımsız Bağlam** — Her konuşma kendi bağlamını ve geçmişini korur
@@ -459,7 +459,7 @@ _Birden fazla konuşma açın, görevler karışmaz, bağımsız bellek, verimli
 
 PanAI **ücretsiz ve açık kaynaklı bir Çoklu AI Agent Masaüstü** uygulamasıdır. Sadece macOS'ta çalışan ve Claude'ye kilitli Claude Cowork ile karşılaştırıldığında, PanAI tam model, çapraz platform geliştirilmiş versiyonudur.
 
-| Boyut           | Claude Cowork | PanAI                                            |
+| Boyut           | Claude Cowork | PanAI                                             |
 | :-------------- | :------------ | :------------------------------------------------ |
 | İşletim Sistemi | Sadece macOS  | macOS / Windows / Linux                           |
 | Model Desteği   | Sadece Claude | Gemini, Claude, DeepSeek, OpenAI, Ollama, ...     |

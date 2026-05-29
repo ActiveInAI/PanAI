@@ -73,12 +73,12 @@
   "backendStartup": {
     "incompatibleRuntime": {
       "title": "This system is not supported by the bundled backend",
-      "description": "PanAI opened, but the local AionCore backend cannot run on this Linux version. Please upgrade to a supported Linux distribution and restart PanAI.",
+      "description": "PanAI opened, but the local PanAI backend cannot run on this Linux version. Please upgrade to a supported Linux distribution and restart PanAI.",
       "requiredVersions": "Required runtime symbols: {{versions}}"
     },
     "incompleteInstallation": {
       "title": "PanAI installation is incomplete",
-      "description": "This installation is missing required local resources, so AionCore cannot start. Please download and reinstall the latest PanAI.",
+      "description": "This installation is missing required local resources, so PanAI backend cannot start. Please download and reinstall the latest PanAI.",
       "downloadLatest": "Download latest",
       "sendDiagnostics": "Send diagnostics"
     }

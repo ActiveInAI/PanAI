@@ -244,7 +244,7 @@ export const useGuidSend = (deps: GuidSendDeps): GuidSendResult => {
       return;
     }
 
-    // Aionrs path (direct selection or preset assistant with aionrs as main agent)
+    // PanCli path (direct selection or preset assistant with aionrs as main agent)
     if (selectedAgent === 'aionrs' || (is_preset && finalEffectiveAgentType === 'aionrs')) {
       if (!current_model) {
         Message.warning(t('conversation.noModelConfigured'));
@@ -268,7 +268,7 @@ export const useGuidSend = (deps: GuidSendDeps): GuidSendResult => {
         });
 
         if (!conversation || !conversation.id) {
-          alert('Failed to create Pan CLI conversation. Please ensure aionrs is installed.');
+          alert('Failed to create Pan CLI conversation. Please ensure the PanAI backend is running.');
           return;
         }
 

@@ -17,8 +17,9 @@
  * are guaranteed to fail at runtime.
  *
  * Rules below mirror `useConfigModelListWithImage.ts` — the same providers we
- * auto-supplement with default image models. When #6 lands a form-A adapter,
- * extend this list accordingly.
+ * auto-supplement with default image models. Baidu/Qianfan is included as the
+ * PanAI default image model provider. When #6 lands a form-A adapter, extend
+ * this list accordingly.
  */
 
 type ProviderShape = {
@@ -28,6 +29,12 @@ type ProviderShape = {
 };
 
 const IMAGE_NAME_PATTERN = /(image|banana|imagine)/i;
+export const DEFAULT_BAIDU_IMAGE_MODEL = 'baidu/ERNIE-Image';
+
+export const isBaiduImageProvider = (provider: ProviderShape): boolean => {
+  const haystack = `${provider.name || ''} ${provider.platform || ''} ${provider.base_url || ''}`.toLowerCase();
+  return haystack.includes('baidu') || haystack.includes('qianfan') || haystack.includes('baidubce');
+};
 
 const RULES: Array<{
   id: string;
@@ -44,6 +51,10 @@ const RULES: Array<{
   {
     id: 'antigravity',
     match: (p) => !!p.name?.toLowerCase().includes('antigravity'),
+  },
+  {
+    id: 'baidu',
+    match: isBaiduImageProvider,
   },
 ];
 

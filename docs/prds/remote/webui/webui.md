@@ -58,9 +58,9 @@
 
 **配置来源**：
 
-端口解析（覆盖式优先级）：CLI 参数（`--port` / `--webui-port`）> 环境变量（`AIONUI_PORT` / `PORT`）> 配置文件（`userData/webui.config.json`）> 默认值（25808/25809）
+端口解析（覆盖式优先级）：CLI 参数（`--port` / `--webui-port`）> 环境变量（`PANAI_PORT` / `PORT`）> 配置文件（`userData/webui.config.json`）> 默认值（25808/25809）
 
-远程访问（多源 OR 聚合 — 只要任一来源为 true 即启用）：`isRemoteMode` || 环境变量（`AIONUI_ALLOW_REMOTE` / `AIONUI_REMOTE` / `AIONUI_HOST=0.0.0.0`）|| 配置文件（`allowRemote: true`）|| ConfigStorage 偏好
+远程访问（多源 OR 聚合 — 只要任一来源为 true 即启用）：`isRemoteMode` || 环境变量（`PANAI_ALLOW_REMOTE` / `PANAI_REMOTE` / `PANAI_HOST=0.0.0.0`）|| 配置文件（`allowRemote: true`）|| ConfigStorage 偏好
 
 **两种启动路径的配置差异**：
 

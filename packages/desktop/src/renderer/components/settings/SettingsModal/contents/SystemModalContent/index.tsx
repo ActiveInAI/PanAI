@@ -7,7 +7,7 @@
 import { ipcBridge } from '@/common';
 import type { IGpuStatus, IStartOnBootStatus } from '@/common/adapter/ipcBridge';
 import { configService } from '@/common/config/configService';
-import AionScrollArea from '@/renderer/components/base/AionScrollArea';
+import PanScrollArea from '@/renderer/components/base/PanScrollArea';
 import FeedbackButton from '@/renderer/components/base/FeedbackButton';
 import LanguageSwitcher from '@/renderer/components/settings/LanguageSwitcher';
 import { iconColors } from '@/renderer/styles/colors';
@@ -357,7 +357,7 @@ const SystemModalContent: React.FC = () => {
     <div className='flex flex-col h-full w-full'>
       {modalContextHolder}
 
-      <AionScrollArea className='flex-1 min-h-0 pb-16px' disableOverflow={isPageMode}>
+      <PanScrollArea className='flex-1 min-h-0 pb-16px' disableOverflow={isPageMode}>
         <div className='space-y-16px'>
           <div className='px-[12px] md:px-[32px] py-16px bg-2 rd-16px space-y-12px'>
             <div className='w-full flex flex-col divide-y divide-border-2'>
@@ -411,7 +411,7 @@ const SystemModalContent: React.FC = () => {
               {/* Log directory (read-only, click to open in file manager) */}
               <div>
                 <Form.Item label={t('settings.logDir')}>
-                  <div className='aion-dir-input h-[32px] flex items-center rounded-8px border border-solid border-transparent pl-14px bg-[var(--fill-0)] '>
+                  <div className='panai-dir-input h-[32px] flex items-center rounded-8px border border-solid border-transparent pl-14px bg-[var(--fill-0)] '>
                     <Tooltip content={systemInfo?.logDir || ''} position='top'>
                       <div className='flex-1 min-w-0 text-13px text-t-primary truncate'>{systemInfo?.logDir || ''}</div>
                     </Tooltip>
@@ -445,7 +445,7 @@ const SystemModalContent: React.FC = () => {
           {/* Developer settings: DevTools + CDP (only visible in dev mode) */}
           <DevSettings />
         </div>
-      </AionScrollArea>
+      </PanScrollArea>
     </div>
   );
 };

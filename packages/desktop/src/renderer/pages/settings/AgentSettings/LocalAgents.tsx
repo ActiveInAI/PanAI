@@ -6,7 +6,7 @@
 
 import { ipcBridge } from '@/common';
 import type { AgentMetadata } from '@/renderer/utils/model/agentTypes';
-import AionModal from '@/renderer/components/base/AionModal';
+import PanModal from '@/renderer/components/base/PanModal';
 import { useAgents } from '@/renderer/hooks/agent/useAgents';
 import { Button, Typography } from '@arco-design/web-react';
 import { Home, Plus } from '@icon-park/react';
@@ -178,7 +178,7 @@ const LocalAgents: React.FC = () => {
         </div>
       )}
 
-      <AionModal
+      <PanModal
         visible={editorVisible}
         onCancel={() => {
           setEditorVisible(false);
@@ -215,7 +215,7 @@ const LocalAgents: React.FC = () => {
             }}
           />
         )}
-      </AionModal>
+      </PanModal>
 
       <div className='flex flex-col gap-4px px-0'>
         {customAgents?.map((agent) => (

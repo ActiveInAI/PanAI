@@ -22,8 +22,8 @@ describe('build-with-builder', () => {
       args: ['auto', '--mac', '--x64'],
       expectedArch: 'x64',
     },
-  ])('prepares bundled AionCore for $expectedArch with args $args', ({ args, expectedArch }) => {
-    const tempDir = mkdtempSync(join(tmpdir(), 'aionui-build-test-'));
+  ])('prepares bundled PanAI backend for $expectedArch with args $args', ({ args, expectedArch }) => {
+    const tempDir = mkdtempSync(join(tmpdir(), 'panai-build-test-'));
     const hookPath = join(tempDir, 'hook.cjs');
     const callsPath = join(tempDir, 'prepare-calls.json');
 
@@ -38,7 +38,7 @@ const path = require('node:path');
 const originalLoad = Module._load;
 
 function recordPrepareCall(options) {
-  const callsPath = process.env.AIONUI_PREPARE_CALLS_FILE;
+  const callsPath = process.env.PANAI_PREPARE_CALLS_FILE;
   const calls = fs.existsSync(callsPath) ? JSON.parse(fs.readFileSync(callsPath, 'utf8')) : [];
   calls.push(options ?? null);
   fs.writeFileSync(callsPath, JSON.stringify(calls));
@@ -81,7 +81,7 @@ childProcess.execSync = function mockedExecSync(command) {
         encoding: 'utf8',
         env: {
           ...process.env,
-          AIONUI_PREPARE_CALLS_FILE: callsPath,
+          PANAI_PREPARE_CALLS_FILE: callsPath,
           NODE_OPTIONS: [process.env.NODE_OPTIONS, `--require=${hookPath}`].filter(Boolean).join(' '),
         },
       });

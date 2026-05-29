@@ -9,7 +9,7 @@ let _services: IPlatformServices | null = null;
  * Centralised so that every call-site stays in sync.
  */
 export function getDevAppName(): string {
-  const isMultiInstance = (process.env.PANAI_MULTI_INSTANCE ?? process.env.AIONUI_MULTI_INSTANCE) === '1';
+  const isMultiInstance = (process.env.PANAI_MULTI_INSTANCE ?? process.env.PANAI_MULTI_INSTANCE) === '1';
   return isMultiInstance ? 'PanAI-Dev-2' : 'PanAI-Dev';
 }
 

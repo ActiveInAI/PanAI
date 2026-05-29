@@ -76,12 +76,10 @@ async function main() {
     await killProcessByName('electron');
   }
 
-  const extensionsPath =
-    process.env.PANAI_EXTENSIONS_PATH || process.env.AIONUI_EXTENSIONS_PATH || path.join(projectRoot, 'examples');
+  const extensionsPath = process.env.PANAI_EXTENSIONS_PATH || path.join(projectRoot, 'examples');
   const env = {
     ...process.env,
     PANAI_EXTENSIONS_PATH: extensionsPath,
-    AIONUI_EXTENSIONS_PATH: extensionsPath,
   };
 
   console.log(`[packaged-launch] executable: ${packaged.executablePath}`);

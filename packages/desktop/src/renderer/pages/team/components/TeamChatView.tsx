@@ -2,22 +2,22 @@ import { ipcBridge } from '@/common';
 import type { IProvider, TChatConversation, TProviderWithModel } from '@/common/config/storage';
 import { Spin } from '@arco-design/web-react';
 import React, { Suspense, useCallback } from 'react';
-import { useAionrsModelSelection } from '@/renderer/pages/conversation/platforms/aionrs/useAionrsModelSelection';
-import { saveAionrsDefaultModel } from '@/renderer/pages/guid/hooks/agentSelectionUtils';
+import { usePanCliModelSelection } from '@/renderer/pages/conversation/platforms/pancli/usePanCliModelSelection';
+import { savePanCliDefaultModel } from '@/renderer/pages/guid/hooks/agentSelectionUtils';
 import TeamChatEmptyState from './TeamChatEmptyState';
 
 const AcpChat = React.lazy(() => import('@/renderer/pages/conversation/platforms/acp/AcpChat'));
-const AionrsChat = React.lazy(() => import('@/renderer/pages/conversation/platforms/aionrs/AionrsChat'));
+const PanCliChat = React.lazy(() => import('@/renderer/pages/conversation/platforms/pancli/PanCliChat'));
 const OpenClawChat = React.lazy(() => import('@/renderer/pages/conversation/platforms/openclaw/OpenClawChat'));
 const NanobotChat = React.lazy(() => import('@/renderer/pages/conversation/platforms/nanobot/NanobotChat'));
 const RemoteChat = React.lazy(() => import('@/renderer/pages/conversation/platforms/remote/RemoteChat'));
 
-// Narrow to Aionrs conversations so model field is always available
-type AionrsConversation = Extract<TChatConversation, { type: 'aionrs' }>;
+// Narrow to PanCli conversations so model field is always available
+type PanCliConversation = Extract<TChatConversation, { type: 'aionrs' }>;
 
-/** Aionrs sub-component manages model selection state without adding a ChatLayout wrapper */
-const AionrsTeamChat: React.FC<{
-  conversation: AionrsConversation;
+/** PanCli sub-component manages model selection state without adding a ChatLayout wrapper */
+const PanCliTeamChat: React.FC<{
+  conversation: PanCliConversation;
   emptySlot?: React.ReactNode;
   agent_name?: string;
 }> = ({ conversation, emptySlot, agent_name }) => {
@@ -25,16 +25,16 @@ const AionrsTeamChat: React.FC<{
     async (_provider: IProvider, modelName: string) => {
       const selected = { ..._provider, use_model: modelName } as TProviderWithModel;
       const ok = await ipcBridge.conversation.update.invoke({ id: conversation.id, updates: { model: selected } });
-      if (ok) void saveAionrsDefaultModel(_provider.id, modelName);
+      if (ok) void savePanCliDefaultModel(_provider.id, modelName);
       return Boolean(ok);
     },
     [conversation.id]
   );
 
-  const modelSelection = useAionrsModelSelection({ initialModel: conversation.model, onSelectModel });
+  const modelSelection = usePanCliModelSelection({ initialModel: conversation.model, onSelectModel });
 
   return (
-    <AionrsChat
+    <PanCliChat
       conversation_id={conversation.id}
       workspace={conversation.extra.workspace}
       modelSelection={modelSelection}
@@ -101,9 +101,9 @@ const TeamChatView: React.FC<TeamChatViewProps> = ({
         );
       case 'aionrs':
         return (
-          <AionrsTeamChat
+          <PanCliTeamChat
             key={conversation.id}
-            conversation={conversation as AionrsConversation}
+            conversation={conversation as PanCliConversation}
             emptySlot={emptySlot}
             agent_name={agent_name}
           />

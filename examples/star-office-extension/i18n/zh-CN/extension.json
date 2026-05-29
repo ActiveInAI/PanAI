@@ -3,7 +3,7 @@
   "description": "Star Office 风格的全 Agent 活动可视化面板。",
   "settingsTabs": {
     "star-office": { "name": "星辰办公" },
-    "aionui-home": { "name": "PanAI 主页" },
-    "aionui-issues": { "name": "PanAI 问题" }
+    "panai-home": { "name": "PanAI 主页" },
+    "panai-issues": { "name": "PanAI 问题" }
   }
 }

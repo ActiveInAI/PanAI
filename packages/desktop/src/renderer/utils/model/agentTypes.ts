@@ -102,8 +102,8 @@ export type AgentMetadata = {
 };
 
 const LEGACY_AION_CLI_NAME = ['Aion', ' CLI'].join('');
-const LEGACY_AIONUI_NAME = ['Aion', 'UI'].join('');
-const LEGACY_AIONUI_CAMEL_NAME = ['Aion', 'Ui'].join('');
+const LEGACY_UPSTREAM_PRODUCT_NAME = ['Aion', 'UI'].join('');
+const LEGACY_UPSTREAM_CAMEL_NAME = ['Aion', 'Ui'].join('');
 
 function normalizeAgentBranding(agent: AgentMetadata): AgentMetadata {
   const isPanCli = agent.agent_type === 'aionrs' || agent.backend === 'aionrs';
@@ -112,8 +112,8 @@ function normalizeAgentBranding(agent: AgentMetadata): AgentMetadata {
   const replaceLegacyBrand = (value?: string | null) =>
     value
       ?.replaceAll(LEGACY_AION_CLI_NAME, 'Pan CLI')
-      .replaceAll(LEGACY_AIONUI_NAME, 'PanAI')
-      .replaceAll(LEGACY_AIONUI_CAMEL_NAME, 'PanAI');
+      .replaceAll(LEGACY_UPSTREAM_PRODUCT_NAME, 'PanAI')
+      .replaceAll(LEGACY_UPSTREAM_CAMEL_NAME, 'PanAI');
 
   const description_i18n = agent.description_i18n
     ? Object.fromEntries(

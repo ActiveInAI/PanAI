@@ -3,7 +3,7 @@
   "description": "Star Office style activity visualization tab for all agents.",
   "settingsTabs": {
     "star-office": { "name": "Star Office" },
-    "aionui-home": { "name": "PanAI Home" },
-    "aionui-issues": { "name": "PanAI Issues" }
+    "panai-home": { "name": "PanAI Home" },
+    "panai-issues": { "name": "PanAI Issues" }
   }
 }

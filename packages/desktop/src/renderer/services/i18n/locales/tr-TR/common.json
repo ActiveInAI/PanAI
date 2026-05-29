@@ -73,12 +73,12 @@
   "backendStartup": {
     "incompatibleRuntime": {
       "title": "Bu sistem paketlenmiş backend tarafından desteklenmiyor",
-      "description": "PanAI açıldı, ancak yerel AionCore backend bu Linux sürümünde çalışamaz. Desteklenen bir Linux dağıtımına yükseltip PanAI'yi yeniden başlatın.",
+      "description": "PanAI açıldı, ancak yerel PanAI backend bu Linux sürümünde çalışamaz. Desteklenen bir Linux dağıtımına yükseltip PanAI'yi yeniden başlatın.",
       "requiredVersions": "Gerekli çalışma zamanı sembolleri: {{versions}}"
     },
     "incompleteInstallation": {
       "title": "PanAI kurulumu eksik",
-      "description": "Bu kurulumda gerekli yerel kaynaklar eksik, bu yüzden AionCore başlatılamıyor. Lütfen en son PanAI sürümünü indirip yeniden kurun.",
+      "description": "Bu kurulumda gerekli yerel kaynaklar eksik, bu yüzden PanAI backend başlatılamıyor. Lütfen en son PanAI sürümünü indirip yeniden kurun.",
       "downloadLatest": "Son sürümü indir",
       "sendDiagnostics": "Tanı raporu gönder"
     }

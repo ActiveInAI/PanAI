@@ -90,7 +90,7 @@ const FileAttachButton: React.FC<FileAttachButtonProps> = ({ openFileSelector, o
         shape='circle'
         icon={plusIcon}
         onClick={openFileSelector}
-        data-testid='aionrs-attach-folder-btn'
+        data-testid='pancli-attach-folder-btn'
       />
     );
   }
@@ -188,7 +188,7 @@ const FileAttachButton: React.FC<FileAttachButtonProps> = ({ openFileSelector, o
           icon={plusIcon}
           loading={uploading}
           disabled={uploading}
-          data-testid='aionrs-attach-folder-btn'
+          data-testid='pancli-attach-folder-btn'
         />
       </Trigger>
       <input
@@ -197,7 +197,7 @@ const FileAttachButton: React.FC<FileAttachButtonProps> = ({ openFileSelector, o
         multiple
         style={{ display: 'none' }}
         onChange={handleLocalFileChange}
-        data-testid='aionrs-file-upload-input'
+        data-testid='pancli-file-upload-input'
       />
     </>
   );

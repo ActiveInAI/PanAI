@@ -167,7 +167,6 @@ function launch(scriptName, withExtensions) {
   if (withExtensions) {
     const extensionsPath = path.resolve(process.cwd(), 'examples');
     env.PANAI_EXTENSIONS_PATH = extensionsPath;
-    env.AIONUI_EXTENSIONS_PATH = extensionsPath;
     log(`PANAI_EXTENSIONS_PATH=${env.PANAI_EXTENSIONS_PATH}`);
   }
 

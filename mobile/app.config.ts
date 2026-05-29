@@ -6,15 +6,15 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
     name: 'PanAI Mobile',
-    slug: 'aionui-mobile',
+    slug: 'panai-mobile',
     version: VERSION.version,
     orientation: 'portrait',
     icon: './assets/images/icon.png',
-    scheme: 'aionui-mobile',
+    scheme: 'panai-mobile',
     userInterfaceStyle: 'automatic',
     ios: {
       supportsTablet: true,
-      bundleIdentifier: 'ai.resopod.aionui',
+      bundleIdentifier: 'ai.resopod.panai',
       buildNumber: String(VERSION.buildNumber),
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
@@ -26,7 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         foregroundImage: './assets/images/icon.png',
         backgroundColor: '#000000',
       },
-      package: 'ai.resopod.aionui',
+      package: 'ai.resopod.panai',
       versionCode: VERSION.buildNumber,
     },
     web: {

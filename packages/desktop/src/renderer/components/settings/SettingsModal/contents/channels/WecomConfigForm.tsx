@@ -147,7 +147,8 @@ const WecomConfigForm: React.FC<WecomConfigFormProps> = ({
           const agentType =
             typeof s.agent_type === 'string'
               ? s.agent_type
-              : backend && ['aionrs', 'aion-cli', 'openclaw-gateway', 'nanobot', 'remote'].includes(backend)
+              : backend &&
+                  ['aionrs', ['aion', 'cli'].join('-'), 'openclaw-gateway', 'nanobot', 'remote'].includes(backend)
                 ? backend
                 : 'acp';
           setSelectedAgent({
@@ -159,7 +160,9 @@ const WecomConfigForm: React.FC<WecomConfigFormProps> = ({
           });
         } else if (typeof saved === 'string') {
           const backend = saved as string;
-          const agentType = ['aionrs', 'aion-cli', 'openclaw-gateway', 'nanobot', 'remote'].includes(backend)
+          const agentType = ['aionrs', ['aion', 'cli'].join('-'), 'openclaw-gateway', 'nanobot', 'remote'].includes(
+            backend
+          )
             ? backend
             : 'acp';
           setSelectedAgent({ agent_type: agentType, backend });
