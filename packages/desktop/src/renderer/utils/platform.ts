@@ -10,6 +10,7 @@
  */
 
 import { getBaseUrl } from '@/common/adapter/httpBridge';
+import { isTauri } from '@tauri-apps/api/core';
 
 /**
  * Check if running in Electron desktop environment
@@ -17,6 +18,29 @@ import { getBaseUrl } from '@/common/adapter/httpBridge';
  */
 export const isElectronDesktop = (): boolean => {
   return typeof window !== 'undefined' && Boolean(window.electronAPI);
+};
+
+/**
+ * Check if running inside the Tauri desktop shell.
+ * 检测是否运行在 Tauri 桌面壳中
+ */
+export const isTauriDesktop = (): boolean => {
+  try {
+    return isTauri();
+  } catch {
+    return (
+      typeof window !== 'undefined' &&
+      Boolean((window as unknown as { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__)
+    );
+  }
+};
+
+/**
+ * Check if running inside a native desktop shell.
+ * 检测是否运行在原生桌面壳中
+ */
+export const isDesktopRuntime = (): boolean => {
+  return isElectronDesktop() || isTauriDesktop();
 };
 
 /**

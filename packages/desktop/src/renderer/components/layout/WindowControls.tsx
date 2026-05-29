@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Minus, CloseSmall } from '@icon-park/react';
 import { ipcBridge } from '@/common';
+import { isElectronDesktop, isTauriDesktop } from '@/renderer/utils/platform';
 
 const WindowMaximizeIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
   <svg width={size} height={size} viewBox='0 0 18 18' fill='none' stroke='currentColor' strokeWidth='1.4'>
@@ -21,10 +22,61 @@ const WindowRestoreIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
 const WindowControls: React.FC = () => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [available, setAvailable] = useState(true);
+  const isTauriRuntime = isTauriDesktop();
+  const isElectronRuntime = isElectronDesktop();
 
   // 初始化时同步窗口状态并订阅最大化事件 / Sync current window state and subscribe to maximize events
   useEffect(() => {
     let isMounted = true;
+    let unsubscribe: (() => void) | undefined;
+
+    if (isTauriRuntime) {
+      const syncTauriMaximizedState = async () => {
+        try {
+          const { getCurrentWindow } = await import('@tauri-apps/api/window');
+          const currentWindow = getCurrentWindow();
+          const state = await currentWindow.isMaximized();
+          if (isMounted) {
+            setIsMaximized(state);
+            setAvailable(true);
+          }
+        } catch {
+          if (isMounted) {
+            setAvailable(false);
+          }
+        }
+      };
+
+      void import('@tauri-apps/api/window')
+        .then(async ({ getCurrentWindow }) => {
+          const currentWindow = getCurrentWindow();
+          const state = await currentWindow.isMaximized();
+          if (isMounted) {
+            setIsMaximized(state);
+            setAvailable(true);
+          }
+          unsubscribe = await currentWindow.onResized(() => {
+            void syncTauriMaximizedState();
+          });
+        })
+        .catch(() => {
+          if (isMounted) {
+            setAvailable(false);
+          }
+        });
+
+      return () => {
+        isMounted = false;
+        unsubscribe?.();
+      };
+    }
+
+    if (!isElectronRuntime) {
+      setAvailable(false);
+      return () => {
+        isMounted = false;
+      };
+    }
 
     // 获取初始窗口状态 / Get initial window state
     ipcBridge.windowControls.isMaximized
@@ -41,7 +93,7 @@ const WindowControls: React.FC = () => {
       });
 
     // 订阅窗口最大化状态变化 / Subscribe to window maximize state changes
-    const unsubscribe = ipcBridge.windowControls.maximizedChanged.on(({ is_maximized }) => {
+    unsubscribe = ipcBridge.windowControls.maximizedChanged.on(({ is_maximized }) => {
       if (isMounted) {
         setIsMaximized(is_maximized);
       }
@@ -49,9 +101,9 @@ const WindowControls: React.FC = () => {
 
     return () => {
       isMounted = false;
-      unsubscribe();
+      unsubscribe?.();
     };
-  }, []);
+  }, [isElectronRuntime, isTauriRuntime]);
 
   // 桌面环境缺少控制接口时直接不渲染 / Hide when window controls are not available (non-desktop)
   if (!available) {
@@ -60,14 +112,35 @@ const WindowControls: React.FC = () => {
 
   // 以下处理三种窗口按钮点击事件 / Handle minimize, maximize/restore, and close button events
   const handleMinimize = () => {
-    void ipcBridge.windowControls.minimize.invoke();
+    if (isTauriRuntime) {
+      void import('@tauri-apps/api/window').then(({ getCurrentWindow }) => getCurrentWindow().minimize());
+      return;
+    }
+    if (isElectronRuntime) {
+      void ipcBridge.windowControls.minimize.invoke();
+    }
   };
 
   const handleClose = () => {
-    void ipcBridge.windowControls.close.invoke();
+    if (isTauriRuntime) {
+      void import('@tauri-apps/api/window').then(({ getCurrentWindow }) => getCurrentWindow().close());
+      return;
+    }
+    if (isElectronRuntime) {
+      void ipcBridge.windowControls.close.invoke();
+    }
   };
 
   const handleToggleMaximize = () => {
+    if (isTauriRuntime) {
+      void import('@tauri-apps/api/window').then(async ({ getCurrentWindow }) => {
+        const currentWindow = getCurrentWindow();
+        await currentWindow.toggleMaximize();
+        setIsMaximized(await currentWindow.isMaximized());
+      });
+      return;
+    }
+    if (!isElectronRuntime) return;
     if (isMaximized) {
       void ipcBridge.windowControls.unmaximize.invoke();
     } else {

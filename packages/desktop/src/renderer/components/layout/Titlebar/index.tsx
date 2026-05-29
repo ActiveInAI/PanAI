@@ -12,7 +12,7 @@ import { WORKSPACE_STATE_EVENT, dispatchWorkspaceToggleEvent } from '@renderer/u
 import type { WorkspaceStateDetail } from '@renderer/utils/workspace/workspaceEvents';
 import { useLayoutContext } from '@/renderer/hooks/context/LayoutContext';
 import { useNavigationHistory } from '@/renderer/hooks/context/NavigationHistoryContext';
-import { isElectronDesktop, isMacOS } from '@/renderer/utils/platform';
+import { isDesktopRuntime, isMacOS } from '@/renderer/utils/platform';
 import './titlebar.css';
 
 interface TitlebarProps {
@@ -80,12 +80,12 @@ const Titlebar: React.FC<TitlebarProps> = ({ workspaceAvailable }) => {
     };
   }, []);
 
-  const isDesktopRuntime = isElectronDesktop();
-  const isMacRuntime = isDesktopRuntime && isMacOS();
+  const isDesktopShell = isDesktopRuntime();
+  const isMacRuntime = isDesktopShell && isMacOS();
   // Windows/Linux 显示自定义窗口按钮；macOS 在标题栏给工作区一个切换入口
-  const showWindowControls = isDesktopRuntime && !isMacRuntime;
+  const showWindowControls = isDesktopShell && !isMacRuntime;
   // WebUI 和 macOS 桌面都需要在标题栏放工作区开关
-  const showWorkspaceButton = workspaceAvailable && (!isDesktopRuntime || isMacRuntime);
+  const showWorkspaceButton = workspaceAvailable && (!isDesktopShell || isMacRuntime);
 
   const workspaceTooltip = workspaceCollapsed
     ? t('common.expandMore', { defaultValue: 'Expand workspace' })
@@ -253,9 +253,10 @@ const Titlebar: React.FC<TitlebarProps> = ({ workspaceAvailable }) => {
       className={classNames('flex items-center gap-8px app-titlebar bg-2 border-b border-[var(--border-base)]', {
         'app-titlebar--mobile': layout?.isMobile,
         'app-titlebar--mobile-conversation': layout?.isMobile && workspaceAvailable,
-        'app-titlebar--desktop': isDesktopRuntime,
+        'app-titlebar--desktop': isDesktopShell,
         'app-titlebar--mac': isMacRuntime,
       })}
+      data-tauri-drag-region
     >
       <div ref={menuRef} className='app-titlebar__menu' style={menuStyle}>
         {showBackToChatButton && (
