@@ -1,0 +1,76 @@
+name: Build Windows EXE (Tauri)
+
+permissions:
+  contents: read
+  actions: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch or tag to build
+        required: true
+        default: main
+        type: string
+
+env:
+  BUN_INSTALL_REGISTRY: https://registry.npmjs.org/
+
+jobs:
+  build-windows-exe:
+    name: Build Windows x64 EXE
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Rust target
+        shell: pwsh
+        run: rustup target add x86_64-pc-windows-msvc
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: "17.0"
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          retry_wait_seconds: 30
+          command: bun install --frozen-lockfile
+
+      - name: Run postinstall
+        shell: pwsh
+        run: bun run postinstall
+
+      - name: Build Tauri Windows installer
+        shell: pwsh
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+          CI: true
+        run: bun run build-win:x64
+
+      - name: Upload Windows EXE
+        uses: actions/upload-artifact@v6
+        with:
+          name: PanAI-windows-x64-exe
+          path: |
+            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.exe
+            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.nsis.zip
+          if-no-files-found: error
+          retention-days: 14
