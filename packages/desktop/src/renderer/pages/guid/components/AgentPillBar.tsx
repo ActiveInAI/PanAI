@@ -74,16 +74,14 @@ const AgentPillBar: React.FC<AgentPillBarProps> = ({
             const usesEmojiAvatar =
               (agent.agent_type === 'remote' || agent.agent_source === 'custom') && Boolean(agent.avatar);
             const emojiAvatar = usesEmojiAvatar ? agent.avatar : undefined;
-            const logoSrc =
-              extensionAvatar ||
-              (!emojiAvatar
-                ? resolveAgentLogo({
-                    icon: agent.icon,
-                    backend: agent.backend || agent.agent_type,
-                    custom_agent_id: agent.custom_agent_id,
-                    isExtension: agent.isExtension,
-                  })
-                : undefined);
+            const logoSrc = !emojiAvatar
+              ? resolveAgentLogo({
+                  icon: extensionAvatar || agent.icon,
+                  backend: agent.backend || agent.agent_type,
+                  custom_agent_id: agent.custom_agent_id,
+                  isExtension: agent.isExtension,
+                })
+              : undefined;
 
             return (
               <React.Fragment key={getAgentKey(agent)}>
@@ -106,17 +104,17 @@ const AgentPillBar: React.FC<AgentPillBarProps> = ({
                   onClick={() => onSelectAgent(getAgentKey(agent))}
                 >
                   {emojiAvatar ? (
-                    <span style={{ fontSize: 20, lineHeight: 1, flexShrink: 0 }}>{emojiAvatar}</span>
+                    <span style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }}>{emojiAvatar}</span>
                   ) : logoSrc ? (
                     <img
                       src={logoSrc}
                       alt={`${agent.backend || agent.agent_type} logo`}
-                      width={20}
-                      height={20}
+                      width={22}
+                      height={22}
                       style={{ objectFit: 'contain', flexShrink: 0 }}
                     />
                   ) : (
-                    <Robot theme='outline' size={20} fill='currentColor' style={{ flexShrink: 0 }} />
+                    <Robot theme='outline' size={22} fill='currentColor' style={{ flexShrink: 0 }} />
                   )}
                   <span
                     className={`font-medium text-14px ${isSelected ? 'font-semibold ml-4px' : isMobile ? 'max-w-0 opacity-0 overflow-hidden' : 'max-w-0 opacity-0 overflow-hidden group-hover:max-w-100px group-hover:opacity-100 group-hover:ml-8px'}`}
@@ -142,7 +140,7 @@ const AgentPillBar: React.FC<AgentPillBarProps> = ({
             style={{ transition: 'opacity 0.2s ease', flexShrink: 0, marginTop: 4 }}
             onClick={() => navigate('/settings/agent?tab=local')}
           >
-            <Plus theme='outline' size={20} fill='currentColor' style={{ flexShrink: 0 }} />
+            <Plus theme='outline' size={22} fill='currentColor' style={{ flexShrink: 0 }} />
           </div>
         </Tooltip>
       </div>

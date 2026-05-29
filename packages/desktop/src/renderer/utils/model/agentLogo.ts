@@ -12,6 +12,7 @@
 
 import claudeLogoUrl from '@/renderer/assets/logos/ai-major/claude.png';
 import openAILogoUrl from '@/renderer/assets/logos/ai-major/openai.png';
+import codexLogoUrl from '@/renderer/assets/logos/brand/codex.png';
 import hermesLogoUrl from '@/renderer/assets/logos/brand/hermes.png';
 import panAILogoUrl from '@/renderer/assets/logos/brand/app.png';
 import { resolveBackendAssetUrl } from '@/renderer/utils/platform';
@@ -49,10 +50,18 @@ const AGENT_LOGO_PATH_MAP = {
 
 const LOCAL_AGENT_LOGO_URL_MAP: Record<string, string> = {
   aionrs: panAILogoUrl,
+  panai: panAILogoUrl,
+  pancli: panAILogoUrl,
+  'pan-cli': panAILogoUrl,
   anthropic: claudeLogoUrl,
   claude: claudeLogoUrl,
+  codex: codexLogoUrl,
+  'codex-cli': codexLogoUrl,
   hermes: hermesLogoUrl,
+  'hermes-agent': hermesLogoUrl,
+  'hermes-cli': hermesLogoUrl,
   openai: openAILogoUrl,
+  chatgpt: openAILogoUrl,
 };
 
 const OPEN_CODE_LIGHT_FILE_NAME = 'opencode-light.svg';

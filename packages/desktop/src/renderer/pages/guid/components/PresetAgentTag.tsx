@@ -70,7 +70,7 @@ const PresetAgentTag: React.FC<PresetAgentTagProps> = ({
     <div className={styles.presetAgentTagMain}>
       {agentLogo ? (
         <>
-          <img src={agentLogo} alt='' width={15} height={15} className={styles.presetAgentTagAgentLogo} />
+          <img src={agentLogo} alt='' width={18} height={18} className={styles.presetAgentTagAgentLogo} />
           {hasSwitcher ? (
             <span className={styles.presetAgentTagChevron} aria-hidden='true'>
               <Down theme='outline' size={12} fill='currentColor' />
@@ -84,11 +84,11 @@ const PresetAgentTag: React.FC<PresetAgentTagProps> = ({
         </span>
       ) : null}
       {isImageAvatar ? (
-        <img src={avatarImage} alt='' width={15} height={15} style={{ objectFit: 'contain', flexShrink: 0 }} />
+        <img src={avatarImage} alt='' width={18} height={18} style={{ objectFit: 'contain', flexShrink: 0 }} />
       ) : avatarValue ? (
-        <span style={{ fontSize: 14, lineHeight: '15px', flexShrink: 0 }}>{avatarValue}</span>
+        <span style={{ fontSize: 16, lineHeight: '18px', flexShrink: 0 }}>{avatarValue}</span>
       ) : (
-        <Robot theme='outline' size={15} style={{ flexShrink: 0 }} />
+        <Robot theme='outline' size={18} style={{ flexShrink: 0 }} />
       )}
       <span className={styles.presetAgentTagName}>{name}</span>
     </div>

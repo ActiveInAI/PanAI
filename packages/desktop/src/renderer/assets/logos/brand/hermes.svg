@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hermes">
+  <g fill="none" stroke="#E9A93A" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 12v40"/>
+    <path d="M22 52h20"/>
+    <path d="M24 18c-5 1-9 4-12 9 6 0 11-2 15-6"/>
+    <path d="M40 18c5 1 9 4 12 9-6 0-11-2-15-6"/>
+    <path d="M26 25c-7 5-7 12 0 16 5 3 11 1 12-4"/>
+    <path d="M38 25c7 5 7 12 0 16-5 3-11 1-12-4"/>
+    <path d="M27 31h10"/>
+    <circle cx="32" cy="12" r="4.5"/>
+  </g>
+</svg>

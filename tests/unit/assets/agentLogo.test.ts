@@ -50,6 +50,7 @@ describe('agentLogo', () => {
 
     it('returns canonical local logos for PanAI patched agents', () => {
       expect(getAgentLogo('openai')).toContain('openai.png');
+      expect(getAgentLogo('codex')).toContain('codex.png');
       expect(getAgentLogo('hermes')).toContain('hermes.png');
       expect(getAgentLogo('aionrs')).toContain('app.png');
     });

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { changeLanguage } from '@/renderer/services/i18n';
 import { useNavigate } from 'react-router-dom';
 import AppLoader from '@renderer/components/layout/AppLoader';
+import WindowControls from '@renderer/components/layout/WindowControls';
 import { useAuth } from '../../hooks/context/AuthContext';
 import './LoginPage.css';
 
@@ -187,17 +188,24 @@ const LoginPage: React.FC = () => {
     [login, navigate, password, rememberMe, showMessage, t, username]
   );
 
+  const handleRegister = useCallback(() => {
+    showMessage({ type: 'error', text: t('login.registerUnavailable') });
+  }, [showMessage, t]);
+
+  const handleForgotPassword = useCallback(() => {
+    showMessage({ type: 'error', text: t('login.forgotPasswordHint') });
+  }, [showMessage, t]);
+
   if (status === 'checking') {
     return <AppLoader />;
   }
 
   return (
     <div className='login-page'>
-      {/* <div className='login-page__background' aria-hidden='true'>
-        <div className='login-page__background-circle login-page__background-circle--lg' />
-        <div className='login-page__background-circle login-page__background-circle--md' />
-        <div className='login-page__background-circle login-page__background-circle--sm' />
-      </div> */}
+      <div className='login-page__window-shell'>
+        <div className='login-page__drag-region' data-tauri-drag-region />
+        <WindowControls />
+      </div>
 
       <div className='login-page__card'>
         <label className='login-page__lang-select-wrapper' htmlFor='lang-select'>
@@ -305,14 +313,25 @@ const LoginPage: React.FC = () => {
             </div>
           </div>
 
-          <div className='login-page__checkbox'>
-            <input
-              type='checkbox'
-              id='remember-me'
-              checked={rememberMe}
-              onChange={(event) => setRememberMe(event.target.checked)}
-            />
-            <label htmlFor='remember-me'>{t('login.rememberMe')}</label>
+          <div className='login-page__form-options'>
+            <div className='login-page__checkbox'>
+              <input
+                type='checkbox'
+                id='remember-me'
+                checked={rememberMe}
+                onChange={(event) => setRememberMe(event.target.checked)}
+              />
+              <label htmlFor='remember-me'>{t('login.rememberMe')}</label>
+            </div>
+            <div className='login-page__account-actions'>
+              <button type='button' className='login-page__link-button' onClick={handleRegister}>
+                {t('login.register')}
+              </button>
+              <span className='login-page__account-divider'>/</span>
+              <button type='button' className='login-page__link-button' onClick={handleForgotPassword}>
+                {t('login.forgotPassword')}
+              </button>
+            </div>
           </div>
 
           <button type='submit' className='login-page__submit' disabled={loading}>

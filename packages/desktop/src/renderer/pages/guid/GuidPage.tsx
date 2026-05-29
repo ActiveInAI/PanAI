@@ -435,14 +435,12 @@ const GuidPage: React.FC = () => {
       .map((a) => {
         const key = a.backend || a.agent_type;
         const extensionAvatar = a.isExtension ? resolveExtensionAssetUrl(a.avatar) : undefined;
-        const logo =
-          extensionAvatar ||
-          resolveAgentLogo({
-            icon: a.icon,
-            backend: a.backend || a.agent_type,
-            custom_agent_id: a.custom_agent_id,
-            isExtension: a.isExtension,
-          });
+        const logo = resolveAgentLogo({
+          icon: extensionAvatar || a.icon,
+          backend: a.backend || a.agent_type,
+          custom_agent_id: a.custom_agent_id,
+          isExtension: a.isExtension,
+        });
         return {
           key,
           label: a.name,

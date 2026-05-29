@@ -33,18 +33,18 @@ export const AgentLogoIcon: React.FC<
         return <span className='text-14px leading-none'>{agentLogo}</span>;
       }
       return (
-        <img src={agentLogo} alt={`${agent_name || 'agent'} logo`} className='block w-16px h-16px object-contain' />
+        <img src={agentLogo} alt={`${agent_name || 'agent'} logo`} className='block w-18px h-18px object-contain' />
       );
     }
     const logo = getAgentLogo(backend);
     if (logo) {
-      return <img src={logo} alt={`${backend} logo`} className='block w-16px h-16px object-contain' />;
+      return <img src={logo} alt={`${backend} logo`} className='block w-18px h-18px object-contain' />;
     }
-    return <Robot theme='outline' size={16} fill={iconColors.primary} />;
+    return <Robot theme='outline' size={18} fill={iconColors.primary} />;
   })();
 
   return (
-    <span className='inline-flex w-16px h-16px items-center justify-center shrink-0 leading-none'>{logoContent}</span>
+    <span className='inline-flex w-18px h-18px items-center justify-center shrink-0 leading-none'>{logoContent}</span>
   );
 };
 

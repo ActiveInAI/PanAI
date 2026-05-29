@@ -56,14 +56,12 @@ const AgentCard: React.FC<AgentCardProps> = (props) => {
   if (props.type === 'detected') {
     const { agent, onGoToChat } = props;
     const extensionAvatar = resolveExtensionAssetUrl(agent.isExtension ? agent.avatar : undefined);
-    const logo =
-      extensionAvatar ||
-      resolveAgentLogo({
-        icon: agent.icon,
-        backend: agent.backend || agent.agent_type,
-        custom_agent_id: agent.custom_agent_id,
-        isExtension: agent.isExtension,
-      });
+    const logo = resolveAgentLogo({
+      icon: extensionAvatar || agent.icon,
+      backend: agent.backend || agent.agent_type,
+      custom_agent_id: agent.custom_agent_id,
+      isExtension: agent.isExtension,
+    });
 
     return (
       <div className='flex min-h-[154px] flex-col rounded-12px border border-solid border-[var(--color-border-2)] bg-[var(--color-bg-2)] p-12px transition-colors hover:border-[var(--color-border-3)]'>
