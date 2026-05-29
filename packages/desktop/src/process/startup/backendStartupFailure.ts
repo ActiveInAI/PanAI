@@ -72,6 +72,7 @@ function classifyIncompleteInstallation(details: ErrorWithDetails['details']): B
   const hasPackagedApp = resourcesDirEntries.some((entry) => PACKAGED_APP_MARKER_ENTRIES.has(entry));
   if (!hasPackagedApp) return undefined;
 
+  // PanAI still packages the backend runtime in the existing bundled-aioncore directory until the backend is forked.
   const missingResources = resourcesDirEntries.includes('bundled-aioncore/') ? [] : ['bundled-aioncore/'];
   if (details.runtimeDirExists === false && typeof details.runtimeKey === 'string') {
     missingResources.push(`bundled-aioncore/${details.runtimeKey}/`);

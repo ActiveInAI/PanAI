@@ -22,6 +22,7 @@ import SiderItem from './SiderItem';
 import type { SiderMenuItem } from './SiderItem';
 
 const TEAM_PINNED_KEY = 'team-pinned-ids';
+const TEAM_SECTION_EXPANDED_KEY = 'team-section-expanded';
 
 type SiderTooltipProps = React.ComponentProps<typeof Tooltip>;
 
@@ -45,9 +46,9 @@ const TeamSiderSection: React.FC<TeamSiderSectionProps> = ({
   const { mutate: globalMutate } = useSWRConfig();
 
   const [createTeamVisible, setCreateTeamVisible] = useState(false);
-  const [expanded, setExpanded] = useState<boolean>(() => localStorage.getItem('team-section-expanded') === 'true');
+  const [expanded, setExpanded] = useState<boolean>(() => localStorage.getItem(TEAM_SECTION_EXPANDED_KEY) === 'true');
   useEffect(() => {
-    localStorage.setItem('team-section-expanded', String(expanded));
+    localStorage.setItem(TEAM_SECTION_EXPANDED_KEY, String(expanded));
   }, [expanded]);
 
   const [pinnedIds, setPinnedIds] = useState<string[]>(() => {

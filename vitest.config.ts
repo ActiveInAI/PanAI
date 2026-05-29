@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config';
 import path from 'path';
 
 const aliases = {
+  // PanAI tests span Electron main, renderer, web-host, and shared packages.
   '@/': path.resolve(__dirname, './packages/desktop/src') + '/',
   '@process/': path.resolve(__dirname, './packages/desktop/src/process') + '/',
   '@renderer/': path.resolve(__dirname, './packages/desktop/src/renderer') + '/',

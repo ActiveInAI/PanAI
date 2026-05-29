@@ -1,5 +1,7 @@
 # Main Process & Shared Layer
 
+PanAI-specific note: keep Electron main-process boundaries stable unless a runtime-shell migration is explicitly planned.
+
 ## `packages/desktop/src/process/` Structure
 
 ```

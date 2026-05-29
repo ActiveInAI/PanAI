@@ -26,7 +26,7 @@ interface WorkspaceCollapseProps {
 }
 
 /**
- * 工作空间折叠组件 - 简单的折叠面板，用于工作空间分组
+ * PanAI 工作空间折叠组件 - 简单的折叠面板，用于工作空间分组
  */
 const WorkspaceCollapse: React.FC<WorkspaceCollapseProps> = ({
   expanded,

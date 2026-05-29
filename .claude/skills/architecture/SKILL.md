@@ -10,6 +10,7 @@ description: |
 # Architecture Skill
 
 Determine correct file placement and structure for an Electron multi-process project.
+PanAI currently keeps the Electron process boundaries stable while any future runtime-shell migration is evaluated separately.
 
 ## Detailed References
 

@@ -1,4 +1,5 @@
 name: Pack Web CLI
+# PanAI web CLI packaging workflow.
 
 on:
   workflow_call:

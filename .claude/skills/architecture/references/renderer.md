@@ -1,5 +1,7 @@
 # Renderer Layer (`packages/desktop/src/renderer/`)
 
+PanAI-specific note: renderer conventions describe the current Electron/Vite shell.
+
 ## Root Directory — Standard Layout
 
 At most 3 entry files + 7 directories = 10 items:

@@ -1,3 +1,4 @@
+// PanAI desktop bridge types for the current Electron shell.
 // WebUI 状态接口 / WebUI status interface
 export interface WebUIStatus {
   running: boolean;
