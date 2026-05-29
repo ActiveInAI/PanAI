@@ -684,11 +684,20 @@ brew install panai
 
 ### 开发环境搭建
 
-技术栈：Electron · Vite · React · Bun
+技术栈：Tauri · Vite · React · Rust · Bun
+
+Linux 开发环境需要先安装 Tauri 使用的 WebKitGTK 工具链：
+
+```bash
+sudo apt-get update
+sudo apt-get install -y pkg-config libdbus-1-dev libwebkit2gtk-4.1-dev libjavascriptcoregtk-4.1-dev libsoup-3.0-dev libayatana-appindicator3-dev librsvg2-dev
+```
 
 ```bash
 bun install        # 安装依赖
-bun run dev        # 启动开发服务器
+bun run dev        # 启动 Tauri 桌面应用
+bun run renderer:build
+bun run tauri:build
 bun run test       # 运行单元测试
 ```
 

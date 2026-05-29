@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="800" height="800" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- PanAI Logo - dark background variant -->
-  <rect width="80" height="80" rx="12" fill="black"/>
-  <rect width="80" height="80" rx="12" fill="none" stroke="white" stroke-width="1"/>
+  <!-- PanAI Logo - local app icon vector -->
   <path d="M40 5L50 30L75 15L60 40L80 40L60 47L75 65L50 55L40 78L30 55L5 65L20 47L0 40L20 40L5 15L30 30Z" fill="#FACC3D"/>
   <circle cx="40" cy="40" r="22" fill="#FEF1B7"/>
 </svg> 

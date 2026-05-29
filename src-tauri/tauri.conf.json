@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "PanAI",
+  "version": "2.1.6",
+  "identifier": "com.activeinai.panai",
+  "build": {
+    "beforeDevCommand": "bun run renderer:dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "bun run renderer:build",
+    "frontendDist": "../out/renderer"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "PanAI",
+        "width": 1320,
+        "height": 900,
+        "minWidth": 960,
+        "minHeight": 640,
+        "resizable": true,
+        "decorations": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.png"]
+  }
+}

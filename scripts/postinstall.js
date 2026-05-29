@@ -10,6 +10,15 @@ const { execSync } = require('child_process');
 
 function runPostInstall() {
   try {
+    const runElectronPostinstall = process.env.PANAI_ELECTRON_POSTINSTALL === '1';
+
+    if (!runElectronPostinstall) {
+      console.log(
+        'PanAI now uses Tauri by default; skipping Electron native module rebuild. Set PANAI_ELECTRON_POSTINSTALL=1 only when using electron:* fallback scripts.'
+      );
+      return;
+    }
+
     // Check if we're in a CI environment
     const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
     const electronVersion = require('../package.json').devDependencies.electron.replace(/^[~^]/, '');

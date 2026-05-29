@@ -630,7 +630,7 @@ Por favor, lee [CONTRIBUTING.md](../../CONTRIBUTING.md) antes de abrir un PR.
 
 ### Configuración de desarrollo
 
-Stack tecnológico: Electron · Vite · React · Bun
+Stack tecnológico: Tauri · Vite · React · Rust · Bun
 
 ```bash
 bun install        # instalar dependencias

@@ -628,7 +628,7 @@ brew install panai
 
 ### Geliştirme Ortamı
 
-Teknoloji yığını: Electron · Vite · React · Bun
+Teknoloji yığını: Tauri · Vite · React · Rust · Bun
 
 ```bash
 bun install        # bağımlılıkları yükle

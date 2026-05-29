@@ -2,7 +2,7 @@
   "name": "@panai/desktop",
   "version": "0.0.0",
   "private": true,
-  "description": "PanAI desktop Electron application",
+  "description": "PanAI desktop Tauri application",
   "main": "../../out/main/index.js",
   "dependencies": {
     "@panai/web-host": "workspace:*"

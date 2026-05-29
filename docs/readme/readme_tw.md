@@ -684,7 +684,7 @@ brew install panai
 
 ### 開發環境設定
 
-技術棧：Electron · Vite · React · Bun
+技術棧：Tauri · Vite · React · Rust · Bun
 
 ```bash
 bun install        # 安裝相依套件

@@ -630,7 +630,7 @@ PR을 열기 전에 [CONTRIBUTING.md](../../CONTRIBUTING.md)를 읽어주세요.
 
 ### 개발 환경 설정
 
-기술 스택: Electron · Vite · React · Bun
+기술 스택: Tauri · Vite · React · Rust · Bun
 
 ```bash
 bun install        # 의존성 설치

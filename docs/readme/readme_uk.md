@@ -407,7 +407,7 @@ brew install panai
 
 ### Налаштування середовища розробки
 
-Технологічний стек: Electron · Vite · React · Bun
+Технологічний стек: Tauri · Vite · React · Rust · Bun
 
 ```bash
 bun install        # встановити залежності

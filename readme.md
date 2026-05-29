@@ -698,11 +698,20 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR.
 
 ### Development Setup
 
-Tech stack: Electron · Vite · React · Bun
+Tech stack: Tauri · Vite · React · Rust · Bun
+
+Linux developers need the Tauri WebKitGTK toolchain before building the desktop app:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y pkg-config libdbus-1-dev libwebkit2gtk-4.1-dev libjavascriptcoregtk-4.1-dev libsoup-3.0-dev libayatana-appindicator3-dev librsvg2-dev
+```
 
 ```bash
 bun install        # install dependencies
-bun run dev        # start dev server
+bun run dev        # start the Tauri desktop app
+bun run renderer:build
+bun run tauri:build
 bun run test       # run unit tests
 ```
 
