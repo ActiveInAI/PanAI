@@ -84,6 +84,7 @@ import { repairAllCronJobTimeZonesOnce } from '@renderer/pages/cron/repairCronJo
 
 // Components and utilities
 import Layout from './components/layout/Layout';
+import AppLoader from './components/layout/AppLoader';
 import Router from './components/layout/Router';
 import Sider from './components/layout/Sider';
 import { useAuth } from './hooks/context/AuthContext';
@@ -169,7 +170,7 @@ const Main = () => {
   }, [ready]);
 
   if (!ready || !configReady) {
-    return null;
+    return <AppLoader />;
   }
 
   return (

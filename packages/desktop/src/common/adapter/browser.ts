@@ -5,6 +5,7 @@
  */
 
 import { bridge, logger } from '@office-ai/platform';
+import { getWsUrl } from './httpBridge';
 import { WEBUI_DEFAULT_PORT } from '@/common/config/constants';
 import type { ElectronBridgeAPI } from '@/common/types/platform/electron';
 
@@ -13,6 +14,8 @@ interface CustomWindow extends Window {
   __bridgeEmitter?: { emit: (name: string, data: unknown) => void };
   __emitBridgeCallback?: (name: string, data: unknown) => void;
   __websocketReconnect?: () => void;
+  __backendPort?: number;
+  __TAURI_INTERNALS__?: unknown;
 }
 
 const win = window as CustomWindow;
@@ -44,7 +47,15 @@ if (win.electronAPI) {
   // Path must be `/ws` — web-host's static-server only proxies WebSocket upgrades under /ws.
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   const defaultHost = `${window.location.hostname}:${WEBUI_DEFAULT_PORT}`;
-  const socketUrl = `${protocol}//${window.location.host || defaultHost}/ws`;
+  const tauriLikeLocation =
+    window.location.protocol === 'tauri:' ||
+    window.location.protocol === 'asset:' ||
+    window.location.hostname === 'tauri.localhost' ||
+    window.location.hostname.endsWith('.tauri.localhost');
+  const socketUrl =
+    win.__backendPort || win.__TAURI_INTERNALS__ || tauriLikeLocation
+      ? getWsUrl()
+      : `${protocol}//${window.location.host || defaultHost}/ws`;
 
   type QueuedMessage = { name: string; data: unknown };
 

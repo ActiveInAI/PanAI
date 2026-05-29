@@ -26,13 +26,19 @@ export const isElectronDesktop = (): boolean => {
  */
 export const isTauriDesktop = (): boolean => {
   try {
-    return isTauri();
+    if (isTauri()) return true;
   } catch {
-    return (
-      typeof window !== 'undefined' &&
-      Boolean((window as unknown as { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__)
-    );
+    // Fall through to the location/global checks below.
   }
+  if (typeof window === 'undefined') return false;
+  const location = window.location;
+  return (
+    Boolean((window as unknown as { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__) ||
+    location.protocol === 'tauri:' ||
+    location.protocol === 'asset:' ||
+    location.hostname === 'tauri.localhost' ||
+    location.hostname.endsWith('.tauri.localhost')
+  );
 };
 
 /**
@@ -80,7 +86,7 @@ export const resolveBackendAssetUrl = (url: string | undefined): string | undefi
   if (!url) return url;
   if (isAbsoluteAssetUrl(url) || /^data:/i.test(url)) return url;
   if (url.startsWith('/')) {
-    return isElectronDesktop() ? `${getBaseUrl()}${url}` : url;
+    return isDesktopRuntime() ? `${getBaseUrl()}${url}` : url;
   }
   return url;
 };

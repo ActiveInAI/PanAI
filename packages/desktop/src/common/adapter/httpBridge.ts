@@ -40,13 +40,26 @@ function getBackendPort(): number {
   return g.__backendPort ?? 13400;
 }
 
+function isTauriLikeLocation(): boolean {
+  if (typeof window === 'undefined') return false;
+  const { protocol, hostname } = window.location;
+  return (
+    protocol === 'tauri:' ||
+    protocol === 'asset:' ||
+    hostname === 'tauri.localhost' ||
+    hostname.endsWith('.tauri.localhost')
+  );
+}
+
 /**
  * WebUI (browser) mode: no Electron preload, so `window.__backendPort` is not
  * injected. Use same-origin URLs; web-host's static-server handles the reverse
  * proxy / WS upgrade to the backend.
  */
 function isWebUiBrowserMode(): boolean {
-  return typeof window !== 'undefined' && typeof document !== 'undefined' && !(window as Window).__backendPort;
+  if (typeof window === 'undefined' || typeof document === 'undefined') return false;
+  const maybeTauri = window as Window & { __TAURI_INTERNALS__?: unknown };
+  return !maybeTauri.__backendPort && !maybeTauri.__TAURI_INTERNALS__ && !isTauriLikeLocation();
 }
 
 export function getBaseUrl(): string {
@@ -58,7 +71,7 @@ export function getBaseUrl(): string {
   return `http://127.0.0.1:${getBackendPort()}`;
 }
 
-function getWsUrl(): string {
+export function getWsUrl(): string {
   if (isWebUiBrowserMode()) {
     const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     return `${proto}//${window.location.host}/ws`;

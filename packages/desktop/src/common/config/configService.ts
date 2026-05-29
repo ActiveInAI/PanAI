@@ -11,10 +11,24 @@ declare global {
 function getBaseUrl(): string {
   // WebUI browser mode: no preload, fetch same-origin so web-host's
   // static-server reverse-proxies /api/* to the backend.
-  if (typeof window !== 'undefined' && typeof document !== 'undefined' && !(window as Window).__backendPort) {
+  const maybeWindow =
+    typeof window !== 'undefined' ? (window as Window & { __TAURI_INTERNALS__?: unknown }) : undefined;
+  const location = maybeWindow?.location;
+  const tauriLikeLocation =
+    location?.protocol === 'tauri:' ||
+    location?.protocol === 'asset:' ||
+    location?.hostname === 'tauri.localhost' ||
+    Boolean(location?.hostname.endsWith('.tauri.localhost'));
+  if (
+    maybeWindow &&
+    typeof document !== 'undefined' &&
+    !maybeWindow.__backendPort &&
+    !maybeWindow.__TAURI_INTERNALS__ &&
+    !tauriLikeLocation
+  ) {
     return '';
   }
-  const port = typeof window !== 'undefined' ? (window as Window).__backendPort || 13400 : 13400;
+  const port = maybeWindow?.__backendPort || 13400;
   return `http://127.0.0.1:${port}`;
 }
 
